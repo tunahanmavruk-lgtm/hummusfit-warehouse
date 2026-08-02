@@ -1,0 +1,17 @@
+{
+  "name": "hummusfit-warehouse",
+  "version": "1.0.0",
+  "description": "Hummus Fit walk-in picking warehouse — floor plan/lane config and restock tracking",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

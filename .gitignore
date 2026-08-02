@@ -1,0 +1,5 @@
+node_modules/
+warehouse.db
+warehouse.db-wal
+warehouse.db-shm
+*.log
