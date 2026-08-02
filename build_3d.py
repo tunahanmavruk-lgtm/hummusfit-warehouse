@@ -4,9 +4,9 @@ browser via Three.js). This is explicitly NOT a photorealistic walkthrough —
 that needs real photogrammetry/360 capture this environment doesn't have.
 What this is: accurate room geometry (walls, columns, drains, door, aisles,
 lane footprints, crate stacks) built from the same blueprint_geometry.json
-and lane_plan.json that drive the 2D blueprint and the live app, plus the
-real site photos pinned as clickable markers near where they were shot, so
-the model and the photos can be sanity-checked against each other.
+and lane_plan.json that drive the 2D blueprint and the live app, with every
+product-labeled crate stack placed. Also used, via headless screenshot, to
+render the static "room mockup" image embedded at the top of blueprint.html.
 """
 import json, base64
 
@@ -66,18 +66,6 @@ def data_uri(path):
 THREE_JS = open('/tmp/package/build/three.min.js').read()
 ORBIT_JS = open('/tmp/package/examples/js/controls/OrbitControls.js').read()
 
-photos = [
-    ('IMG_3321', 65, 40, 'Looking toward the door — column, drains, ceiling units'),
-    ('IMG_3323', 260, 20, 'Two columns, evaporator units, blue door in background'),
-    ('IMG_3325', 560, 235, 'Far end from the door, wide view'),
-    ('IMG_3324', 620, 235, 'Far end — fan-coil units and side door'),
-    ('IMG_3322', 480, 235, 'Far wall, floor patch and drain'),
-]
-photos_js = []
-for name, px, py, cap in photos:
-    uri = data_uri(f'/home/claude/hummusfit-warehouse/photos/{name}.jpg')
-    photos_js.append(f"{{x:{px},y:{py},src:'{uri}',cap:'{cap}'}}")
-
 html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,18 +99,16 @@ html = f'''<!DOCTYPE html>
   #labelLayer{{position:absolute;inset:0;overflow:hidden;pointer-events:none;}}
   .crate-label{{position:absolute;transform:translate(-50%,-100%);font-size:9.5px;font-weight:700;line-height:1.2;background:rgba(255,255,255,.94);border:1px solid rgba(17,20,23,.12);border-radius:4px;padding:1.5px 5px;white-space:nowrap;color:var(--ink);pointer-events:none;box-shadow:0 1px 2px rgba(0,0,0,.06);}}
   .crate-label .cl-code{{color:var(--dim);font-weight:800;margin-right:4px;}}
-  .lightbox{{position:fixed;inset:0;background:rgba(10,12,14,.86);display:none;align-items:center;justify-content:center;z-index:50;padding:30px;}}
-  .lightbox.open{{display:flex;}}
-  .lightbox img{{max-width:90vw;max-height:80vh;border-radius:10px;}}
-  .lightbox .cap{{color:#fff;text-align:center;margin-top:10px;font-size:13px;font-weight:600;}}
-  .lightbox .close{{position:absolute;top:22px;right:28px;color:#fff;font-size:28px;font-weight:800;cursor:pointer;background:none;border:none;}}
-  .disclaimer{{margin:12px 24px 0;font-size:11.5px;color:var(--dim);line-height:1.5;}}
+  .pagenav{{display:flex;gap:8px;margin:0 24px 4px;}}
+  .pagenav a{{text-decoration:none;font-size:13px;font-weight:800;color:var(--dim);border:1.5px solid var(--line);border-radius:10px;padding:9px 18px;}}
+  .pagenav a.active{{background:var(--ink);color:#fff;border-color:var(--ink);}}
 </style>
 </head>
 <body>
 <div class="topbar">
+  <div class="pagenav"><a href="/blueprint.html">Blueprint</a><a href="/3d-model.html" class="active">3D Model</a></div>
   <h1>Walk-In Storage — Interactive 3D Model</h1>
-  <p class="sub">To the real room dimensions, built from the same geometry and product plan as the 2D blueprint — not a photorealistic scan. Orbit, pan, zoom. Click a crate stack for its product. Click an orange camera marker for the real photo taken near that spot.</p>
+  <p class="sub">To the real room dimensions, built from the same geometry and product plan as the 2D blueprint. Orbit, pan, zoom. Click a crate stack for its product.</p>
 </div>
 <div class="stage">
   <div id="canvas-wrap"></div>
@@ -140,16 +126,6 @@ html = f'''<!DOCTYPE html>
     <div class="item"><span class="dot" style="background:#4C9BE8"></span>Oats</div>
     <div class="item"><span class="dot" style="background:#E8612C"></span>Snack</div>
     <div class="item"><span class="dot" style="background:#3A3F46"></span>Meal</div>
-    <div class="item"><span class="camdot"></span>Real site photo</div>
-  </div>
-</div>
-<p class="disclaimer">This model uses the same room outline, door, column, and drain ESTIMATES flagged in the 2D blueprint — see that document for the full flaw list. The 98"x108" notch shown on the original CAD sheet is confirmed not physically present and is omitted here too. Nothing about this model should be treated as more "confirmed" than the blueprint it's built from.</p>
-
-<div class="lightbox" id="lightbox">
-  <button class="close" id="lbclose">&times;</button>
-  <div>
-    <img id="lbimg" src="">
-    <div class="cap" id="lbcap"></div>
   </div>
 </div>
 
@@ -164,7 +140,6 @@ const ROOM_W = {g['ROOM_W_IN']}, ROOM_D = {g['ROOM_D_IN']}, CEIL = {g['CEILING_I
 const ROW_X0 = {row_x0}, ROW_X1 = {row_x1};
 const rows = [{','.join(rows_js)}];
 const crates = [{','.join(crates_js)}];
-const photos = [{','.join(photos_js)}];
 
 const wrap = document.getElementById('canvas-wrap');
 const scene = new THREE.Scene();
@@ -339,38 +314,12 @@ const pathLine = new THREE.Line(pathGeo, new THREE.LineDashedMaterial({{color:0x
 pathLine.computeLineDistances();
 scene.add(pathLine);
 
-// photo markers
-const lightbox = document.getElementById('lightbox');
-const lbimg = document.getElementById('lbimg');
-const lbcap = document.getElementById('lbcap');
-document.getElementById('lbclose').onclick = () => lightbox.classList.remove('open');
-lightbox.onclick = (e) => {{ if (e.target === lightbox) lightbox.classList.remove('open'); }};
-
-const photoMeshes = [];
-photos.forEach(p => {{
-  const marker = new THREE.Mesh(
-    new THREE.SphereGeometry(6, 16, 16),
-    new THREE.MeshStandardMaterial({{color:0xE8612C, emissive:0x552200}})
-  );
-  marker.position.set(p.x, 70, p.y);
-  marker.userData = {{type:'photo', src:p.src, cap:p.cap}};
-  scene.add(marker);
-  photoMeshes.push(marker);
-}});
-
 function onPick(clientX, clientY) {{
   const rect = renderer.domElement.getBoundingClientRect();
   mouse.x = ((clientX-rect.left)/rect.width)*2-1;
   mouse.y = -((clientY-rect.top)/rect.height)*2+1;
   raycaster.setFromCamera(mouse, camera);
-  let hit = raycaster.intersectObjects(photoMeshes)[0];
-  if (hit) {{
-    lbimg.src = hit.object.userData.src;
-    lbcap.textContent = hit.object.userData.cap;
-    lightbox.classList.add('open');
-    return;
-  }}
-  hit = raycaster.intersectObjects(pickables)[0];
+  let hit = raycaster.intersectObjects(pickables)[0];
   const panel = document.getElementById('panel');
   if (hit) {{
     const c = hit.object.userData;

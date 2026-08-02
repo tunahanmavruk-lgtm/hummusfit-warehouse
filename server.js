@@ -39,6 +39,14 @@ if (laneCount === 0) {
 
 const app = express();
 app.use(express.json());
+
+// Blueprint is now the primary landing page — the old Floor Plan/Restock
+// tile view (index.html) doesn't reflect the current category-zone layout
+// look and isn't linked anywhere anymore. Left on disk (still reachable
+// directly at /index.html) rather than deleted, in case the restock
+// tracking API underneath it is wanted again later.
+app.get('/', (req, res) => res.redirect('/blueprint.html'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ---------- Products ----------

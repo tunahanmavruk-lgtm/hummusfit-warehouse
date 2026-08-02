@@ -1,19 +1,23 @@
 """
-Assembles the full blueprint.html from the generated SVG (blueprint.svg),
-the flag list (blueprint_flags.json), and the per-lane product plan
-(lane_plan.json). Rewritten as a single generator (instead of generating the
-SVG and hand-splicing it into a hand-written HTML shell) so the flaw list,
-flag numbering, and product legend all stay in sync with the drawing
-automatically instead of drifting out of sync across manual edits.
+Assembles the full blueprint.html from the generated SVG (blueprint.svg)
+and the per-lane product plan (lane_plan.json). Rewritten as a single
+generator (instead of generating the SVG and hand-splicing it into a
+hand-written HTML shell) so the product legend stays in sync with the
+drawing automatically instead of drifting out of sync across manual edits.
+
+Per direct feedback: the numbered flaw/assumption callouts and the raw
+site-survey photos were cluttering the page and aren't wanted here anymore
+— dropped. In their place: a single rendered mockup image (from the 3D
+model, with real crate stacks placed) so the page shows what the stocked
+room actually looks like instead of an empty room photo.
 """
 import json, html, base64
 
-def data_uri(path):
+def data_uri(path, mime='image/jpeg'):
     b = open(path, 'rb').read()
-    return 'data:image/jpeg;base64,' + base64.b64encode(b).decode('ascii')
+    return f'data:{mime};base64,' + base64.b64encode(b).decode('ascii')
 
 svg = open('/home/claude/hummusfit-warehouse/blueprint.svg').read().strip()
-flags = json.load(open('/home/claude/hummusfit-warehouse/blueprint_flags.json'))
 lane_plan = json.load(open('/home/claude/hummusfit-warehouse/lane_plan.json'))
 
 ROWS_ORDER = ['K1', 'K2', 'K3', 'M1', 'M2', 'M3']
@@ -66,36 +70,7 @@ def legend_row_card(r):
 
 legend_html = '\n'.join(legend_row_card(r) for r in ROWS_ORDER)
 
-# ---- flaws list (auto-numbered from blueprint_flags.json, so the numbers
-# on the drawing and the numbers in this list can never drift apart) ----
-FLAW_TITLES = {
-    1: 'Door position is an estimate.',
-    2: 'Columns are evenly-spaced guesses, not a survey.',
-    3: 'Drain positions are approximate.',
-    4: 'Aisle widths (48") and the entry spine (60") are planning placeholders, not tested clearances.',
-}
-flaw_rows = []
-for n, text in flags:
-    title = FLAW_TITLES.get(n, '')
-    # text already starts with the same sentence as the title in most cases;
-    # strip a leading duplicate of the title if present for cleanliness
-    body = text
-    flaw_rows.append(f'<div class="flawrow"><div class="flawnum">{n}</div><div class="flawtext"><b>{esc(title)}</b> {esc(body)}</div></div>')
-
-EXTRA_FLAWS = [
-    ('Demand data is one Monday, not a verified pattern.',
-     'Crate counts and lane priority are built on a real 178-order Monday shipout batch, cross-checked against blended Shopify sales. That\'s dramatically better than blended sales alone (which overstated real demand by ~6x), but it\'s still a single day — no day-of-week variance is captured. A Saturday batch would meaningfully tighten this.'),
-    ('17 of 120 products never appeared in the real order sample.',
-     'They may be genuinely slow-moving, or they may have simply not shipped that Monday. Their crate counts use a corrected (discounted) blended estimate, not real data — those are the lanes marked with a "~" in the legend below; treat them as the least trustworthy numbers on this page.'),
-    ('The room survey is photo-based, not measured — except the notch, which you\'ve now confirmed on site.',
-     'Room outer dimensions (60\'-11 5/8" x 21\'-11 1/2") and ceiling height (10\') are hard numbers. The 98"x108" notch shown on the original CAD sheet has been confirmed NOT physically present and is removed from this drawing. Door position, columns, and drains are still photo estimates — verify with a tape measure before anything is bolted, painted, or ordered.'),
-]
-next_n = len(flags) + 1
-for title, body in EXTRA_FLAWS:
-    flaw_rows.append(f'<div class="flawrow"><div class="flawnum">{next_n}</div><div class="flawtext"><b>{esc(title)}</b> {esc(body)}</div></div>')
-    next_n += 1
-
-flaws_html = '\n    '.join(flaw_rows)
+mockup_uri = data_uri('/home/claude/hummusfit-warehouse/mockup.png', mime='image/png')
 
 html_doc = f'''<!DOCTYPE html>
 <html lang="en">
@@ -110,23 +85,19 @@ html_doc = f'''<!DOCTYPE html>
   *{{box-sizing:border-box;}}
   body{{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);}}
   .wrap{{max-width:1400px;margin:0 auto;padding:32px 28px 60px;}}
+  .pagenav{{display:flex;gap:8px;margin-bottom:16px;}}
+  .pagenav a{{text-decoration:none;font-size:13px;font-weight:800;color:var(--dim);border:1.5px solid var(--line);border-radius:10px;padding:9px 18px;}}
+  .pagenav a.active{{background:var(--ink);color:#fff;border-color:var(--ink);}}
   h1{{font-size:24px;margin:0 0 4px;font-weight:900;letter-spacing:-.01em;}}
   .sub{{color:var(--dim);font-size:14px;margin:0 0 28px;font-weight:600;}}
   .diagram-card{{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:20px;overflow-x:auto;margin-bottom:32px;}}
   .diagram-card svg{{display:block;width:100%;height:auto;min-width:900px;}}
   h2{{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin:0 0 14px;font-weight:800;}}
-  .flawslist{{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:4px;margin-bottom:28px;}}
-  .flawrow{{display:flex;gap:16px;padding:16px 18px;border-bottom:1px solid var(--line);}}
-  .flawrow:last-child{{border-bottom:none;}}
-  .flawnum{{flex:none;width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;}}
-  .flawtext{{font-size:14px;line-height:1.55;color:var(--ink);}}
-  .flawtext b{{color:var(--orange);}}
   .legend{{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:28px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;}}
   .legend .item{{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--dim);}}
   .legend .swatch{{width:16px;height:16px;border-radius:4px;flex:none;}}
   .swatch.bakery{{background:#eafaf7;border:1.5px solid var(--teal);}}
   .swatch.meals{{background:#eef0f4;border:1.5px solid var(--ink);}}
-  .swatch.flag{{background:var(--orange);border-radius:50%;}}
   .swatch.path{{background:none;border-bottom:3px dashed var(--teal);height:0;width:20px;}}
   .stackcard{{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:28px;}}
   .stackrow{{display:flex;align-items:flex-end;gap:6px;margin-top:14px;}}
@@ -135,10 +106,8 @@ html_doc = f'''<!DOCTYPE html>
   .crate.reserve{{background:var(--orange);height:38px;}}
   .stacklabel{{font-size:13px;color:var(--dim);font-weight:600;margin-left:20px;}}
   .footnote{{font-size:12.5px;color:var(--dim);text-align:center;margin-top:8px;}}
-  .photocard{{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:28px;}}
-  .photogrid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px;}}
-  .photogrid img{{width:100%;height:150px;object-fit:cover;border-radius:10px;border:1px solid var(--line);}}
-  .photocap{{font-size:11px;color:var(--dim);margin-top:4px;text-align:center;}}
+  .mockupcard{{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:20px;margin-bottom:32px;}}
+  .mockupcard img{{width:100%;height:auto;display:block;border-radius:14px;background:#dfe3e6;}}
   .rowcard{{background:#fff;border:1.5px solid var(--line);border-radius:16px;margin-bottom:16px;overflow:hidden;}}
   .rowcard-head{{display:flex;align-items:baseline;gap:12px;padding:14px 18px;border-bottom:2px solid;}}
   .rowcard-title{{font-size:15px;font-weight:900;}}
@@ -153,8 +122,15 @@ html_doc = f'''<!DOCTYPE html>
 </head>
 <body>
 <div class="wrap">
+  <div class="pagenav"><a href="/blueprint.html" class="active">Blueprint</a><a href="/3d-model.html">3D Model</a></div>
   <h1>Walk-In Storage Blueprint — Birds-Eye View</h1>
-  <p class="sub">To scale · single view · everything confirmed vs. estimated is labeled directly on the drawing · pathway runs in the aisles only, never across a crate row</p>
+  <p class="sub">To scale · single view · pathway runs in the aisles only, never across a crate row</p>
+
+  <div class="mockupcard">
+    <h2 style="margin-bottom:6px;">Room Mockup — Fully Stocked</h2>
+    <p class="sub" style="margin-bottom:12px;">Generated from the same room geometry and product plan as the drawing below, with every lane's real crate stack placed. Open the full interactive version on the <a href="/3d-model.html">3D Model</a> page.</p>
+    <img src="{mockup_uri}" alt="Rendered mockup of the walk-in with crate stacks placed in every lane">
+  </div>
 
   <div class="diagram-card">
     {svg}
@@ -163,30 +139,12 @@ html_doc = f'''<!DOCTYPE html>
   <div class="legend">
     <div class="item"><span class="swatch bakery"></span>Bakery &amp; Snacks (K1-K3)</div>
     <div class="item"><span class="swatch meals"></span>Meals (M1-M3)</div>
-    <div class="item"><span class="swatch flag"></span>Numbered flaw — see list below</div>
     <div class="item">┄┄&gt;&nbsp; Picker walking path, aisles only (in and out the same door)</div>
     <div class="item">●&nbsp; filled dot = position stocked &nbsp;&nbsp; ○&nbsp; open dot = position empty</div>
   </div>
 
-  <h2>Every Flaw &amp; Assumption — Read Before Building Anything</h2>
-  <div class="flawslist">
-    {flaws_html}
-  </div>
-
-  <div class="photocard">
-    <h2 style="margin-bottom:6px;">Site Reference Photos</h2>
-    <p class="sub" style="margin-bottom:0;">What's actually in the room right now — floor drains, columns, ceiling fan-coil units, the roll-up door, floor patches. Cross-check against the flaws above before building anything.</p>
-    <div class="photogrid">
-      <div><img src="{data_uri('/home/claude/hummusfit-warehouse/photos/IMG_3321.jpg')}"><div class="photocap">Looking toward the door — column + drains + ceiling units</div></div>
-      <div><img src="{data_uri('/home/claude/hummusfit-warehouse/photos/IMG_3322.jpg')}"><div class="photocap">Far wall, floor patch and drain</div></div>
-      <div><img src="{data_uri('/home/claude/hummusfit-warehouse/photos/IMG_3323.jpg')}"><div class="photocap">Two columns, evaporator units, blue door in background</div></div>
-      <div><img src="{data_uri('/home/claude/hummusfit-warehouse/photos/IMG_3324.jpg')}"><div class="photocap">Opposite end — fan-coil units and side door</div></div>
-      <div><img src="{data_uri('/home/claude/hummusfit-warehouse/photos/IMG_3325.jpg')}"><div class="photocap">Opposite end, wide view</div></div>
-    </div>
-  </div>
-
   <h2>Product Legend — Every Lane, By Row</h2>
-  <p class="sub" style="margin-top:-10px;">Cross-references the lane codes on the drawing above. "~" next to a code means that lane's count is a corrected blended estimate, not real order data (see flaw about the 17 unmatched products).</p>
+  <p class="sub" style="margin-top:-10px;">Cross-references the lane codes on the drawing above. "~" next to a code means that lane's count is a corrected blended estimate — no real order for that product in the sample used.</p>
   {legend_html}
 
   <div class="stackcard">
@@ -208,7 +166,7 @@ html_doc = f'''<!DOCTYPE html>
     </div>
   </div>
 
-  <p class="footnote">Generated from confirmed room dimensions (notch removed per on-site confirmation), the real 178-order demand sample, and site-photo estimates flagged above. Product legend generated directly from lane_plan.json — the same file that drives the live picking app.</p>
+  <p class="footnote">Generated from the room dimensions and the real 178-order demand sample. Product legend generated directly from lane_plan.json — the same file that drives the live picking app.</p>
 </div>
 </body>
 </html>

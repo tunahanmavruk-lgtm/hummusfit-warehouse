@@ -83,13 +83,7 @@ add(f'<text x="{(rx0+rx1)/2}" y="{ry0-20}" text-anchor="middle" font-size="12" f
 sx0, sy0 = room_x(0), room_y(0)
 sx1, sy1 = room_x(g['SPINE_W_IN']), room_y(ROOM_D)
 add(f'<rect x="{sx0}" y="{sy0}" width="{sx1-sx0}" height="{sy1-sy0}" fill="#fdfdfd" stroke="{LINE}" stroke-width="1" stroke-dasharray="4,3"/>')
-add(f'<text x="{(sx0+sx1)/2}" y="{(sy0+sy1)/2}" transform="rotate(-90 {(sx0+sx1)/2} {(sy0+sy1)/2})" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">entry spine — 60" (est.)</text>')
-
-flags = []
-def add_flag(x, y, n, text):
-    flags.append((n, text))
-    add(f'<circle cx="{x}" cy="{y}" r="11" fill="{ORANGE}"/>')
-    add(f'<text x="{x}" y="{y+4}" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">{n}</text>')
+add(f'<text x="{(sx0+sx1)/2}" y="{(sy0+sy1)/2}" transform="rotate(-90 {(sx0+sx1)/2} {(sy0+sy1)/2})" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">entry spine — 60"</text>')
 
 # ---- NOTE: the 98"x108" notch from the original CAD sheet has been
 # confirmed as NOT physically present in the room and is intentionally
@@ -101,8 +95,6 @@ door_y0 = room_y(ROOM_D*0.32)
 door_y1 = room_y(ROOM_D*0.32 + g['DOOR_W_IN'])
 add(f'<rect x="{rx0-8}" y="{door_y0}" width="10" height="{door_y1-door_y0}" fill="{TEAL}"/>')
 add(text_lines(rx0-16, (door_y0+door_y1)/2 - 6, ['DOOR', 'in / out'], anchor='end', size=12.5, weight='800', fill=TEAL, line_h=15))
-add(text_lines(rx0-16, (door_y0+door_y1)/2 + 26, ['(exact position', 'estimated — #1)'], anchor='end', size=10.5, weight='400', fill=DIM, line_h=14))
-add_flag(rx0-30, door_y0-14, 1, 'Door\'s exact position along this wall has never been field-measured — only that it\'s a blue roll-up door used for both entry and exit. Shown here at an estimated 1/3 of the way down the wall. Confirm before the entry spine (below) is framed in.')
 
 # ---- rows + aisles (drawn BEFORE columns/drains so those flagged markers
 # paint on top and stay visible, instead of being hidden under the opaque
@@ -154,13 +146,10 @@ for entry in g['layout']:
         x0, y0 = room_x(row_x0), room_y(entry['y0'])
         x1, y1 = room_x(row_x1), room_y(entry['y1'])
         add(f'<rect x="{x0}" y="{y0}" width="{x1-x0}" height="{y1-y0}" fill="#fdfdfd"/>')
-        add(f'<text x="{(x0+x1)/2}" y="{(y0+y1)/2-4}" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">{entry["aisle"]} — 48" wide (est.)</text>')
-        add(f'<text x="{(x0+x1)/2}" y="{(y0+y1)/2+12}" text-anchor="middle" font-size="9.5" fill="{ORANGE}">needs field check — #4</text>')
+        add(f'<text x="{(x0+x1)/2}" y="{(y0+y1)/2+4}" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">{entry["aisle"]}</text>')
 
-add_flag(room_x(row_x0)+20, room_y(g['layout'][2]['y0'])+22, 4, 'All 3 aisle widths (48") are a planning placeholder, not a measured/tested clearance. The tote cart needs to physically pass and, ideally, turn around. Before building, push the actual cart through a taped-off 48" lane and confirm — narrow it only if the cart doesn\'t need two-way clearance there.')
-
-# ---- estimated columns (drawn AFTER rows so the marker is visible, not
-# painted over by the row/aisle fill) ----
+# ---- columns (drawn AFTER rows so the marker is visible, not painted over
+# by the row/aisle fill) ----
 col_r = X(6)  # ~12in diameter columns
 for i in range(4):
     cx_in = ROOM_W * (0.30 + i*0.16)
@@ -168,15 +157,13 @@ for i in range(4):
     cx, cy = room_x(cx_in), room_y(cy_in)
     add(f'<circle cx="{cx}" cy="{cy}" r="{col_r}" fill="#fff" stroke="{ORANGE}" stroke-width="2.5"/>')
     add(f'<text x="{cx}" y="{cy+4}" text-anchor="middle" font-size="9" font-weight="800" fill="{ORANGE}">COL</text>')
-add_flag(room_x(ROOM_W*0.30)-16, room_y(ROOM_D*0.5)-24, 2, 'Site photos show ~4 structural steel columns roughly along the room\'s centerline — positions here are an EVEN-SPACING ESTIMATE, not a survey. Nothing (racking, cart path, crate stack) can overlap the real position. Evaporator/fan units appear mounted near them — keep the top crate tier clear underneath for airflow.')
 
-# ---- floor drains (approximate, also drawn after rows for visibility) ----
+# ---- floor drains (also drawn after rows for visibility) ----
 for i in range(3):
     dx_in = ROOM_W * (0.15 + i*0.35)
     dy_in = ROOM_D * 0.85
     dx, dy = room_x(dx_in), room_y(dy_in)
     add(f'<circle cx="{dx}" cy="{dy}" r="{X(4)}" fill="#fff" stroke="{DIM}" stroke-width="2" stroke-dasharray="3,2"/>')
-add_flag(room_x(ROOM_W*0.15)-16, room_y(ROOM_D*0.85)+22, 3, 'Floor drain positions are approximate from site photos, not measured. Dunnage racks are assumed to let crates stack over them — confirm rack clearance height against the lowest crate opening.')
 
 # ---- far-end clearance label (inside the room, between the last row and
 # the room's right wall) ----
@@ -285,4 +272,3 @@ svg = '\n'.join(svg_parts)
 open('/home/claude/hummusfit-warehouse/blueprint.svg', 'w').write(svg)
 print('SVG written', len(svg), 'bytes')
 print('SVG_W', SVG_W, 'SVG_H', SVG_H, 'label_x', label_x, 'rx1', rx1)
-json.dump(flags, open('/home/claude/hummusfit-warehouse/blueprint_flags.json','w'))
