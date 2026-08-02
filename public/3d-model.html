@@ -26,7 +26,11 @@
   .legend .item{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--dim);}
   .dot{width:11px;height:11px;border-radius:3px;flex:none;}
   .camdot{width:11px;height:11px;border-radius:50%;flex:none;background:#fff;border:2px solid var(--orange);}
-  .controls-hint{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.97);border:1.5px solid var(--line);border-radius:14px;padding:9px 13px;font-size:11.5px;color:var(--dim);font-weight:600;}
+  .controls-hint{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.97);border:1.5px solid var(--line);border-radius:14px;padding:9px 13px;font-size:11.5px;color:var(--dim);font-weight:600;display:flex;align-items:center;gap:10px;}
+  .controls-hint label{display:flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
+  #labelLayer{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .crate-label{position:absolute;transform:translate(-50%,-100%);font-size:9.5px;font-weight:700;line-height:1.2;background:rgba(255,255,255,.94);border:1px solid rgba(17,20,23,.12);border-radius:4px;padding:1.5px 5px;white-space:nowrap;color:var(--ink);pointer-events:none;box-shadow:0 1px 2px rgba(0,0,0,.06);}
+  .crate-label .cl-code{color:var(--dim);font-weight:800;margin-right:4px;}
   .lightbox{position:fixed;inset:0;background:rgba(10,12,14,.86);display:none;align-items:center;justify-content:center;z-index:50;padding:30px;}
   .lightbox.open{display:flex;}
   .lightbox img{max-width:90vw;max-height:80vh;border-radius:10px;}
@@ -42,7 +46,11 @@
 </div>
 <div class="stage">
   <div id="canvas-wrap"></div>
-  <div class="controls-hint">Drag to orbit · scroll to zoom · right-drag to pan</div>
+  <div class="controls-hint">
+    <span>Drag to orbit · scroll to zoom · right-drag to pan</span>
+    <label><input type="checkbox" id="labelToggle" checked> Show product labels</label>
+  </div>
+  <div id="labelLayer"></div>
   <div class="panel" id="panel">
     <h3>Tap a crate stack</h3>
     <p class="hint">Every colored block is a stocked lane, sized to its real crate count (capped at the 5-crate max stack). Gaps are empty floor positions. Click one to see what goes there.</p>
@@ -1219,10 +1227,24 @@ rows.forEach(r => {
   }
 });
 
-// crate stacks
+// crate stacks — every stocked lane gets a floating product-name tag,
+// not just a click target. Previously the only way to learn what a crate
+// stack was, in this model, was to click it and read the side panel; the
+// birds-eye blueprint had the same gap (a lane code + dot, full name only
+// in a legend table below). Both now label the product directly.
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const pickables = [];
+const labelLayer = document.getElementById('labelLayer');
+const labelToggle = document.getElementById('labelToggle');
+
+function shortName(name) {
+  if (!name) return '';
+  const s = name.replace(/^(Buffin Muffin|Overnight Oats|Buff Crisp Bar)\s*-\s*/, '');
+  return s.length > 24 ? s.slice(0, 22) + '…' : s;
+}
+
+const crateLabels = [];
 crates.forEach(c => {
   if (!c.color) return;
   const h = c.stack * 10.70;
@@ -1233,7 +1255,40 @@ crates.forEach(c => {
   mesh.userData = c;
   scene.add(mesh);
   pickables.push(mesh);
+
+  const div = document.createElement('div');
+  div.className = 'crate-label';
+  div.innerHTML = `<span class="cl-code">${c.code}</span>${shortName(c.product)}`;
+  labelLayer.appendChild(div);
+  crateLabels.push({div, x: c.x, y: h + 16, z: c.y});
 });
+
+const labelVec = new THREE.Vector3();
+function updateLabels() {
+  const show = labelToggle.checked;
+  labelLayer.style.display = show ? 'block' : 'none';
+  if (!show) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  const camDist = camera.position.distanceTo(controls.target);
+  // Fade labels out once zoomed far enough out that 160+ tags would just
+  // overlap into an unreadable smear — the click panel still works at any
+  // zoom level, this is purely about keeping the wide view legible.
+  const declutter = camDist > 900;
+  for (const lb of crateLabels) {
+    labelVec.set(lb.x, lb.y, lb.z);
+    labelVec.project(camera);
+    if (labelVec.z > 1 || declutter) { lb.div.style.display = 'none'; continue; }
+    const sx = (labelVec.x * 0.5 + 0.5) * rect.width;
+    const sy = (-labelVec.y * 0.5 + 0.5) * rect.height;
+    if (sx < -40 || sx > rect.width + 40 || sy < -20 || sy > rect.height + 20) {
+      lb.div.style.display = 'none';
+      continue;
+    }
+    lb.div.style.display = 'block';
+    lb.div.style.left = sx + 'px';
+    lb.div.style.top = sy + 'px';
+  }
+}
 
 // pathway line (aisles only — matches the fixed 2D routing)
 const spineX = 30;
@@ -1309,6 +1364,7 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
+  updateLabels();
 }
 animate();
 </script>
