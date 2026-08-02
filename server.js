@@ -1,6 +1,17 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db');
+const { runSeed } = require('./seed');
+
+// Auto-seed on boot if the lanes table is empty — makes this resilient to
+// a fresh volume / fresh deploy where a pre-deploy hook didn't run.
+const laneCount = db.prepare('SELECT COUNT(*) AS n FROM lanes').get().n;
+if (laneCount === 0) {
+  const result = runSeed(db);
+  console.log('Auto-seeded empty database on boot:', result);
+} else {
+  console.log(`DB already has ${laneCount} lanes, skipping auto-seed.`);
+}
 
 const app = express();
 app.use(express.json());
