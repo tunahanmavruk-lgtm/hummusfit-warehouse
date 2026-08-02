@@ -1,0 +1,1246 @@
+{
+  "bakery": {
+    "lanes": [
+      {
+        "code": "K1-01",
+        "product": "Peanut Butter Chocolate Gree-Yo",
+        "category": "snack",
+        "daily_avg": 161.2,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 28,
+        "crates_needed": 6
+      },
+      {
+        "code": "K1-02",
+        "product": "Peanut Butter Chocolate Gree-Yo",
+        "category": "snack",
+        "daily_avg": 161.2,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 28,
+        "crates_needed": 6
+      },
+      {
+        "code": "K1-03",
+        "product": "Buffin Muffin - Strawberry Crunch Milkshake",
+        "category": "muffin",
+        "daily_avg": 139.0,
+        "demand_source": "real",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 6
+      },
+      {
+        "code": "K1-04",
+        "product": "Buffin Muffin - Buff Roll",
+        "category": "muffin",
+        "daily_avg": 112.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 5
+      },
+      {
+        "code": "K1-05",
+        "product": "Buffin Muffin - Strawberry Crunch Milkshake",
+        "category": "muffin",
+        "daily_avg": 139.0,
+        "demand_source": "real",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 6
+      },
+      {
+        "code": "K1-06",
+        "product": "Buffin Muffin - Banana Cream Protein Dream",
+        "category": "muffin",
+        "daily_avg": 73.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 4
+      },
+      {
+        "code": "K1-07",
+        "product": "Buffin Muffin - ChocoLIT",
+        "category": "muffin",
+        "daily_avg": 72.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-08",
+        "product": "Buffin Muffin - TwistBar",
+        "category": "muffin",
+        "daily_avg": 74.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 4
+      },
+      {
+        "code": "K1-09",
+        "product": "Buffin Muffin - Cookie Butter Tres Leches",
+        "category": "muffin",
+        "daily_avg": 59.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-10",
+        "product": "Buffin Muffin - Apple Pie-Ceps",
+        "category": "muffin",
+        "daily_avg": 103.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 5
+      },
+      {
+        "code": "K1-11",
+        "product": "Buffin Muffin - Buffcoff",
+        "category": "muffin",
+        "daily_avg": 60.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-12",
+        "product": "Buffin Muffin - Strawberry Buff Blast",
+        "category": "muffin",
+        "daily_avg": 82.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 4
+      },
+      {
+        "code": "K1-13",
+        "product": "Buffin Muffin - Blueberry",
+        "category": "muffin",
+        "daily_avg": 58.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-14",
+        "product": "Buffin Muffin - Buff Served",
+        "category": "muffin",
+        "daily_avg": 66.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-15",
+        "product": "Buffin Muffin - Cinna Blast",
+        "category": "muffin",
+        "daily_avg": 44.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "K1-16",
+        "product": "Buffin Muffin - Boston Chocolate Creme",
+        "category": "muffin",
+        "daily_avg": 47.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "K1-17",
+        "product": "Buffin Muffin - German Chocolate Cake",
+        "category": "muffin",
+        "daily_avg": 54.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-18",
+        "product": "Buffin Muffin - Double Chocolate Brownie",
+        "category": "muffin",
+        "daily_avg": 53.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-19",
+        "product": "Buffin Muffin - Banana Choc. Chip",
+        "category": "muffin",
+        "daily_avg": 33.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "K1-20",
+        "product": "Buff Crisp Bar - Cinna Crunch",
+        "category": "snack",
+        "daily_avg": 120.36666666666666,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 48,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-21",
+        "product": "Protein Chocolate Pudding",
+        "category": "snack",
+        "daily_avg": 115.3,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 28,
+        "crates_needed": 5
+      },
+      {
+        "code": "K1-22",
+        "product": "Buff Crisp Bar - Original Recipe",
+        "category": "snack",
+        "daily_avg": 88.53333333333333,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 48,
+        "crates_needed": 2
+      },
+      {
+        "code": "K1-23",
+        "product": "S'Mores Gree-Yo",
+        "category": "snack",
+        "daily_avg": 84.73333333333333,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 28,
+        "crates_needed": 4
+      },
+      {
+        "code": "K1-24",
+        "product": "Buffin Muffin - Cookies and Cream Crunch",
+        "category": "muffin",
+        "daily_avg": 69.4,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "K1-25",
+        "product": "Buff Crisp Bar - Fruity Cereal",
+        "category": "snack",
+        "daily_avg": 67.93333333333334,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 48,
+        "crates_needed": 2
+      },
+      {
+        "code": "K1-26",
+        "product": "Overnight Oats - Cannoli",
+        "category": "oats",
+        "daily_avg": 41.5,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 28,
+        "crates_needed": 2
+      },
+      {
+        "code": "K1-27",
+        "product": "Buffin Muffin - Gluten Free Cookies and Milk",
+        "category": "muffin",
+        "daily_avg": 32.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "K2-01",
+        "product": "Buff Crisp Bar - Chocolate",
+        "category": "snack",
+        "daily_avg": 27.2,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 48,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-02",
+        "product": "Buffin Muffin - Welcome to the Sno",
+        "category": "muffin",
+        "daily_avg": 27.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "K2-03",
+        "product": "Overnight Oats - Blueberry Muffin",
+        "category": "oats",
+        "daily_avg": 24.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-04",
+        "product": "Overnight Oats - Cookie Dough",
+        "category": "oats",
+        "daily_avg": 6.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-05",
+        "product": "Overnight Oats - Chocolate Peanut Butter",
+        "category": "oats",
+        "daily_avg": 12.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-06",
+        "product": "Overnight Oats - Peanut Butter Brownie",
+        "category": "oats",
+        "daily_avg": 8.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-07",
+        "product": "Overnight Oats - Graham Fetti",
+        "category": "oats",
+        "daily_avg": 6.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-08",
+        "product": "Overnight Oats - Dubai Chocolate",
+        "category": "oats",
+        "daily_avg": 4.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-09",
+        "product": "Overnight Oats - Cookie Creme",
+        "category": "oats",
+        "daily_avg": 10.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-10",
+        "product": "Overnight Oats - Peanut Butter & Jelly",
+        "category": "oats",
+        "daily_avg": 8.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-11",
+        "product": "Overnight Oats - Fitella",
+        "category": "oats",
+        "daily_avg": 8.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-12",
+        "product": "3 Banana Chocolate Protein Poppers",
+        "category": "snack",
+        "daily_avg": 3.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-13",
+        "product": "Buffin Muffin - Gluten Free Confetti Pop",
+        "category": "muffin",
+        "daily_avg": 8.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-14",
+        "product": "Overnight Oats - Toast n' Crunch",
+        "category": "oats",
+        "daily_avg": 3.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-15",
+        "product": "Overnight Oats - Banana Chocolate Chip",
+        "category": "oats",
+        "daily_avg": 4.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-16",
+        "product": "Peanut Butter Energy Bites",
+        "category": "snack",
+        "daily_avg": 4.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "K2-17",
+        "product": "Overnight Oats - Cookies n Cream",
+        "category": "oats",
+        "daily_avg": 2.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 28,
+        "crates_needed": 1
+      }
+    ],
+    "overflow_lane_slots_dropped": 0,
+    "overflow_products": [],
+    "total_positions": 81
+  },
+  "meals": {
+    "lanes": [
+      {
+        "code": "M1-01",
+        "product": "Fit Ala Vodka With Chicken",
+        "category": "meal",
+        "daily_avg": 138.23333333333332,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 6
+      },
+      {
+        "code": "M1-02",
+        "product": "Fit Ala Vodka With Chicken",
+        "category": "meal",
+        "daily_avg": 138.23333333333332,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 6
+      },
+      {
+        "code": "M1-03",
+        "product": "Blueberry French Toast",
+        "category": "meal",
+        "daily_avg": 88.06666666666666,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 4
+      },
+      {
+        "code": "M1-04",
+        "product": "BBQ Chicken Garlic Parm Potatoes",
+        "category": "meal",
+        "daily_avg": 83.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 4
+      },
+      {
+        "code": "M1-05",
+        "product": "Closed on Sunday Crispy Chicken Bowl",
+        "category": "meal",
+        "daily_avg": 81.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 4
+      },
+      {
+        "code": "M1-06",
+        "product": "Texas Queso Steak Bowl",
+        "category": "meal",
+        "daily_avg": 59.0,
+        "demand_source": "real",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-07",
+        "product": "Farfalle & Chicken Alfredo",
+        "category": "meal",
+        "daily_avg": 61.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-08",
+        "product": "Herb Butter Steak Tips Bowl",
+        "category": "meal",
+        "daily_avg": 54.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-09",
+        "product": "Meatball Parmesan Wrap",
+        "category": "meal",
+        "daily_avg": 34.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-10",
+        "product": "Grilled Chicken Parmesan Wrap",
+        "category": "meal",
+        "daily_avg": 40.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-11",
+        "product": "Spicy Buffalo Wrap",
+        "category": "meal",
+        "daily_avg": 53.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-12",
+        "product": "Broritto Burrito",
+        "category": "meal",
+        "daily_avg": 71.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-13",
+        "product": "HFit Signature Fold",
+        "category": "meal",
+        "daily_avg": 60.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-14",
+        "product": "Strongsville Chicken Ranch Fold",
+        "category": "meal",
+        "daily_avg": 45.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-15",
+        "product": "Crispy Baked Chicken Wrap",
+        "category": "meal",
+        "daily_avg": 46.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-16",
+        "product": "Buffalo Chicken Quesadilla",
+        "category": "meal",
+        "daily_avg": 60.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-17",
+        "product": "Taco Build Quesadilla",
+        "category": "meal",
+        "daily_avg": 55.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-18",
+        "product": "Hey Arnold! Burrito",
+        "category": "meal",
+        "daily_avg": 49.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-19",
+        "product": "Fit-Fil-A",
+        "category": "meal",
+        "daily_avg": 43.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-20",
+        "product": "BBQ Chicken Mac Bowl",
+        "category": "meal",
+        "daily_avg": 48.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-21",
+        "product": "Lo Mein Teriyaki Steak",
+        "category": "meal",
+        "daily_avg": 42.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-22",
+        "product": "Philly Cheesesteak Quesadilla",
+        "category": "meal",
+        "daily_avg": 48.0,
+        "demand_source": "real",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-23",
+        "product": "Stacked and Jacked",
+        "category": "meal",
+        "daily_avg": 41.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-24",
+        "product": "Baja Chicken Tacos",
+        "category": "meal",
+        "daily_avg": 70.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M1-25",
+        "product": "Zeus Bowl",
+        "category": "meal",
+        "daily_avg": 34.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-26",
+        "product": "BBQ Meltdown",
+        "category": "meal",
+        "daily_avg": 35.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M1-27",
+        "product": "Competition Approved Sticky Rice (1lb)",
+        "category": "meal",
+        "daily_avg": 51.733333333333334,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 3
+      },
+      {
+        "code": "M2-01",
+        "product": "Buffalo Mac N Chicken",
+        "category": "meal",
+        "daily_avg": 33.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-02",
+        "product": "6-Guys Patty Melt",
+        "category": "meal",
+        "daily_avg": 30.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-03",
+        "product": "Rigatoni & Meatballs",
+        "category": "meal",
+        "daily_avg": 31.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-04",
+        "product": "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice",
+        "category": "meal",
+        "daily_avg": 32.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-05",
+        "product": "Teriyaki Flank Bowl",
+        "category": "meal",
+        "daily_avg": 26.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-06",
+        "product": "Chicken Stir Fry",
+        "category": "meal",
+        "daily_avg": 24.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-07",
+        "product": "Brookfield Chicken Bowl",
+        "category": "meal",
+        "daily_avg": 32.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-08",
+        "product": "Gluten Free Carbonara Chicken",
+        "category": "meal",
+        "daily_avg": 24.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-09",
+        "product": "Chicken Taco Bowl",
+        "category": "meal",
+        "daily_avg": 29.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-10",
+        "product": "Southwest Chicken Quesadilla",
+        "category": "meal",
+        "daily_avg": 28.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-11",
+        "product": "Club Wrap",
+        "category": "meal",
+        "daily_avg": 19.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-12",
+        "product": "Nacho Average Bowl",
+        "category": "meal",
+        "daily_avg": 30.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-13",
+        "product": "Zeus Bowl V2",
+        "category": "meal",
+        "daily_avg": 24.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-14",
+        "product": "The Arches Mac Daddy Wrap",
+        "category": "meal",
+        "daily_avg": 21.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-15",
+        "product": "MsWendy Buff Nuggets",
+        "category": "meal",
+        "daily_avg": 22.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-16",
+        "product": "Hot Honey Steak & Mac",
+        "category": "meal",
+        "daily_avg": 28.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-17",
+        "product": "The Clean Bulk Pasta Bowl",
+        "category": "meal",
+        "daily_avg": 24.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-18",
+        "product": "Chicken Mushroom Pot Stickers",
+        "category": "meal",
+        "daily_avg": 23.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-19",
+        "product": "TexMex Potato Hash",
+        "category": "meal",
+        "daily_avg": 26.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-20",
+        "product": "Low Carb Keto Cheeseburger Bowl",
+        "category": "meal",
+        "daily_avg": 21.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-21",
+        "product": "Competition Approved Grilled Chicken (1lb)",
+        "category": "meal",
+        "daily_avg": 24.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-22",
+        "product": "Southwest Chicken Bowl",
+        "category": "meal",
+        "daily_avg": 20.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-23",
+        "product": "Strawberry Protein French Toast",
+        "category": "meal",
+        "daily_avg": 28.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 2
+      },
+      {
+        "code": "M2-24",
+        "product": "Breakfast Burrito",
+        "category": "meal",
+        "daily_avg": 21.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-25",
+        "product": "Buffalo Chicken Meatballs",
+        "category": "meal",
+        "daily_avg": 19.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-26",
+        "product": "Arnold 2022 Bowl",
+        "category": "meal",
+        "daily_avg": 19.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M2-27",
+        "product": "Chipotle Chicken (1lb Competition Approved)",
+        "category": "meal",
+        "daily_avg": 19.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-01",
+        "product": "Nacho Average Vegan Bowl",
+        "category": "meal",
+        "daily_avg": 18.566666666666666,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-02",
+        "product": "Grilled Chicken Pesto Wrap",
+        "category": "meal",
+        "daily_avg": 18.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-03",
+        "product": "Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)",
+        "category": "meal",
+        "daily_avg": 13.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-04",
+        "product": "Competition Approved Grilled Flank Steak (1lb)",
+        "category": "meal",
+        "daily_avg": 16.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-05",
+        "product": "Competition Approved Oven Baked Cod (1lb)",
+        "category": "meal",
+        "daily_avg": 8.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-06",
+        "product": "Competition Approved White Basmati Rice (1lb)",
+        "category": "meal",
+        "daily_avg": 5.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-07",
+        "product": "Keto Ricotta Meatballs",
+        "category": "meal",
+        "daily_avg": 15.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-08",
+        "product": "Soho Steak Bowl",
+        "category": "meal",
+        "daily_avg": 15.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-09",
+        "product": "Thai Chili Chicken",
+        "category": "meal",
+        "daily_avg": 9.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-10",
+        "product": "Buffalo Crispy Chicken Wrap",
+        "category": "meal",
+        "daily_avg": 11.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-11",
+        "product": "Crispy Vegan Wrap",
+        "category": "meal",
+        "daily_avg": 13.433333333333334,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-12",
+        "product": "Vegan Breakfast Sandwich",
+        "category": "meal",
+        "daily_avg": 13.4,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-13",
+        "product": "Competition Approved Chicken Kebab (1lb)",
+        "category": "meal",
+        "daily_avg": 13.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-14",
+        "product": "Cinnamon Roll Pancakes",
+        "category": "meal",
+        "daily_avg": 12.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-15",
+        "product": "Peanut Butter & Jelly Sandwich",
+        "category": "meal",
+        "daily_avg": 8.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-16",
+        "product": "Vegan Cheeseburger Bowl",
+        "category": "meal",
+        "daily_avg": 2.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-17",
+        "product": "Vegan Chorizo Quesadilla",
+        "category": "meal",
+        "daily_avg": 1.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-18",
+        "product": "Competition Approved 90/10 Lean Ground Beef (1lb)",
+        "category": "meal",
+        "daily_avg": 9.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-19",
+        "product": "Pineapple Teriyaki Meatballs",
+        "category": "meal",
+        "daily_avg": 7.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-20",
+        "product": "Baked Herbed Tilapia (1lb Competition Approved)",
+        "category": "meal",
+        "daily_avg": 2.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-21",
+        "product": "Competition Approved Baked Sweet Potato Fries (1lb)",
+        "category": "meal",
+        "daily_avg": 4.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-22",
+        "product": "Competition Approved Lemon Pepper Salmon (1lb)",
+        "category": "meal",
+        "daily_avg": 3.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-23",
+        "product": "Turkey Bacon Cheddar Egg Muffins",
+        "category": "meal",
+        "daily_avg": 3.0,
+        "demand_source": "real",
+        "divergence_flag": true,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-24",
+        "product": "Honey Garlic Crispy Chicken Tacos",
+        "category": "meal",
+        "daily_avg": 0.0,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 1
+      },
+      {
+        "code": "M3-25",
+        "product": "West Coast Secret Sauce Bowl",
+        "category": "meal",
+        "daily_avg": 0.0,
+        "demand_source": "blended (no real-order match)",
+        "divergence_flag": false,
+        "cap": 24,
+        "crates_needed": 1
+      }
+    ],
+    "overflow_lane_slots_dropped": 0,
+    "overflow_products": [],
+    "total_positions": 81
+  }
+}
