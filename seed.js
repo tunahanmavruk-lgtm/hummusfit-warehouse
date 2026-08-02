@@ -47,9 +47,20 @@ function runSeed(db) {
     VALUES (?, ?, ?, ?)
   `);
 
+  // Upsert (not OR IGNORE) so that re-running this on a re-slotted room
+  // actually moves products to their new lanes instead of leaving the old
+  // assignment in place. crates_current resets to 0 on a real placement
+  // change — that's correct: a physical re-slot means staff are recounting
+  // and restocking into the new spot, not carrying over an old count.
   const insertAssignment = db.prepare(`
-    INSERT OR IGNORE INTO lane_assignments (lane_id, product_id, crates_current, max_stack)
+    INSERT INTO lane_assignments (lane_id, product_id, crates_current, max_stack)
     VALUES (?, ?, 0, 5)
+    ON CONFLICT(lane_id) DO UPDATE SET
+      product_id = excluded.product_id,
+      crates_current = 0,
+      max_stack = excluded.max_stack,
+      updated_at = CURRENT_TIMESTAMP
+    WHERE lane_assignments.product_id IS NOT excluded.product_id
   `);
 
   const seed = db.transaction(() => {

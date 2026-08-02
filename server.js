@@ -1,16 +1,40 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
 const db = require('./db');
 const { runSeed } = require('./seed');
 
-// Auto-seed on boot if the lanes table is empty — makes this resilient to
-// a fresh volume / fresh deploy where a pre-deploy hook didn't run.
+// Auto-seed on boot if the lanes table is empty (fresh volume / fresh
+// deploy). ALSO re-seed whenever lane_plan.json itself has changed since
+// the last boot — identified by a content hash stored in the meta table —
+// so a real re-slot of the room (new lane_plan.json pushed to prod) takes
+// effect automatically on the next deploy instead of silently staying on
+// the old layout because "the lanes table wasn't empty."
+const lanePlanHash = crypto
+  .createHash('sha1')
+  .update(fs.readFileSync(path.join(__dirname, 'lane_plan.json'), 'utf8'))
+  .digest('hex')
+  .slice(0, 12);
+
+const setPlanVersion = db.prepare(`
+  INSERT INTO meta (key, value) VALUES ('plan_version', ?)
+  ON CONFLICT(key) DO UPDATE SET value = excluded.value
+`);
+
 const laneCount = db.prepare('SELECT COUNT(*) AS n FROM lanes').get().n;
+const storedVersion = db.prepare(`SELECT value FROM meta WHERE key = 'plan_version'`).get();
+
 if (laneCount === 0) {
   const result = runSeed(db);
+  setPlanVersion.run(lanePlanHash);
   console.log('Auto-seeded empty database on boot:', result);
+} else if (!storedVersion || storedVersion.value !== lanePlanHash) {
+  const result = runSeed(db);
+  setPlanVersion.run(lanePlanHash);
+  console.log(`Lane plan changed (version ${lanePlanHash}) — re-seeded product placement:`, result);
 } else {
-  console.log(`DB already has ${laneCount} lanes, skipping auto-seed.`);
+  console.log(`DB already has ${laneCount} lanes on current plan version (${lanePlanHash}), skipping re-seed.`);
 }
 
 const app = express();
@@ -28,7 +52,8 @@ app.get('/api/lanes', (req, res) => {
     SELECT
       l.id, l.code, l.section, l.row_num, l.position_num,
       la.product_id, la.crates_current, la.max_stack,
-      p.name AS product_name, p.category, p.cap, p.u30
+      p.name AS product_name, p.category, p.cap, p.u30,
+      EXISTS(SELECT 1 FROM restock_log WHERE restock_log.lane_id = l.id) AS ever_stocked
     FROM lanes l
     LEFT JOIN lane_assignments la ON la.lane_id = l.id
     LEFT JOIN products p ON p.id = la.product_id
@@ -110,6 +135,7 @@ app.get('/api/low-stock', (req, res) => {
     JOIN lanes l ON l.id = la.lane_id
     JOIN products p ON p.id = la.product_id
     WHERE la.crates_current <= 1
+      AND EXISTS(SELECT 1 FROM restock_log WHERE restock_log.lane_id = l.id)
     ORDER BY la.crates_current ASC, l.section, l.code
   `).all();
   res.json(rows);
