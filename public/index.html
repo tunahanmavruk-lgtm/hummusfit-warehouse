@@ -20,7 +20,7 @@
   header h1 .brandmark{height:28px;width:auto;display:block;}
   .section-title .buffinmark{height:20px;width:auto;display:block;margin-left:2px;}
   nav{display:flex;gap:8px;}
-  nav button{background:transparent;border:1.5px solid var(--line);color:var(--dim);padding:11px 20px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.01em;}
+  nav button,nav a{background:transparent;border:1.5px solid var(--line);color:var(--dim);padding:11px 20px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.01em;display:inline-flex;align-items:center;}
   nav button.active{background:var(--ink);color:#fff;border-color:var(--ink);}
   main{padding:20px;max-width:1200px;margin:0 auto;}
   .view{display:none;}
@@ -100,6 +100,8 @@
   <nav>
     <button class="active" data-view="floor">Floor Plan</button>
     <button data-view="restock">Restock</button>
+    <a href="/blueprint.html" target="_blank" rel="noopener">Blueprint</a>
+    <a href="/3d-model.html" target="_blank" rel="noopener">3D Model</a>
   </nav>
 </header>
 
