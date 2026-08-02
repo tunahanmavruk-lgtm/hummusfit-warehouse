@@ -1,0 +1,88 @@
+{
+  "ROOM_W_IN": 731.625,
+  "ROOM_D_IN": 263.5,
+  "CEILING_IN": 120,
+  "DOOR_W_IN": 120,
+  "NOTCH_W_IN": 98,
+  "NOTCH_D_IN": 108,
+  "SPINE_W_IN": 60,
+  "AISLE_W_IN": 48,
+  "ROW_DEPTH_IN": 15.7,
+  "row_x0": 60,
+  "row_x1": 644.55,
+  "row_len": 584.55,
+  "far_clearance": 87.07500000000005,
+  "end_clearance": 25.30000000000001,
+  "layout": [
+    {
+      "row": "K1",
+      "y0": 0,
+      "y1": 15.7
+    },
+    {
+      "row": "K2",
+      "y0": 63.7,
+      "y1": 79.4
+    },
+    {
+      "aisle": "Aisle A",
+      "y0": 15.7,
+      "y1": 63.7,
+      "between": [
+        "K1",
+        "K2"
+      ]
+    },
+    {
+      "row": "K3",
+      "y0": 79.4,
+      "y1": 95.10000000000001
+    },
+    {
+      "row": "M1",
+      "y0": 143.10000000000002,
+      "y1": 158.8
+    },
+    {
+      "aisle": "Aisle B",
+      "y0": 95.10000000000001,
+      "y1": 143.10000000000002,
+      "between": [
+        "K3",
+        "M1"
+      ]
+    },
+    {
+      "row": "M2",
+      "y0": 158.8,
+      "y1": 174.5
+    },
+    {
+      "row": "M3",
+      "y0": 222.5,
+      "y1": 238.2
+    },
+    {
+      "aisle": "Aisle C",
+      "y0": 174.5,
+      "y1": 222.5,
+      "between": [
+        "M2",
+        "M3"
+      ]
+    }
+  ],
+  "row_section": {
+    "K1": "bakery",
+    "K2": "bakery",
+    "K3": "bakery",
+    "M1": "meals",
+    "M2": "meals",
+    "M3": "meals"
+  },
+  "POSITIONS_PER_ROW": 27,
+  "CRATE_W": 21.65,
+  "CRATE_D": 15.7,
+  "CRATE_H": 10.7,
+  "MAX_STACK": 5
+}
