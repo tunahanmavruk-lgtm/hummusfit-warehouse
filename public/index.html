@@ -34,10 +34,18 @@
   .zonehead .zt{font-size:14px;font-weight:800;display:flex;align-items:center;gap:10px;}
   .zonehead .swatch{width:10px;height:10px;border-radius:50%;}
   .zonehead .zsub{font-size:12px;color:var(--dim);font-weight:700;}
-  .zonebody{display:flex;flex-wrap:wrap;gap:12px;padding:18px;}
+  .zonebody{padding:18px;}
   .zonebody.dragover{background:#f2fbf9;}
+  .rowgroup{margin-bottom:18px;}
+  .rowgroup:last-child{margin-bottom:0;}
+  .rowlabel{font-size:11px;font-weight:800;color:var(--dim);letter-spacing:.06em;margin-bottom:8px;text-transform:uppercase;}
+  .rowcards{display:flex;flex-wrap:wrap;gap:12px;}
 
-  .cat-muffin{--catclr:#2BBFAA;} .cat-oats{--catclr:#5b7fa6;} .cat-snack{--catclr:#59c9b8;} .cat-meal{--catclr:#1a1f2b;}
+  .cat-muffin{--catclr:#2BBFAA;} .cat-oats{--catclr:#6a6fb8;} .cat-snack{--catclr:#9b6fd6;} .cat-meal{--catclr:#1a1f2b;}
+
+  .searchbar{margin-bottom:16px;}
+  .searchbar input{width:100%;padding:14px 16px;font-size:15px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;background:#fff;}
+  .searchbar input:focus{outline:none;border-color:var(--teal);}
 
   .lane{
     width:168px;background:#fff;border:1.5px solid var(--line);border-left:5px solid var(--catclr,var(--line));
@@ -46,12 +54,14 @@
   }
   .lane:hover{box-shadow:0 4px 14px rgba(17,20,23,.08);}
   .lane.dragging{opacity:.35;}
+  .lane.dimmed{opacity:.25;}
   .lane.empty{border-style:dashed;color:var(--dim);cursor:pointer;}
   .lane.low{border-color:var(--orange);background:#fff8f5;}
   .lane .code{font-size:10.5px;font-weight:800;color:var(--dim);letter-spacing:.04em;}
   .lane .pname{font-size:13.5px;font-weight:700;line-height:1.3;margin:6px 0;color:var(--ink);}
   .lane .crates{font-size:11.5px;font-weight:800;color:var(--teal);}
   .lane .crates.low{color:var(--orange);}
+  .lane .crates.unstocked{color:var(--dim);font-weight:700;}
 
   .panel{position:fixed;inset:0;background:rgba(17,20,23,.45);display:none;align-items:flex-end;justify-content:center;z-index:100;}
   .panel.open{display:flex;}
@@ -117,9 +127,18 @@ async function loadAll(){
   renderRestock();
 }
 
+// A lane only counts as an actionable "LOW" alert once it has actually been
+// stocked at least once and has since run down — not on day one when nothing
+// has been physically put away yet. Otherwise every lane reads as urgent,
+// which trains people to ignore the warning entirely.
 function laneIsLow(l){
-  return l.product_id && l.crates_current <= 1;
+  return l.product_id && l.ever_stocked && l.crates_current <= 1;
 }
+function laneIsUnstocked(l){
+  return l.product_id && !l.ever_stocked;
+}
+
+let floorSearch = '';
 
 function renderFloor(){
   const el = document.getElementById('view-floor');
@@ -127,10 +146,29 @@ function renderFloor(){
     {key:'bakery', label:'Bakery & Snacks', color:'var(--teal)', sub:'Muffins · Oats · Bars — velocity sorted'},
     {key:'meals', label:'Meals', color:'var(--ink)', sub:'Bowls · wraps · proteins — velocity sorted'}
   ];
-  el.innerHTML = sections.map(s => {
+  const q = floorSearch.trim().toLowerCase();
+
+  el.innerHTML = `
+    <div class="searchbar">
+      <input type="text" id="floorSearchInput" placeholder="Search a product or lane code (e.g. K1-05, Blueberry)…" value="${floorSearch.replace(/"/g,'&quot;')}">
+    </div>
+  ` + sections.map(s => {
+    // Physical position order (row, then position-in-row) — NOT re-sorted by
+    // velocity here. The lane's code already encodes the correct order (golden
+    // zone + order-affinity clustering, computed server-side from real order
+    // data in build_slotting.py). Re-sorting client-side by blended u30 would
+    // silently throw that work away and show cards in the wrong physical spot.
     const zoneLanes = lanes.filter(l=>l.section===s.key)
-      .sort((a,b)=> (b.u30||0) - (a.u30||0) || a.code.localeCompare(b.code));
+      .sort((a,b)=> (a.row_num - b.row_num) || (a.position_num - b.position_num));
+    const rows = {};
+    zoneLanes.forEach(l => { (rows[l.row_num] = rows[l.row_num] || []).push(l); });
     const buffinMark = s.key === 'bakery' ? `<img src="/assets/buffin-logo.png" alt="Buffin Bakery" class="buffinmark">` : '';
+    const rowHtml = Object.keys(rows).sort().map(rn => `
+      <div class="rowgroup">
+        <div class="rowlabel">Row ${rows[rn][0].code.split('-')[0]}</div>
+        <div class="rowcards">${rows[rn].map(l => laneCard(l, q)).join('')}</div>
+      </div>
+    `).join('');
     return `
       <div class="section-block">
         <div class="zonepanel">
@@ -139,12 +177,20 @@ function renderFloor(){
             <div class="zsub">${s.sub}</div>
           </div>
           <div class="zonebody" data-section="${s.key}">
-            ${zoneLanes.map(laneCard).join('')}
+            ${rowHtml}
           </div>
         </div>
       </div>
     `;
   }).join('');
+
+  document.getElementById('floorSearchInput').addEventListener('input', e => {
+    floorSearch = e.target.value;
+    renderFloor();
+    document.getElementById('floorSearchInput').focus();
+    const input = document.getElementById('floorSearchInput');
+    input.setSelectionRange(input.value.length, input.value.length);
+  });
 
   el.querySelectorAll('.lane').forEach(card => {
     card.addEventListener('click', () => openAssignSheet(Number(card.dataset.id)));
@@ -175,14 +221,21 @@ function catClass(category){
   return '';
 }
 
-function laneCard(l){
+function laneCard(l, q){
   const low = laneIsLow(l);
-  const cls = ['lane', catClass(l.category), l.product_id ? '' : 'empty', low ? 'low' : ''].join(' ').trim();
+  const unstocked = laneIsUnstocked(l);
+  const matches = !q || l.code.toLowerCase().includes(q) || (l.product_name||'').toLowerCase().includes(q);
+  const cls = ['lane', catClass(l.category), l.product_id ? '' : 'empty', low ? 'low' : '', q && !matches ? 'dimmed' : ''].join(' ').trim();
+  let stockLine = '';
+  if (l.product_id) {
+    if (unstocked) stockLine = `<div class="crates unstocked">Not stocked yet</div>`;
+    else stockLine = `<div class="crates ${low?'low':''}">${l.crates_current} / ${l.max_stack} crates${low?' · LOW':''}</div>`;
+  }
   return `
     <div class="${cls}" data-id="${l.id}">
       <div class="code">${l.code}</div>
       <div class="pname">${l.product_name ? l.product_name : 'Empty — tap to assign'}</div>
-      ${l.product_id ? `<div class="crates ${low?'low':''}">${l.crates_current} / ${l.max_stack} crates${low?' · LOW':''}</div>` : ''}
+      ${stockLine}
     </div>
   `;
 }
@@ -254,6 +307,7 @@ function closePanel(){
 function renderRestock(){
   const el = document.getElementById('view-restock');
   const low = lanes.filter(laneIsLow);
+  const unstocked = lanes.filter(laneIsUnstocked);
   const active = lanes.filter(l => l.product_id);
 
   el.innerHTML = `
@@ -265,12 +319,17 @@ function renderRestock(){
           <div class="name">${l.product_name}</div>
           <div class="badge">${l.crates_current} left</div>
         </div>
-      `).join('')}</div>` : `<div class="empty-msg">Nothing low right now</div>`}
+      `).join('')}</div>` : `<div class="empty-msg">Nothing running low right now</div>`}
     </div>
+    ${unstocked.length ? `
+    <div class="section-block">
+      <div class="section-title">Not Yet Stocked — ${unstocked.length}</div>
+      <div class="empty-msg" style="padding:16px;text-align:left;">These lanes are assigned a product but have never been filled. Not urgent — this is expected until initial stocking happens.</div>
+    </div>` : ''}
     <div class="section-block">
       <div class="section-title">All Lanes — Tap to Restock</div>
       <div class="rowgrid">
-        ${active.map(laneCard).join('')}
+        ${active.map(l => laneCard(l)).join('')}
       </div>
     </div>
     <div class="section-block">
