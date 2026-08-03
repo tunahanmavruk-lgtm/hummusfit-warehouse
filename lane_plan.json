@@ -5,811 +5,892 @@
         "code": "K1-01",
         "product": "Buffin Muffin - Apple Pie-Ceps",
         "category": "muffin",
-        "daily_avg": 103.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 368.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 5
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "K1-02",
         "product": "Buffin Muffin - Banana Choc. Chip",
         "category": "muffin",
-        "daily_avg": 33.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 164.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K1-03",
         "product": "Buffin Muffin - Banana Cream Protein Dream",
         "category": "muffin",
-        "daily_avg": 73.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 237.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-04",
         "product": "Buffin Muffin - Blueberry",
         "category": "muffin",
-        "daily_avg": 58.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 146.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K1-05",
         "product": "Buffin Muffin - Boston Chocolate Creme",
         "category": "muffin",
-        "daily_avg": 47.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 210.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-06",
         "product": "Buffin Muffin - Buff Roll",
         "category": "muffin",
-        "daily_avg": 112.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 307.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 5
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-07",
         "product": "Buffin Muffin - Buff Served",
         "category": "muffin",
-        "daily_avg": 66.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 140.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "K1-08",
         "product": "Buffin Muffin - Buffcoff",
         "category": "muffin",
-        "daily_avg": 60.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 203.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-09",
         "product": "Buffin Muffin - ChocoLIT",
         "category": "muffin",
-        "daily_avg": 72.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 235.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-10",
         "product": "Buffin Muffin - Cinna Blast",
         "category": "muffin",
-        "daily_avg": 44.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 217.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-11",
         "product": "Buffin Muffin - Cookie Butter Tres Leches",
         "category": "muffin",
-        "daily_avg": 59.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 222.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-12",
         "product": "Buffin Muffin - Cookies and Cream Crunch",
         "category": "muffin",
-        "daily_avg": 12.0062,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 78.1,
+        "demand_source": "real (Shopify Online Store, 7-day avg -- no 90d history, likely new item)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K1-13",
         "product": "Buffin Muffin - Double Chocolate Brownie",
         "category": "muffin",
-        "daily_avg": 53.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 231.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-14",
         "product": "Buffin Muffin - German Chocolate Cake",
         "category": "muffin",
-        "daily_avg": 54.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 195.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-15",
         "product": "Buffin Muffin - Gluten Free Confetti Pop",
         "category": "muffin",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 50.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "K1-16",
         "product": "Buffin Muffin - Gluten Free Cookies and Milk",
         "category": "muffin",
-        "daily_avg": 32.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 158.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 7,
+        "max_stack": 7
       },
       {
         "code": "K1-17",
         "product": "Buffin Muffin - Strawberry Buff Blast",
         "category": "muffin",
-        "daily_avg": 82.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 285.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "K1-18",
         "product": "Buffin Muffin - Strawberry Crunch Milkshake",
         "category": "muffin",
-        "daily_avg": 139.0,
-        "demand_source": "real",
-        "divergence_flag": false,
+        "daily_avg": 83.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": true,
         "cap": 24,
-        "crates_needed": 6
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K1-19",
         "product": "Buffin Muffin - Strawberry Crunch Milkshake",
         "category": "muffin",
-        "daily_avg": 139.0,
-        "demand_source": "real",
-        "divergence_flag": false,
+        "daily_avg": 83.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": true,
         "cap": 24,
-        "crates_needed": 6
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K1-20",
         "product": "Buffin Muffin - TwistBar",
         "category": "muffin",
-        "daily_avg": 74.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 284.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "K1-21",
         "product": "Buffin Muffin - Welcome to the Sno",
         "category": "muffin",
-        "daily_avg": 27.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 120.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "K1-22",
         "product": "Buffin Muffin - Apple Pie-Ceps",
         "category": "muffin",
-        "daily_avg": 103.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 368.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 5
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-23",
         "product": "Buffin Muffin - Apple Pie-Ceps",
         "category": "muffin",
-        "daily_avg": 103.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 368.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 5
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K1-24",
         "product": "Buffin Muffin - Buff Roll",
         "category": "muffin",
-        "daily_avg": 112.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 307.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 5
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K1-25",
         "product": "Buffin Muffin - Buff Roll",
         "category": "muffin",
-        "daily_avg": 112.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 307.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 5
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K1-26",
         "product": "Buffin Muffin - Blueberry",
         "category": "muffin",
-        "daily_avg": 58.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 146.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "K1-27",
         "product": "Buffin Muffin - Strawberry Crunch Milkshake",
         "category": "muffin",
-        "daily_avg": 139.0,
-        "demand_source": "real",
-        "divergence_flag": false,
+        "daily_avg": 83.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": true,
         "cap": 24,
-        "crates_needed": 6
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-01",
         "product": "Buffin Muffin - Strawberry Crunch Milkshake",
         "category": "muffin",
-        "daily_avg": 139.0,
-        "demand_source": "real",
-        "divergence_flag": false,
+        "daily_avg": 83.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": true,
         "cap": 24,
-        "crates_needed": 6
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-02",
         "product": "Buffin Muffin - Double Chocolate Brownie",
         "category": "muffin",
-        "daily_avg": 53.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 231.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K2-03",
         "product": "Buffin Muffin - Strawberry Buff Blast",
         "category": "muffin",
-        "daily_avg": 82.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 285.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "K2-04",
         "product": "Buffin Muffin - Cookie Butter Tres Leches",
         "category": "muffin",
-        "daily_avg": 59.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 222.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K2-05",
         "product": "Buffin Muffin - German Chocolate Cake",
         "category": "muffin",
-        "daily_avg": 54.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 195.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K2-06",
         "product": "Buffin Muffin - ChocoLIT",
         "category": "muffin",
-        "daily_avg": 72.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 235.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K2-07",
         "product": "Buffin Muffin - TwistBar",
         "category": "muffin",
-        "daily_avg": 74.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 284.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "K2-08",
         "product": "Buffin Muffin - Banana Choc. Chip",
         "category": "muffin",
-        "daily_avg": 33.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 164.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "K2-09",
         "product": "Buffin Muffin - Buff Served",
         "category": "muffin",
-        "daily_avg": 66.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 140.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "K2-10",
         "product": "Buffin Muffin - Boston Chocolate Creme",
         "category": "muffin",
-        "daily_avg": 47.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 210.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K2-11",
         "product": "Buffin Muffin - Cinna Blast",
         "category": "muffin",
-        "daily_avg": 44.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 217.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K2-12",
         "product": "Buffin Muffin - Banana Cream Protein Dream",
         "category": "muffin",
-        "daily_avg": 73.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 237.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "K2-13",
         "product": "Buffin Muffin - Buffcoff",
         "category": "muffin",
-        "daily_avg": 60.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 203.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K2-14",
         "product": "3 Banana Chocolate Protein Poppers",
         "category": "snack",
-        "daily_avg": 3.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 73.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "K2-15",
         "product": "Overnight Oats - Banana Chocolate Chip",
         "category": "oats",
-        "daily_avg": 4.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 34.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "K2-16",
         "product": "Overnight Oats - Blueberry Muffin",
         "category": "oats",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 50.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-17",
         "product": "Overnight Oats - Cannoli",
         "category": "oats",
-        "daily_avg": 7.179499999999999,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 25.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-18",
         "product": "Buff Crisp Bar - Chocolate",
         "category": "snack",
-        "daily_avg": 4.7056,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 20.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-19",
         "product": "Overnight Oats - Chocolate Peanut Butter",
         "category": "oats",
-        "daily_avg": 12.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 44.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-20",
         "product": "Buff Crisp Bar - Cinna Crunch",
         "category": "snack",
-        "daily_avg": 20.82343333333333,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 81.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-21",
         "product": "Overnight Oats - Cookie Creme",
         "category": "oats",
-        "daily_avg": 10.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 44.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-22",
         "product": "Overnight Oats - Cookie Dough",
         "category": "oats",
-        "daily_avg": 6.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 35.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-23",
         "product": "Overnight Oats - Cookies n Cream",
         "category": "oats",
-        "daily_avg": 2.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 33.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "K2-24",
         "product": "Overnight Oats - Dubai Chocolate",
         "category": "oats",
-        "daily_avg": 4.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 46.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "K2-25",
         "product": "Overnight Oats - Fitella",
         "category": "oats",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 41.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-26",
         "product": "Buff Crisp Bar - Fruity Cereal",
         "category": "snack",
-        "daily_avg": 11.752466666666667,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 50.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K2-27",
         "product": "Overnight Oats - Graham Fetti",
         "category": "oats",
-        "daily_avg": 6.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 48.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-01",
         "product": "Buff Crisp Bar - Original Recipe",
         "category": "snack",
-        "daily_avg": 15.316266666666666,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 62.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-02",
         "product": "Overnight Oats - Peanut Butter & Jelly",
         "category": "oats",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 38.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-03",
         "product": "Overnight Oats - Peanut Butter Brownie",
         "category": "oats",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 42.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-04",
         "product": "Peanut Butter Chocolate Gree-Yo",
         "category": "snack",
-        "daily_avg": 27.887599999999996,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 100.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "K3-05",
         "product": "Peanut Butter Energy Bites",
         "category": "snack",
-        "daily_avg": 4.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 71.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "K3-06",
         "product": "Protein Chocolate Pudding",
         "category": "snack",
-        "daily_avg": 19.9469,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 72.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-07",
         "product": "S'Mores Gree-Yo",
         "category": "snack",
-        "daily_avg": 14.658866666666666,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 50.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-08",
         "product": "Overnight Oats - Toast n' Crunch",
         "category": "oats",
-        "daily_avg": 3.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 29.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "K3-09",
         "product": "Overnight Oats - Graham Fetti",
         "category": "oats",
-        "daily_avg": 6.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 48.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-10",
         "product": "Overnight Oats - Blueberry Muffin",
         "category": "oats",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 50.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-11",
         "product": "Overnight Oats - Blueberry Muffin",
         "category": "oats",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 50.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-12",
         "product": "Overnight Oats - Fitella",
         "category": "oats",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 41.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-13",
         "product": "Overnight Oats - Cannoli",
         "category": "oats",
-        "daily_avg": 7.179499999999999,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 25.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-14",
         "product": "Overnight Oats - Chocolate Peanut Butter",
         "category": "oats",
-        "daily_avg": 12.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 44.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-15",
         "product": "Overnight Oats - Peanut Butter Brownie",
         "category": "oats",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 42.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-16",
         "product": "Overnight Oats - Cookie Creme",
         "category": "oats",
-        "daily_avg": 10.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 44.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-17",
         "product": "Overnight Oats - Peanut Butter & Jelly",
         "category": "oats",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 38.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-18",
         "product": "Overnight Oats - Cookie Dough",
         "category": "oats",
-        "daily_avg": 6.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 35.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-19",
         "product": "Buff Crisp Bar - Cinna Crunch",
         "category": "snack",
-        "daily_avg": 20.82343333333333,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 81.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-20",
         "product": "Buff Crisp Bar - Cinna Crunch",
         "category": "snack",
-        "daily_avg": 20.82343333333333,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 81.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-21",
         "product": "Buff Crisp Bar - Original Recipe",
         "category": "snack",
-        "daily_avg": 15.316266666666666,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 62.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-22",
         "product": "Buff Crisp Bar - Fruity Cereal",
         "category": "snack",
-        "daily_avg": 11.752466666666667,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 50.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 48,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-23",
         "product": "Peanut Butter Chocolate Gree-Yo",
         "category": "snack",
-        "daily_avg": 27.887599999999996,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 100.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-24",
         "product": "Peanut Butter Chocolate Gree-Yo",
         "category": "snack",
-        "daily_avg": 27.887599999999996,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 100.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-25",
         "product": "S'Mores Gree-Yo",
         "category": "snack",
-        "daily_avg": 14.658866666666666,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 50.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-26",
         "product": "Protein Chocolate Pudding",
         "category": "snack",
-        "daily_avg": 19.9469,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 72.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "K3-27",
         "product": "Protein Chocolate Pudding",
         "category": "snack",
-        "daily_avg": 19.9469,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 72.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 28,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       }
     ],
     "overflow_lane_slots_dropped": 0,
@@ -836,811 +917,892 @@
         "code": "M1-01",
         "product": "6-Guys Patty Melt",
         "category": "meal",
-        "daily_avg": 30.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 100.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-02",
         "product": "Arnold 2022 Bowl",
         "category": "meal",
-        "daily_avg": 19.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 106.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-03",
         "product": "Baja Chicken Tacos",
         "category": "meal",
-        "daily_avg": 70.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 163.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 7,
+        "max_stack": 7
       },
       {
         "code": "M1-04",
         "product": "Baked Herbed Tilapia (1lb Competition Approved)",
         "category": "meal",
-        "daily_avg": 2.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 9.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M1-05",
         "product": "BBQ Chicken Garlic Parm Potatoes",
         "category": "meal",
-        "daily_avg": 83.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 237.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-06",
         "product": "BBQ Chicken Mac Bowl",
         "category": "meal",
-        "daily_avg": 48.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 112.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-07",
         "product": "BBQ Meltdown",
         "category": "meal",
-        "daily_avg": 35.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 89.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M1-08",
         "product": "Blueberry French Toast",
         "category": "meal",
-        "daily_avg": 15.235533333333331,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 60.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M1-09",
         "product": "Breakfast Burrito",
         "category": "meal",
-        "daily_avg": 21.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 89.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M1-10",
         "product": "Brookfield Chicken Bowl",
         "category": "meal",
-        "daily_avg": 32.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 126.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M1-11",
         "product": "Broritto Burrito",
         "category": "meal",
-        "daily_avg": 71.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 275.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M1-12",
         "product": "Buffalo Chicken Meatballs",
         "category": "meal",
-        "daily_avg": 19.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 105.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-13",
         "product": "Buffalo Chicken Quesadilla",
         "category": "meal",
-        "daily_avg": 60.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 123.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M1-14",
         "product": "Buffalo Crispy Chicken Wrap",
         "category": "meal",
-        "daily_avg": 11.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 120.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M1-15",
         "product": "Buffalo Mac N Chicken",
         "category": "meal",
-        "daily_avg": 33.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 96.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-16",
         "product": "Chicken Mushroom Pot Stickers",
         "category": "meal",
-        "daily_avg": 23.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 57.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M1-17",
         "product": "Chicken Stir Fry",
         "category": "meal",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 95.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M1-18",
         "product": "Chicken Taco Bowl",
         "category": "meal",
-        "daily_avg": 29.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 120.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M1-19",
         "product": "Chipotle Chicken (1lb Competition Approved)",
         "category": "meal",
-        "daily_avg": 19.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 94.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M1-20",
         "product": "Cinnamon Roll Pancakes",
         "category": "meal",
-        "daily_avg": 12.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 66.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M1-21",
         "product": "Closed on Sunday Crispy Chicken Bowl",
         "category": "meal",
-        "daily_avg": 81.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 112.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M1-22",
         "product": "Club Wrap",
         "category": "meal",
-        "daily_avg": 19.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 99.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-23",
         "product": "Competition Approved 90/10 Lean Ground Beef (1lb)",
         "category": "meal",
-        "daily_avg": 9.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 28.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M1-24",
         "product": "Competition Approved Baked Sweet Potato Fries (1lb)",
         "category": "meal",
-        "daily_avg": 4.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 38.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M1-25",
         "product": "Competition Approved Chicken Kebab (1lb)",
         "category": "meal",
-        "daily_avg": 13.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 40.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M1-26",
         "product": "Competition Approved Grilled Chicken (1lb)",
         "category": "meal",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 108.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M1-27",
         "product": "Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)",
         "category": "meal",
-        "daily_avg": 13.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 63.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M2-01",
         "product": "Competition Approved Grilled Flank Steak (1lb)",
         "category": "meal",
-        "daily_avg": 16.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 46.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M2-02",
         "product": "Competition Approved Lemon Pepper Salmon (1lb)",
         "category": "meal",
-        "daily_avg": 3.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 19.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M2-03",
         "product": "Competition Approved Oven Baked Cod (1lb)",
         "category": "meal",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 14.0,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M2-04",
         "product": "Competition Approved Sticky Rice (1lb)",
         "category": "meal",
-        "daily_avg": 8.949866666666667,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 33.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M2-05",
         "product": "Competition Approved White Basmati Rice (1lb)",
         "category": "meal",
-        "daily_avg": 5.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 21.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M2-06",
         "product": "Crispy Baked Chicken Wrap",
         "category": "meal",
-        "daily_avg": 46.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 191.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 8,
+        "max_stack": 7
       },
       {
         "code": "M2-07",
         "product": "Crispy Vegan Wrap",
         "category": "meal",
-        "daily_avg": 2.3239666666666667,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 8.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M2-08",
         "product": "Farfalle & Chicken Alfredo",
         "category": "meal",
-        "daily_avg": 61.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 110.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-09",
         "product": "Fit Ala Vodka With Chicken",
         "category": "meal",
-        "daily_avg": 23.914366666666663,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 98.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-10",
         "product": "Fit-Fil-A",
         "category": "meal",
-        "daily_avg": 43.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 92.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M2-11",
         "product": "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice",
         "category": "meal",
-        "daily_avg": 32.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 110.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-12",
         "product": "Gluten Free Carbonara Chicken",
         "category": "meal",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 78.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M2-13",
         "product": "Grilled Chicken Parmesan Wrap",
         "category": "meal",
-        "daily_avg": 40.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 122.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M2-14",
         "product": "Grilled Chicken Pesto Wrap",
         "category": "meal",
-        "daily_avg": 18.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 111.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-15",
         "product": "Herb Butter Steak Tips Bowl",
         "category": "meal",
-        "daily_avg": 54.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 156.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 7,
+        "max_stack": 7
       },
       {
         "code": "M2-16",
         "product": "Hey Arnold! Burrito",
         "category": "meal",
-        "daily_avg": 49.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 118.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-17",
         "product": "HFit Signature Fold",
         "category": "meal",
-        "daily_avg": 60.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 120.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M2-18",
         "product": "Honey Garlic Crispy Chicken Tacos",
         "category": "meal",
         "daily_avg": 0.0,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "demand_source": "no recent Shopify sales (Online Store) -- floor 1 crate",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M2-19",
         "product": "Hot Honey Steak & Mac",
         "category": "meal",
-        "daily_avg": 28.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 90.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M2-20",
         "product": "Keto Ricotta Meatballs",
         "category": "meal",
-        "daily_avg": 15.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 86.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M2-21",
         "product": "Lo Mein Teriyaki Steak",
         "category": "meal",
-        "daily_avg": 42.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 118.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-22",
         "product": "Low Carb Keto Cheeseburger Bowl",
         "category": "meal",
-        "daily_avg": 21.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 88.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M2-23",
         "product": "Meatball Parmesan Wrap",
         "category": "meal",
-        "daily_avg": 34.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 115.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M2-24",
         "product": "MsWendy Buff Nuggets",
         "category": "meal",
-        "daily_avg": 22.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 88.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M2-25",
         "product": "Nacho Average Bowl",
         "category": "meal",
-        "daily_avg": 30.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 67.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M2-26",
         "product": "Nacho Average Vegan Bowl",
         "category": "meal",
-        "daily_avg": 3.212033333333333,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 11.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M2-27",
         "product": "Peanut Butter & Jelly Sandwich",
         "category": "meal",
-        "daily_avg": 8.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 65.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M3-01",
         "product": "Philly Cheesesteak Quesadilla",
         "category": "meal",
-        "daily_avg": 48.0,
-        "demand_source": "real",
-        "divergence_flag": false,
+        "daily_avg": 13.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": true,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M3-02",
         "product": "Pineapple Teriyaki Meatballs",
         "category": "meal",
-        "daily_avg": 7.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 57.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M3-03",
         "product": "Rigatoni & Meatballs",
         "category": "meal",
-        "daily_avg": 31.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 113.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-04",
         "product": "Soho Steak Bowl",
         "category": "meal",
-        "daily_avg": 15.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 88.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M3-05",
         "product": "Southwest Chicken Bowl",
         "category": "meal",
-        "daily_avg": 20.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 112.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-06",
         "product": "Southwest Chicken Quesadilla",
         "category": "meal",
-        "daily_avg": 28.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 88.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M3-07",
         "product": "Spicy Buffalo Wrap",
         "category": "meal",
-        "daily_avg": 53.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 150.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 7,
+        "max_stack": 7
       },
       {
         "code": "M3-08",
         "product": "Stacked and Jacked",
         "category": "meal",
-        "daily_avg": 41.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 116.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-09",
         "product": "Strawberry Protein French Toast",
         "category": "meal",
-        "daily_avg": 28.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 61.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 3,
+        "max_stack": 7
       },
       {
         "code": "M3-10",
         "product": "Strongsville Chicken Ranch Fold",
         "category": "meal",
-        "daily_avg": 45.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 112.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-11",
         "product": "Taco Build Quesadilla",
         "category": "meal",
-        "daily_avg": 55.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 127.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M3-12",
         "product": "Teriyaki Flank Bowl",
         "category": "meal",
-        "daily_avg": 26.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 105.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-13",
         "product": "Texas Queso Steak Bowl",
         "category": "meal",
-        "daily_avg": 59.0,
-        "demand_source": "real",
-        "divergence_flag": false,
+        "daily_avg": 31.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": true,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M3-14",
         "product": "TexMex Potato Hash",
         "category": "meal",
-        "daily_avg": 26.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 104.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-15",
         "product": "Thai Chili Chicken",
         "category": "meal",
-        "daily_avg": 9.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 126.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M3-16",
         "product": "The Arches Mac Daddy Wrap",
         "category": "meal",
-        "daily_avg": 21.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 36.7,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M3-17",
         "product": "The Clean Bulk Pasta Bowl",
         "category": "meal",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 81.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M3-18",
         "product": "Turkey Bacon Cheddar Egg Muffins",
         "category": "meal",
-        "daily_avg": 3.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 28.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 2,
+        "max_stack": 7
       },
       {
         "code": "M3-19",
         "product": "Vegan Breakfast Sandwich",
         "category": "meal",
-        "daily_avg": 2.3182,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "daily_avg": 7.4,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M3-20",
         "product": "Vegan Cheeseburger Bowl",
         "category": "meal",
-        "daily_avg": 2.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 10.8,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M3-21",
         "product": "Vegan Chorizo Quesadilla",
         "category": "meal",
-        "daily_avg": 1.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 10.1,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M3-22",
         "product": "West Coast Secret Sauce Bowl",
         "category": "meal",
         "daily_avg": 0.0,
-        "demand_source": "blended x0.173 correction (no real-order match)",
+        "demand_source": "no recent Shopify sales (Online Store) -- floor 1 crate",
         "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 1,
+        "max_stack": 7
       },
       {
         "code": "M3-23",
         "product": "Zeus Bowl",
         "category": "meal",
-        "daily_avg": 34.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 157.5,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 2
+        "crates_needed": 7,
+        "max_stack": 7
       },
       {
         "code": "M3-24",
         "product": "Zeus Bowl V2",
         "category": "meal",
-        "daily_avg": 24.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 88.9,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 1
+        "crates_needed": 4,
+        "max_stack": 7
       },
       {
         "code": "M3-25",
         "product": "BBQ Chicken Garlic Parm Potatoes",
         "category": "meal",
-        "daily_avg": 83.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 237.2,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 5,
+        "max_stack": 7
       },
       {
         "code": "M3-26",
         "product": "Broritto Burrito",
         "category": "meal",
-        "daily_avg": 71.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 275.6,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 3
+        "crates_needed": 6,
+        "max_stack": 7
       },
       {
         "code": "M3-27",
         "product": "Closed on Sunday Crispy Chicken Bowl",
         "category": "meal",
-        "daily_avg": 81.0,
-        "demand_source": "real",
-        "divergence_flag": true,
+        "daily_avg": 112.3,
+        "demand_source": "real (Shopify Online Store, 90-day trailing avg)",
+        "divergence_flag": false,
         "cap": 24,
-        "crates_needed": 4
+        "crates_needed": 2,
+        "max_stack": 7
       }
     ],
     "overflow_lane_slots_dropped": 0,

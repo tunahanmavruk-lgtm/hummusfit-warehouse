@@ -52,8 +52,8 @@ def legend_row_card(r):
     for l in lanes:
         color = CAT_COLOR.get(l['category'], '#767c85')
         flag = ''
-        if l['demand_source'] != 'real':
-            flag = '<span class="lc-flag" title="No real order match — corrected blended estimate">~</span>'
+        if l.get('divergence_flag'):
+            flag = '<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span>'
         cells.append(f'''<div class="lc-cell">
       <div class="lc-code" style="color:{color}">{esc(l['code'])}{flag}</div>
       <div class="lc-name">{esc(l['product'])}</div>
@@ -144,7 +144,7 @@ html_doc = f'''<!DOCTYPE html>
   </div>
 
   <h2>Product Legend — Every Lane, By Row</h2>
-  <p class="sub" style="margin-top:-10px;">Cross-references the lane codes on the drawing above. "~" next to a code means that lane's count is a corrected blended estimate — no real order for that product in the sample used.</p>
+  <p class="sub" style="margin-top:-10px;">Cross-references the lane codes on the drawing above. "~" next to a code means that lane's number diverges more than 2x between the last 7 days and the 90-day trailing average — worth a spot-check before trusting it blindly.</p>
   {legend_html}
 
   <div class="stackcard">
@@ -156,12 +156,14 @@ html_doc = f'''<!DOCTYPE html>
         <div class="crate pick">2</div>
         <div class="crate pick">3</div>
         <div class="crate pick">4</div>
-        <div class="crate reserve">5</div>
+        <div class="crate pick">5</div>
+        <div class="crate reserve">6</div>
+        <div class="crate reserve">7</div>
       </div>
       <div class="stacklabel">
-        Bottom 4 (teal) = active pick face, grabbed straight off without a stool.<br>
-        Top 1 (orange) = reserve only — restock crew brings it down when a pick-face crate empties.<br>
-        5 crates x 10.70" = 53.5" — clears the 10' ceiling with room for the lid-groove stacking mechanism.
+        Bottom 5 (teal) = active pick face, grabbed straight off without a stool.<br>
+        Top 2 (orange) = reserve only — restock crew brings it down when a pick-face crate empties.<br>
+        7 crates x 10.70" = 74.9" (6.2') — still clears the 10' ceiling with over 3' of headroom for the lid-groove stacking mechanism.
       </div>
     </div>
   </div>

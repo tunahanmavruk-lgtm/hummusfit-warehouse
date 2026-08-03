@@ -257,7 +257,7 @@ for r in ROW_CODES:
         add(f'<line x1="{cx}" y1="{strip_y0}" x2="{cx}" y2="{strip_y1}" stroke="{stroke}" stroke-width="0.4" opacity="0.25"/>')
         if lane:
             color = {'muffin': TEAL, 'oats': '#4C9BE8', 'snack': ORANGE, 'meal': INK}.get(lane['category'], stroke)
-            flag = ' ~' if lane['demand_source'] != 'real' else ''
+            flag = ' ~' if lane.get('divergence_flag') else ''
             label = esc(f'{p}. {short_name(lane["product"])}{flag}')
             ty = strip_y0 + 8
             add(f'<text x="{cx+4}" y="{ty}" transform="rotate(90 {cx+4} {ty})" text-anchor="start" font-size="7.4" font-weight="700" fill="{color}"><title>{esc(code + chr(45) + chr(45) + lane["product"])}</title>{label}</text>')

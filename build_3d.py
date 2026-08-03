@@ -39,7 +39,7 @@ for entry in g['layout']:
         cy = (y0 + y1) / 2
         if lane:
             color = CAT_COLOR.get(lane['category'], '#767c85')
-            stack = min(5, lane['crates_needed'])
+            stack = min(7, lane['crates_needed'])
             product = lane['product'].replace("'", "\\'")
             crates_js.append(
                 f"{{code:'{code}',row:'{r}',sec:'{sec}',x:{cx:.2f},y:{cy:.2f},"
@@ -119,7 +119,7 @@ html = f'''<!DOCTYPE html>
   <div id="labelLayer"></div>
   <div class="panel" id="panel">
     <h3>Tap a crate stack</h3>
-    <p class="hint">Every colored block is a stocked lane, sized to its real crate count (capped at the 5-crate max stack). Gaps are empty floor positions. Click one to see what goes there.</p>
+    <p class="hint">Every colored block is a stocked lane, sized to its real crate count (capped at the 7-crate max stack). Gaps are empty floor positions. Click one to see what goes there.</p>
   </div>
   <div class="legend">
     <div class="item"><span class="dot" style="background:#2BBFAA"></span>Muffin</div>
