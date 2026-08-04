@@ -2,34 +2,33 @@
 Builds lane_plan.json: which product goes in which physical lane, and how
 many crates it gets.
 
-REWRITTEN per direct feedback: the previous version sorted the entire
-catalog by a single Monday's order velocity and packed products into lanes
-starting from the fastest mover — which quietly left an ENTIRE row (K3, 27
-positions) completely empty once it ran out of "important enough" products,
-and jumbled muffins/oats/snacks together in velocity order instead of
-giving each product line its own findable home.
+REWRITTEN per direct feedback: this walk-in is for daily operational
+picking only — backstock lives in a separate part of the building. The
+previous version gave high-velocity products extra "backstock" lanes out
+of whatever floor space was left in a zone, which packed the room full
+but meant a picker saw the same product name repeated 2-4 times across
+different shelves with no explanation. That's confusing, not efficient.
 
-That's backwards for a room staff have to work in every day. The room now
-maps to the real, permanent structure of the catalog:
-  - Every product line gets its own contiguous, alphabetically-ordered zone
-    (all muffins together, all oats together, all snacks together, meals
-    on their own rows) — the same zone every day, not reshuffled by
-    whichever day's orders got sampled.
-  - Real order data (with the same 0.173 correction for the 17 products
-    that never appeared in the sample) still drives HOW MANY CRATES a lane
-    gets — that's legitimate inventory sizing, not shelf placement — so
-    high-volume items get more standing stock and get restocked less
-    often, without moving to a "better" location for it.
-  - Any leftover floor space in a zone (a category doesn't perfectly fill
-    its rows) goes to extra backstock capacity for that same zone's
-    products, round-robin — not to a different, empty-looking row.
+Current rules:
+  - Every product gets exactly ONE lane. Only exception: its daily need
+    (with buffer) physically doesn't fit in one lane's max stack — then,
+    and only then, it gets the minimum extra lanes required to hold that
+    day's volume, split evenly across them. That's a capacity fact, not
+    a backstock decision.
+  - Crates per lane = today's real daily demand (from Shopify) plus a
+    15% cushion, not a full extra day of stock. Enough to not run dry
+    mid-shift, not enough to be backstock.
+  - Every product line still gets its own contiguous, alphabetically
+    ordered zone (muffins together, oats+snacks together, meals on
+    their own rows) — that part of the design didn't change.
+  - Positions a zone doesn't need stay empty. No filling for the sake of
+    filling — an empty position is floor space you didn't need to use,
+    not a problem to solve.
 """
 import json, math, re
-from collections import defaultdict
 
 products = json.load(open('/home/claude/hummusfit-warehouse/products.json'))
-real_counts = json.load(open('/home/claude/hummusfit-warehouse/real_matched_counts.json'))
-by_name = {p['name']: p for p in products}
+demand = json.load(open('/home/claude/hummusfit-warehouse/products_demand_shopify.json'))
 
 def cap_for(p):
     if p['cat'] == 'meal': return 24
@@ -41,35 +40,34 @@ def cap_for(p):
         return 24
     return 24
 
-DAYS_COVER = 1
-MAX_STACK = 5
-NUM_REAL_ORDER_DAYS = 1
-UNMATCHED_CORRECTION = 0.173  # see build_slotting notes above / blueprint flaw #6-7
+MAX_STACK = 7      # confirmed vertical clearance for 7 crates under the 10' ceiling
+BAKERY_BUFFER = 0.15   # Bakery & Snacks has room to spare (58-62/81 positions at 0% buffer)
+MEALS_BUFFER = 0.0     # Meals is EXACTLY saturated by real demand at 0% buffer (81/81 -- any
+                        # cushion at all pushes it over capacity and starts dropping products)
 
 for p in products:
     p['cap'] = cap_for(p)
-    blended_daily = p['u30'] / 30.0
-    real_daily = real_counts.get(p['name'])
-    if real_daily is not None:
-        real_daily = real_daily / NUM_REAL_ORDER_DAYS
-        p['daily_avg'] = real_daily
-        p['demand_source'] = 'real'
-    else:
-        p['daily_avg'] = blended_daily * UNMATCHED_CORRECTION
-        p['demand_source'] = 'blended x0.173 correction (no real-order match)'
-    p['blended_daily'] = round(blended_daily, 1)
-    p['real_daily'] = round(real_daily, 1) if real_daily is not None else None
-    if real_daily is not None and blended_daily > 0:
-        ratio = real_daily / blended_daily
-        p['divergence_flag'] = ratio < 0.4 or ratio > 2.5
-    else:
-        p['divergence_flag'] = False
-    # crates/lanes are sized off real demand -> legitimate inventory sizing,
-    # not a placement decision.
-    p['crates_needed'] = max(1, math.ceil((p['daily_avg'] * DAYS_COVER) / p['cap']))
+    d = demand[p['name']]
+    p['daily_avg'] = d['daily_avg']
+    p['demand_source'] = d['demand_source']
+    p['divergence_flag'] = d['divergence_flag']
+    buffer = MEALS_BUFFER if p['cat'] == 'meal' else BAKERY_BUFFER
+    p['buffer_applied'] = buffer
+    # crates sized to real daily demand + a cushion -- this room holds ONE
+    # day's operational stock, not standing backstock.
+    p['crates_needed'] = max(1, math.ceil((p['daily_avg'] * (1 + buffer)) / p['cap']))
+    # lanes_needed is a capacity fact: how many physical lanes does it take
+    # to hold that many crates at MAX_STACK each. 1 for the overwhelming
+    # majority of products; >1 only for the handful whose daily crate need
+    # exceeds what a single lane can physically stack.
     p['lanes_needed'] = math.ceil(p['crates_needed'] / MAX_STACK)
 
-POSITIONS_PER_ROW = 27
+# Bakery rows (K1-K3) hold 35 positions/row now that crates there are
+# turned to their 15.70" side facing the aisle instead of the 21.65" side
+# -- more, narrower positions fit the same physical shelf run. Meals rows
+# (M1-M3) are unchanged at 27 positions/row (crates still 21.65" facing out).
+BAKERY_POSITIONS_PER_ROW = 35
+MEALS_POSITIONS_PER_ROW = 27
 
 def alpha_key(p):
     # sort by the meaningful part of the name (strip the shared line prefix)
@@ -79,62 +77,61 @@ def alpha_key(p):
     return name.lower()
 
 def build_zone(prods_in_zone, total_positions_for_zone):
-    """Alphabetical, category-stable placement. Every product gets its
-    base lane(s) first; any positions left over in the zone go to extra
-    backstock capacity — allocated PROPORTIONALLY to real daily demand
-    (largest-remainder apportionment), not a flat round-robin. A flat
-    round-robin was handing nearly every product exactly one extra lane
-    regardless of whether it actually sells enough to justify it — that's
-    not real inventory sizing, just a different way of ignoring demand.
-    This way the room's real movers get real backstock, low-volume items
-    stay at their base lane, and the zone still fills completely so no
-    row is left empty."""
+    """Alphabetical, category-stable placement. Every product gets exactly
+    the lanes its own daily volume requires -- nothing more. Whatever
+    positions are left over in the zone simply stay empty; this room is
+    sized for what a day of picking needs, not for filling every shelf."""
     ordered = sorted(prods_in_zone, key=alpha_key)
     expanded = []
     for p in ordered:
         for _ in range(p['lanes_needed']):
             expanded.append(p)
 
-    remaining = total_positions_for_zone - len(expanded)
-    if remaining > 0:
-        weight_total = sum(max(p['daily_avg'], 0.01) for p in prods_in_zone)
-        raw_shares = [(p, remaining * max(p['daily_avg'], 0.01) / weight_total) for p in prods_in_zone]
-        floor_counts = {id(p): int(share) for p, share in raw_shares}
-        allocated = sum(floor_counts.values())
-        leftover = remaining - allocated
-        # largest-remainder method: give the +1 lanes to whichever products
-        # had the biggest fractional share left over, until leftover is 0
-        remainders = sorted(raw_shares, key=lambda ps: -(ps[1] - int(ps[1])))
-        for p, share in remainders:
-            if leftover <= 0:
-                break
-            floor_counts[id(p)] += 1
-            leftover -= 1
-        bonus = []
-        for p in prods_in_zone:
-            bonus.extend([p] * floor_counts[id(p)])
-        expanded.extend(bonus)
     overflow = []
-    if remaining < 0:
-        # zone genuinely doesn't have room for every base lane (shouldn't
-        # happen at current catalog size, but don't silently drop product
-        # if the catalog grows past capacity)
+    if len(expanded) > total_positions_for_zone:
+        # shouldn't happen at current catalog size, but don't silently
+        # drop product if the catalog grows past physical capacity
         overflow = expanded[total_positions_for_zone:]
         expanded = expanded[:total_positions_for_zone]
     return expanded, overflow
 
+def split_crates_across_lanes(product_lane_group, total_crates):
+    """For the rare product that needs >1 lane just to physically hold its
+    daily volume, split the total evenly across its lanes rather than
+    showing the same full total on every one of them (which would make
+    each lane look like it needs the WHOLE product's daily crates)."""
+    n = len(product_lane_group)
+    base = total_crates // n
+    remainder = total_crates % n
+    return [max(1, base + (1 if i < remainder else 0)) for i in range(n)]
+
 def lanes_from_expanded(expanded, rows, positions_per_row):
     lanes = []
-    for idx, p in enumerate(expanded):
-        row_idx = idx // positions_per_row
-        pos = idx % positions_per_row + 1
-        code = f"{rows[row_idx]}-{pos:02d}"
-        lanes.append({
-            'code': code, 'product': p['name'], 'category': p['cat'],
-            'daily_avg': p['daily_avg'], 'demand_source': p['demand_source'],
-            'divergence_flag': p['divergence_flag'],
-            'cap': p['cap'], 'crates_needed': p['crates_needed'],
-        })
+    # group consecutive entries by product identity to split crates evenly
+    i = 0
+    n = len(expanded)
+    while i < n:
+        p = expanded[i]
+        j = i
+        while j < n and expanded[j] is p:
+            j += 1
+        group_size = j - i
+        per_lane_crates = split_crates_across_lanes(range(group_size), p['crates_needed'])
+        for k in range(group_size):
+            idx = i + k
+            row_idx = idx // positions_per_row
+            pos = idx % positions_per_row + 1
+            code = f"{rows[row_idx]}-{pos:02d}"
+            lanes.append({
+                'code': code, 'product': p['name'], 'category': p['cat'],
+                'daily_avg': p['daily_avg'], 'demand_source': p['demand_source'],
+                'divergence_flag': p['divergence_flag'],
+                'cap': p['cap'],
+                'crates_needed': per_lane_crates[k],
+                'max_stack': MAX_STACK,
+                'lane_of_product': f"{k+1} of {group_size}" if group_size > 1 else None,
+            })
+        i = j
     return lanes
 
 # ---- Bakery & Snacks (K1-K3, 81 positions): muffins get their own zone,
@@ -143,31 +140,28 @@ muffins = [p for p in products if p['cat'] == 'muffin']
 oats_snacks = [p for p in products if p['cat'] in ('oats', 'snack')]
 
 BAKERY_ROWS = ['K1', 'K2', 'K3']
-BAKERY_TOTAL = len(BAKERY_ROWS) * POSITIONS_PER_ROW  # 81
+BAKERY_TOTAL = len(BAKERY_ROWS) * BAKERY_POSITIONS_PER_ROW  # 105
 
-# Split the 81 positions between the two zones proportionally to how many
-# base lanes each needs, so muffins (more products) get more of the room
-# without hand-picking row boundaries.
-muffins_base = sum(p['lanes_needed'] for p in muffins)
-oats_snacks_base = sum(p['lanes_needed'] for p in oats_snacks)
-base_total = muffins_base + oats_snacks_base
-muffins_zone_size = round(BAKERY_TOTAL * muffins_base / base_total) if base_total else 0
-oats_snacks_zone_size = BAKERY_TOTAL - muffins_zone_size
+# Muffins zone gets exactly the lanes muffins need; oats+snacks zone gets
+# exactly the lanes it needs, placed right after (no proportional padding
+# to fill 81 -- that was the backstock-by-another-name behavior).
+muffins_expanded, muffins_overflow = build_zone(muffins, BAKERY_TOTAL)
+oats_snacks_room_left = BAKERY_TOTAL - len(muffins_expanded)
+oats_snacks_expanded, oats_snacks_overflow = build_zone(oats_snacks, oats_snacks_room_left)
 
-muffins_expanded, muffins_overflow = build_zone(muffins, muffins_zone_size)
-oats_snacks_expanded, oats_snacks_overflow = build_zone(oats_snacks, oats_snacks_zone_size)
+muffins_zone_size = len(muffins_expanded)
+oats_snacks_zone_size = len(oats_snacks_expanded)
 
 bakery_expanded = muffins_expanded + oats_snacks_expanded
 bakery_overflow = muffins_overflow + oats_snacks_overflow
-bakery_lanes = lanes_from_expanded(bakery_expanded, BAKERY_ROWS, POSITIONS_PER_ROW)
+bakery_lanes = lanes_from_expanded(bakery_expanded, BAKERY_ROWS, BAKERY_POSITIONS_PER_ROW)
 
-# ---- Meals (M1-M3, 81 positions): one zone, alphabetical, 78 products
-# fill 78 of 81 positions on their own — no separate overflow row needed ----
+# ---- Meals (M1-M3, 81 positions): one zone, alphabetical ----
 meals = [p for p in products if p['cat'] == 'meal']
 MEALS_ROWS = ['M1', 'M2', 'M3']
-MEALS_TOTAL = len(MEALS_ROWS) * POSITIONS_PER_ROW  # 81
+MEALS_TOTAL = len(MEALS_ROWS) * MEALS_POSITIONS_PER_ROW  # 81
 meals_expanded, meals_overflow = build_zone(meals, MEALS_TOTAL)
-meals_lanes = lanes_from_expanded(meals_expanded, MEALS_ROWS, POSITIONS_PER_ROW)
+meals_lanes = lanes_from_expanded(meals_expanded, MEALS_ROWS, MEALS_POSITIONS_PER_ROW)
 
 lane_plan = {
     'bakery': {
@@ -199,5 +193,10 @@ for sec, d in lane_plan.items():
     for z in d['zones']:
         print('   zone:', z)
 
+multi_lane = [p for p in products if p['lanes_needed'] > 1]
+print(f'\nProducts needing >1 lane just to physically hold daily volume: {len(multi_lane)}')
+for p in multi_lane:
+    print(f"   {p['name']}: {p['crates_needed']} crates/day -> {p['lanes_needed']} lanes")
+
 diverged = [p for p in products if p['divergence_flag']]
-print('\nDivergence flags (real vs blended differ >2.5x or <0.4x):', len(diverged))
+print('\nDivergence flags (7d vs 90d Shopify averages differ >2x):', len(diverged))

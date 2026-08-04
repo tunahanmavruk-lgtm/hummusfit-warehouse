@@ -103,12 +103,13 @@ add(text_lines(rx0-16, (door_y0+door_y1)/2 - 6, ['DOOR', 'in / out'], anchor='en
 # the drawing (e.g. "K1-07" here = row K1, 7th tick from the left = the same
 # K1-07 row in the legend table). ----
 row_x0, row_x1 = g['row_x0'], g['row_x1']
-POSITIONS_PER_ROW = g['POSITIONS_PER_ROW']
+POS_BY_SECTION = g['positions_per_row_by_section']  # bakery rows now hold more, narrower positions than meals rows
 row_geom = {}  # row code -> (x0, x1, pos_w, stroke) for the tag-strip block below
 for entry in g['layout']:
     if 'row' in entry:
         r = entry['row']
         sec = g['row_section'][r]
+        POSITIONS_PER_ROW = POS_BY_SECTION[sec]
         fill = BAKERY_FILL if sec == 'bakery' else MEALS_FILL
         stroke = TEAL if sec == 'bakery' else INK
         x0, y0 = room_x(row_x0), room_y(entry['y0'])
@@ -120,10 +121,10 @@ for entry in g['layout']:
             px = x0 + p*pos_w
             add(f'<line x1="{px}" y1="{y0}" x2="{px}" y2="{y1}" stroke="{stroke}" stroke-width="0.4" opacity="0.35"/>')
         # position numbers + an occupied/empty dot so the drawing shows, at a
-        # glance, which of the 27 slots per row are actually assigned a
-        # product (vs. open floor space) without needing the legend table.
-        # Each dot also carries a native SVG tooltip (hover, on-screen only)
-        # and lines up exactly with its product tag in the strip below.
+        # glance, which slots per row are actually assigned a product (vs.
+        # open floor space) without needing the legend table. Each dot also
+        # carries a native SVG tooltip (hover, on-screen only) and lines up
+        # exactly with its product tag in the strip below.
         for p in range(1, POSITIONS_PER_ROW+1):
             cx = x0 + (p-0.5)*pos_w
             code = f'{r}-{p:02d}'
@@ -245,6 +246,7 @@ sy = strip_top
 for r in ROW_CODES:
     x0, x1, pos_w, stroke = row_geom[r]
     sec = g['row_section'][r]
+    POSITIONS_PER_ROW = POS_BY_SECTION[sec]
     fill = BAKERY_FILL if sec == 'bakery' else MEALS_FILL
     add(f'<text x="{x0}" y="{sy+STRIP_HEAD_H-8}" text-anchor="start" font-size="12" font-weight="800" fill="{stroke}">Row {r}</text>')
     strip_y0 = sy + STRIP_HEAD_H

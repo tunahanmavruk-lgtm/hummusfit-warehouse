@@ -1,163 +1,145 @@
-lane_code,product,category,crates_per_day,units_per_crate,daily_avg_units,max_stack,demand_source,divergence_flag
-K1-01,Buffin Muffin - Apple Pie-Ceps,muffin,6,24,368.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-02,Buffin Muffin - Banana Choc. Chip,muffin,4,24,164.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-03,Buffin Muffin - Banana Cream Protein Dream,muffin,5,24,237.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-04,Buffin Muffin - Blueberry,muffin,4,24,146.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-05,Buffin Muffin - Boston Chocolate Creme,muffin,5,24,210.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-06,Buffin Muffin - Buff Roll,muffin,5,24,307.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-07,Buffin Muffin - Buff Served,muffin,3,24,140.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-08,Buffin Muffin - Buffcoff,muffin,5,24,203.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-09,Buffin Muffin - ChocoLIT,muffin,5,24,235.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-10,Buffin Muffin - Cinna Blast,muffin,5,24,217.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-11,Buffin Muffin - Cookie Butter Tres Leches,muffin,5,24,222.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-12,Buffin Muffin - Cookies and Cream Crunch,muffin,4,24,78.1,7,"real (Shopify Online Store, 7-day avg -- no 90d history, likely new item)",False
-K1-13,Buffin Muffin - Double Chocolate Brownie,muffin,5,24,231.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-14,Buffin Muffin - German Chocolate Cake,muffin,5,24,195.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-15,Buffin Muffin - Gluten Free Confetti Pop,muffin,3,24,50.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-16,Buffin Muffin - Gluten Free Cookies and Milk,muffin,7,24,158.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-17,Buffin Muffin - Strawberry Buff Blast,muffin,6,24,285.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-18,Buffin Muffin - Strawberry Crunch Milkshake,muffin,1,24,83.9,7,"real (Shopify Online Store, 90-day trailing avg)",True
-K1-19,Buffin Muffin - Strawberry Crunch Milkshake,muffin,1,24,83.9,7,"real (Shopify Online Store, 90-day trailing avg)",True
-K1-20,Buffin Muffin - TwistBar,muffin,6,24,284.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-21,Buffin Muffin - Welcome to the Sno,muffin,6,24,120.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-22,Buffin Muffin - Apple Pie-Ceps,muffin,5,24,368.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-23,Buffin Muffin - Apple Pie-Ceps,muffin,5,24,368.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-24,Buffin Muffin - Buff Roll,muffin,4,24,307.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-25,Buffin Muffin - Buff Roll,muffin,4,24,307.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-26,Buffin Muffin - Blueberry,muffin,3,24,146.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K1-27,Buffin Muffin - Strawberry Crunch Milkshake,muffin,1,24,83.9,7,"real (Shopify Online Store, 90-day trailing avg)",True
-K2-01,Buffin Muffin - Strawberry Crunch Milkshake,muffin,1,24,83.9,7,"real (Shopify Online Store, 90-day trailing avg)",True
-K2-02,Buffin Muffin - Double Chocolate Brownie,muffin,5,24,231.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-03,Buffin Muffin - Strawberry Buff Blast,muffin,6,24,285.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-04,Buffin Muffin - Cookie Butter Tres Leches,muffin,5,24,222.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-05,Buffin Muffin - German Chocolate Cake,muffin,4,24,195.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-06,Buffin Muffin - ChocoLIT,muffin,5,24,235.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-07,Buffin Muffin - TwistBar,muffin,6,24,284.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-08,Buffin Muffin - Banana Choc. Chip,muffin,3,24,164.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-09,Buffin Muffin - Buff Served,muffin,3,24,140.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-10,Buffin Muffin - Boston Chocolate Creme,muffin,4,24,210.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-11,Buffin Muffin - Cinna Blast,muffin,5,24,217.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-12,Buffin Muffin - Banana Cream Protein Dream,muffin,5,24,237.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-13,Buffin Muffin - Buffcoff,muffin,4,24,203.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-14,3 Banana Chocolate Protein Poppers,snack,4,24,73.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-15,Overnight Oats - Banana Chocolate Chip,oats,2,28,34.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-16,Overnight Oats - Blueberry Muffin,oats,1,28,50.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-17,Overnight Oats - Cannoli,oats,1,28,25.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-18,Buff Crisp Bar - Chocolate,snack,1,48,20.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-19,Overnight Oats - Chocolate Peanut Butter,oats,1,28,44.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-20,Buff Crisp Bar - Cinna Crunch,snack,1,48,81.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-21,Overnight Oats - Cookie Creme,oats,1,28,44.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-22,Overnight Oats - Cookie Dough,oats,1,28,35.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-23,Overnight Oats - Cookies n Cream,oats,2,28,33.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-24,Overnight Oats - Dubai Chocolate,oats,2,28,46.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-25,Overnight Oats - Fitella,oats,1,28,41.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-26,Buff Crisp Bar - Fruity Cereal,snack,1,48,50.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K2-27,Overnight Oats - Graham Fetti,oats,1,28,48.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-01,Buff Crisp Bar - Original Recipe,snack,1,48,62.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-02,Overnight Oats - Peanut Butter & Jelly,oats,1,28,38.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-03,Overnight Oats - Peanut Butter Brownie,oats,1,28,42.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-04,Peanut Butter Chocolate Gree-Yo,snack,2,28,100.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-05,Peanut Butter Energy Bites,snack,3,24,71.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-06,Protein Chocolate Pudding,snack,1,28,72.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-07,S'Mores Gree-Yo,snack,1,28,50.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-08,Overnight Oats - Toast n' Crunch,oats,2,28,29.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-09,Overnight Oats - Graham Fetti,oats,1,28,48.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-10,Overnight Oats - Blueberry Muffin,oats,1,28,50.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-11,Overnight Oats - Blueberry Muffin,oats,1,28,50.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-12,Overnight Oats - Fitella,oats,1,28,41.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-13,Overnight Oats - Cannoli,oats,1,28,25.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-14,Overnight Oats - Chocolate Peanut Butter,oats,1,28,44.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-15,Overnight Oats - Peanut Butter Brownie,oats,1,28,42.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-16,Overnight Oats - Cookie Creme,oats,1,28,44.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-17,Overnight Oats - Peanut Butter & Jelly,oats,1,28,38.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-18,Overnight Oats - Cookie Dough,oats,1,28,35.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-19,Buff Crisp Bar - Cinna Crunch,snack,1,48,81.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-20,Buff Crisp Bar - Cinna Crunch,snack,1,48,81.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-21,Buff Crisp Bar - Original Recipe,snack,1,48,62.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-22,Buff Crisp Bar - Fruity Cereal,snack,1,48,50.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-23,Peanut Butter Chocolate Gree-Yo,snack,1,28,100.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-24,Peanut Butter Chocolate Gree-Yo,snack,1,28,100.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-25,S'Mores Gree-Yo,snack,1,28,50.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-26,Protein Chocolate Pudding,snack,1,28,72.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-K3-27,Protein Chocolate Pudding,snack,1,28,72.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-01,6-Guys Patty Melt,meal,5,24,100.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-02,Arnold 2022 Bowl,meal,5,24,106.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-03,Baja Chicken Tacos,meal,7,24,163.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-04,Baked Herbed Tilapia (1lb Competition Approved),meal,1,24,9.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-05,BBQ Chicken Garlic Parm Potatoes,meal,5,24,237.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-06,BBQ Chicken Mac Bowl,meal,5,24,112.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-07,BBQ Meltdown,meal,4,24,89.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-08,Blueberry French Toast,meal,3,24,60.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-09,Breakfast Burrito,meal,4,24,89.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-10,Brookfield Chicken Bowl,meal,6,24,126.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-11,Broritto Burrito,meal,6,24,275.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-12,Buffalo Chicken Meatballs,meal,5,24,105.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-13,Buffalo Chicken Quesadilla,meal,6,24,123.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-14,Buffalo Crispy Chicken Wrap,meal,6,24,120.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-15,Buffalo Mac N Chicken,meal,5,24,96.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-16,Chicken Mushroom Pot Stickers,meal,3,24,57.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-17,Chicken Stir Fry,meal,4,24,95.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-18,Chicken Taco Bowl,meal,6,24,120.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-19,Chipotle Chicken (1lb Competition Approved),meal,4,24,94.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-20,Cinnamon Roll Pancakes,meal,3,24,66.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-21,Closed on Sunday Crispy Chicken Bowl,meal,3,24,112.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-22,Club Wrap,meal,5,24,99.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-23,Competition Approved 90/10 Lean Ground Beef (1lb),meal,2,24,28.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-24,Competition Approved Baked Sweet Potato Fries (1lb),meal,2,24,38.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-25,Competition Approved Chicken Kebab (1lb),meal,2,24,40.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-26,Competition Approved Grilled Chicken (1lb),meal,5,24,108.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M1-27,Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb),meal,3,24,63.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-01,Competition Approved Grilled Flank Steak (1lb),meal,2,24,46.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-02,Competition Approved Lemon Pepper Salmon (1lb),meal,1,24,19.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-03,Competition Approved Oven Baked Cod (1lb),meal,1,24,14.0,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-04,Competition Approved Sticky Rice (1lb),meal,2,24,33.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-05,Competition Approved White Basmati Rice (1lb),meal,1,24,21.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-06,Crispy Baked Chicken Wrap,meal,8,24,191.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-07,Crispy Vegan Wrap,meal,1,24,8.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-08,Farfalle & Chicken Alfredo,meal,5,24,110.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-09,Fit Ala Vodka With Chicken,meal,5,24,98.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-10,Fit-Fil-A,meal,4,24,92.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-11,GLORIOUS GAINS Steak Bites & Cilantro Lime Rice,meal,5,24,110.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-12,Gluten Free Carbonara Chicken,meal,4,24,78.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-13,Grilled Chicken Parmesan Wrap,meal,6,24,122.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-14,Grilled Chicken Pesto Wrap,meal,5,24,111.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-15,Herb Butter Steak Tips Bowl,meal,7,24,156.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-16,Hey Arnold! Burrito,meal,5,24,118.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-17,HFit Signature Fold,meal,6,24,120.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-18,Honey Garlic Crispy Chicken Tacos,meal,1,24,0.0,7,no recent Shopify sales (Online Store) -- floor 1 crate,False
-M2-19,Hot Honey Steak & Mac,meal,4,24,90.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-20,Keto Ricotta Meatballs,meal,4,24,86.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-21,Lo Mein Teriyaki Steak,meal,5,24,118.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-22,Low Carb Keto Cheeseburger Bowl,meal,4,24,88.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-23,Meatball Parmesan Wrap,meal,5,24,115.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-24,MsWendy Buff Nuggets,meal,4,24,88.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-25,Nacho Average Bowl,meal,3,24,67.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-26,Nacho Average Vegan Bowl,meal,1,24,11.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M2-27,Peanut Butter & Jelly Sandwich,meal,3,24,65.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-01,Philly Cheesesteak Quesadilla,meal,1,24,13.1,7,"real (Shopify Online Store, 90-day trailing avg)",True
-M3-02,Pineapple Teriyaki Meatballs,meal,3,24,57.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-03,Rigatoni & Meatballs,meal,5,24,113.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-04,Soho Steak Bowl,meal,4,24,88.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-05,Southwest Chicken Bowl,meal,5,24,112.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-06,Southwest Chicken Quesadilla,meal,4,24,88.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-07,Spicy Buffalo Wrap,meal,7,24,150.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-08,Stacked and Jacked,meal,5,24,116.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-09,Strawberry Protein French Toast,meal,3,24,61.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-10,Strongsville Chicken Ranch Fold,meal,5,24,112.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-11,Taco Build Quesadilla,meal,6,24,127.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-12,Teriyaki Flank Bowl,meal,5,24,105.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-13,Texas Queso Steak Bowl,meal,2,24,31.9,7,"real (Shopify Online Store, 90-day trailing avg)",True
-M3-14,TexMex Potato Hash,meal,5,24,104.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-15,Thai Chili Chicken,meal,6,24,126.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-16,The Arches Mac Daddy Wrap,meal,2,24,36.7,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-17,The Clean Bulk Pasta Bowl,meal,4,24,81.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-18,Turkey Bacon Cheddar Egg Muffins,meal,2,24,28.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-19,Vegan Breakfast Sandwich,meal,1,24,7.4,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-20,Vegan Cheeseburger Bowl,meal,1,24,10.8,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-21,Vegan Chorizo Quesadilla,meal,1,24,10.1,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-22,West Coast Secret Sauce Bowl,meal,1,24,0.0,7,no recent Shopify sales (Online Store) -- floor 1 crate,False
-M3-23,Zeus Bowl,meal,7,24,157.5,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-24,Zeus Bowl V2,meal,4,24,88.9,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-25,BBQ Chicken Garlic Parm Potatoes,meal,5,24,237.2,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-26,Broritto Burrito,meal,6,24,275.6,7,"real (Shopify Online Store, 90-day trailing avg)",False
-M3-27,Closed on Sunday Crispy Chicken Bowl,meal,2,24,112.3,7,"real (Shopify Online Store, 90-day trailing avg)",False
+lane_code,product,category,crates_per_day,units_per_crate,daily_avg_units,max_stack,demand_source,divergence_flag,lane_of_product
+K1-01,Buffin Muffin - Apple Pie-Ceps,muffin,6,24,368.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 3
+K1-02,Buffin Muffin - Apple Pie-Ceps,muffin,6,24,368.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 3
+K1-03,Buffin Muffin - Apple Pie-Ceps,muffin,6,24,368.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,3 of 3
+K1-04,Buffin Muffin - Banana Choc. Chip,muffin,4,24,164.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-05,Buffin Muffin - Banana Choc. Chip,muffin,4,24,164.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-06,Buffin Muffin - Banana Cream Protein Dream,muffin,6,24,237.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-07,Buffin Muffin - Banana Cream Protein Dream,muffin,6,24,237.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-08,Buffin Muffin - Blueberry,muffin,4,24,146.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-09,Buffin Muffin - Blueberry,muffin,4,24,146.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-10,Buffin Muffin - Boston Chocolate Creme,muffin,6,24,210.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-11,Buffin Muffin - Boston Chocolate Creme,muffin,5,24,210.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-12,Buffin Muffin - Buff Roll,muffin,5,24,307.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 3
+K1-13,Buffin Muffin - Buff Roll,muffin,5,24,307.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 3
+K1-14,Buffin Muffin - Buff Roll,muffin,5,24,307.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,3 of 3
+K1-15,Buffin Muffin - Buff Served,muffin,7,24,140.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K1-16,Buffin Muffin - Buffcoff,muffin,5,24,203.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-17,Buffin Muffin - Buffcoff,muffin,5,24,203.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-18,Buffin Muffin - ChocoLIT,muffin,6,24,235.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-19,Buffin Muffin - ChocoLIT,muffin,6,24,235.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-20,Buffin Muffin - Cinna Blast,muffin,6,24,217.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-21,Buffin Muffin - Cinna Blast,muffin,5,24,217.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-22,Buffin Muffin - Cookie Butter Tres Leches,muffin,6,24,222.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-23,Buffin Muffin - Cookie Butter Tres Leches,muffin,5,24,222.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-24,Buffin Muffin - Cookies and Cream Crunch,muffin,4,24,78.1,7,"real (Shopify Online Store, 7-day avg -- no 90d history, likely new item)",False,
+K1-25,Buffin Muffin - Double Chocolate Brownie,muffin,6,24,231.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-26,Buffin Muffin - Double Chocolate Brownie,muffin,6,24,231.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-27,Buffin Muffin - German Chocolate Cake,muffin,5,24,195.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-28,Buffin Muffin - German Chocolate Cake,muffin,5,24,195.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-29,Buffin Muffin - Gluten Free Confetti Pop,muffin,3,24,50.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K1-30,Buffin Muffin - Gluten Free Cookies and Milk,muffin,4,24,158.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-31,Buffin Muffin - Gluten Free Cookies and Milk,muffin,4,24,158.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-32,Buffin Muffin - Strawberry Buff Blast,muffin,7,24,285.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K1-33,Buffin Muffin - Strawberry Buff Blast,muffin,7,24,285.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K1-34,Buffin Muffin - Strawberry Crunch Milkshake,muffin,5,24,83.9,7,"real (Shopify Online Store, 90-day trailing avg)",True,
+K1-35,Buffin Muffin - TwistBar,muffin,7,24,284.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+K2-01,Buffin Muffin - TwistBar,muffin,7,24,284.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+K2-02,Buffin Muffin - Welcome to the Sno,muffin,6,24,120.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-03,3 Banana Chocolate Protein Poppers,snack,4,24,73.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-04,Overnight Oats - Banana Chocolate Chip,oats,2,28,34.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-05,Overnight Oats - Blueberry Muffin,oats,3,28,50.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-06,Overnight Oats - Cannoli,oats,2,28,25.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-07,Buff Crisp Bar - Chocolate,snack,1,48,20.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-08,Overnight Oats - Chocolate Peanut Butter,oats,2,28,44.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-09,Buff Crisp Bar - Cinna Crunch,snack,2,48,81.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-10,Overnight Oats - Cookie Creme,oats,2,28,44.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-11,Overnight Oats - Cookie Dough,oats,2,28,35.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-12,Cookies and Cream Crunch,snack,6,24,336.0,7,"real (Shopify Online Store, 7-day avg only -- launched within the last week, no longer history yet)",True,1 of 3
+K2-13,Cookies and Cream Crunch,snack,6,24,336.0,7,"real (Shopify Online Store, 7-day avg only -- launched within the last week, no longer history yet)",True,2 of 3
+K2-14,Cookies and Cream Crunch,snack,5,24,336.0,7,"real (Shopify Online Store, 7-day avg only -- launched within the last week, no longer history yet)",True,3 of 3
+K2-15,Cookies and Cream Crunch - Exclusive- 20,snack,2,24,35.3,7,"real (Shopify Online Store, 30-day trailing avg)",False,
+K2-16,Overnight Oats - Cookies n Cream,oats,2,28,33.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-17,Overnight Oats - Dubai Chocolate,oats,2,28,46.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-18,Overnight Oats - Fitella,oats,2,28,41.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-19,Buff Crisp Bar - Fruity Cereal,snack,2,48,50.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-20,Overnight Oats - Graham Fetti,oats,2,28,48.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-21,Buff Crisp Bar - Original Recipe,snack,2,48,62.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-22,Overnight Oats - Peanut Butter & Jelly,oats,2,28,38.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-23,Overnight Oats - Peanut Butter Brownie,oats,2,28,42.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-24,Peanut Butter Chocolate Gree-Yo,snack,5,28,100.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-25,Peanut Butter Energy Bites,snack,4,24,71.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-26,Protein Chocolate Pudding,snack,3,28,72.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-27,S'Mores Gree-Yo,snack,3,28,50.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+K2-28,Overnight Oats - Toast n' Crunch,oats,2,28,29.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-01,6-Guys Patty Melt,meal,5,24,100.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-02,Arnold 2022 Bowl,meal,5,24,106.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-03,Baja Chicken Tacos,meal,7,24,163.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-04,Baked Herbed Tilapia (1lb Competition Approved),meal,1,24,9.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-05,BBQ Chicken Garlic Parm Potatoes,meal,5,24,237.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+M1-06,BBQ Chicken Garlic Parm Potatoes,meal,5,24,237.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+M1-07,BBQ Chicken Mac Bowl,meal,5,24,112.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-08,BBQ Meltdown,meal,4,24,89.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-09,Blueberry French Toast,meal,3,24,60.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-10,Breakfast Burrito,meal,4,24,89.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-11,Brookfield Chicken Bowl,meal,6,24,126.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-12,Broritto Burrito,meal,6,24,275.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+M1-13,Broritto Burrito,meal,6,24,275.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+M1-14,Buffalo Chicken Meatballs,meal,5,24,105.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-15,Buffalo Chicken Quesadilla,meal,6,24,123.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-16,Buffalo Crispy Chicken Wrap,meal,6,24,120.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-17,Buffalo Mac N Chicken,meal,5,24,96.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-18,Chicken Mushroom Pot Stickers,meal,3,24,57.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-19,Chicken Stir Fry,meal,4,24,95.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-20,Chicken Taco Bowl,meal,6,24,120.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-21,Chipotle Chicken (1lb Competition Approved),meal,4,24,94.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-22,Cinnamon Roll Pancakes,meal,3,24,66.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-23,Closed on Sunday Crispy Chicken Bowl,meal,5,24,112.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-24,Club Wrap,meal,5,24,99.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-25,Competition Approved 90/10 Lean Ground Beef (1lb),meal,2,24,28.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-26,Competition Approved Baked Sweet Potato Fries (1lb),meal,2,24,38.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M1-27,Competition Approved Chicken Kebab (1lb),meal,2,24,40.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-01,Competition Approved Grilled Chicken (1lb),meal,5,24,108.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-02,Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb),meal,3,24,63.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-03,Competition Approved Grilled Flank Steak (1lb),meal,2,24,46.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-04,Competition Approved Lemon Pepper Salmon (1lb),meal,1,24,19.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-05,Competition Approved Oven Baked Cod (1lb),meal,1,24,14.0,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-06,Competition Approved Sticky Rice (1lb),meal,2,24,33.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-07,Competition Approved White Basmati Rice (1lb),meal,1,24,21.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-08,Crispy Baked Chicken Wrap,meal,4,24,191.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,1 of 2
+M2-09,Crispy Baked Chicken Wrap,meal,4,24,191.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,2 of 2
+M2-10,Crispy Vegan Wrap,meal,1,24,8.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-11,Farfalle & Chicken Alfredo,meal,5,24,110.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-12,Fit Ala Vodka With Chicken,meal,5,24,98.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-13,Fit-Fil-A,meal,4,24,92.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-14,GLORIOUS GAINS Steak Bites & Cilantro Lime Rice,meal,5,24,110.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-15,Gluten Free Carbonara Chicken,meal,4,24,78.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-16,Grilled Chicken Parmesan Wrap,meal,6,24,122.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-17,Grilled Chicken Pesto Wrap,meal,5,24,111.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-18,Herb Butter Steak Tips Bowl,meal,7,24,156.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-19,Hey Arnold! Burrito,meal,5,24,118.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-20,HFit Signature Fold,meal,6,24,120.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-21,Honey Garlic Crispy Chicken Tacos,meal,1,24,0.0,7,no recent Shopify sales (Online Store) -- floor 1 crate,False,
+M2-22,Hot Honey Steak & Mac,meal,4,24,90.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-23,Keto Ricotta Meatballs,meal,4,24,86.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-24,Lo Mein Teriyaki Steak,meal,5,24,118.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-25,Low Carb Keto Cheeseburger Bowl,meal,4,24,88.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-26,Meatball Parmesan Wrap,meal,5,24,115.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M2-27,MsWendy Buff Nuggets,meal,4,24,88.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-01,Nacho Average Bowl,meal,3,24,67.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-02,Nacho Average Vegan Bowl,meal,1,24,11.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-03,Peanut Butter & Jelly Sandwich,meal,3,24,65.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-04,Philly Cheesesteak Quesadilla,meal,1,24,13.1,7,"real (Shopify Online Store, 90-day trailing avg)",True,
+M3-05,Pineapple Teriyaki Meatballs,meal,3,24,57.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-06,Rigatoni & Meatballs,meal,5,24,113.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-07,Soho Steak Bowl,meal,4,24,88.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-08,Southwest Chicken Bowl,meal,5,24,112.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-09,Southwest Chicken Quesadilla,meal,4,24,88.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-10,Spicy Buffalo Wrap,meal,7,24,150.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-11,Stacked and Jacked,meal,5,24,116.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-12,Strawberry Protein French Toast,meal,3,24,61.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-13,Strongsville Chicken Ranch Fold,meal,5,24,112.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-14,Taco Build Quesadilla,meal,6,24,127.6,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-15,Teriyaki Flank Bowl,meal,5,24,105.2,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-16,Texas Queso Steak Bowl,meal,2,24,31.9,7,"real (Shopify Online Store, 90-day trailing avg)",True,
+M3-17,TexMex Potato Hash,meal,5,24,104.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-18,Thai Chili Chicken,meal,6,24,126.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-19,The Arches Mac Daddy Wrap,meal,2,24,36.7,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-20,The Clean Bulk Pasta Bowl,meal,4,24,81.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-21,Turkey Bacon Cheddar Egg Muffins,meal,2,24,28.3,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-22,Vegan Breakfast Sandwich,meal,1,24,7.4,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-23,Vegan Cheeseburger Bowl,meal,1,24,10.8,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-24,Vegan Chorizo Quesadilla,meal,1,24,10.1,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-25,West Coast Secret Sauce Bowl,meal,1,24,0.0,7,no recent Shopify sales (Online Store) -- floor 1 crate,False,
+M3-26,Zeus Bowl,meal,7,24,157.5,7,"real (Shopify Online Store, 90-day trailing avg)",False,
+M3-27,Zeus Bowl V2,meal,4,24,88.9,7,"real (Shopify Online Store, 90-day trailing avg)",False,

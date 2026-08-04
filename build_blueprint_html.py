@@ -22,6 +22,8 @@ lane_plan = json.load(open('/home/claude/hummusfit-warehouse/lane_plan.json'))
 
 ROWS_ORDER = ['K1', 'K2', 'K3', 'M1', 'M2', 'M3']
 ROW_SECTION = {'K1': 'bakery', 'K2': 'bakery', 'K3': 'bakery', 'M1': 'meals', 'M2': 'meals', 'M3': 'meals'}
+geometry = json.load(open('/home/claude/hummusfit-warehouse/blueprint_geometry.json'))
+POS_BY_SECTION = geometry['positions_per_row_by_section']  # bakery: 35/row, meals: 27/row
 
 lanes_by_row = {r: [] for r in ROWS_ORDER}
 for sec in lane_plan.values():
@@ -60,10 +62,11 @@ def legend_row_card(r):
       <div class="lc-meta">{esc(l['crates_needed'])} crate{'s' if l['crates_needed']!=1 else ''} · {CAT_LABEL.get(l['category'], l['category'])}</div>
     </div>''')
     used = len(lanes)
+    total = POS_BY_SECTION[sec]
     return f'''<div class="rowcard">
     <div class="rowcard-head" style="border-color:{accent}">
       <span class="rowcard-title" style="color:{accent}">Row {r}</span>
-      <span class="rowcard-sub">{used}/27 positions in use</span>
+      <span class="rowcard-sub">{used}/{total} positions in use</span>
     </div>
     <div class="lc-grid">{''.join(cells)}</div>
   </div>'''

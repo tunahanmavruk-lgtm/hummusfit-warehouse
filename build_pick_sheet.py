@@ -21,10 +21,13 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER
 
 lane_plan = json.load(open('/home/claude/hummusfit-warehouse/lane_plan.json'))
+geometry = json.load(open('/home/claude/hummusfit-warehouse/blueprint_geometry.json'))
+POS_BY_SECTION = geometry['positions_per_row_by_section']  # bakery: 35/row, meals: 27/row
 
 ROWS_ORDER = ['K1', 'K2', 'K3', 'M1', 'M2', 'M3']
 ROW_SECTION = {'K1': 'Bakery & Snacks', 'K2': 'Bakery & Snacks', 'K3': 'Bakery & Snacks',
                'M1': 'Meals', 'M2': 'Meals', 'M3': 'Meals'}
+ROW_SECTION_KEY = {'K1': 'bakery', 'K2': 'bakery', 'K3': 'bakery', 'M1': 'meals', 'M2': 'meals', 'M3': 'meals'}
 CAT_LABEL = {'muffin': 'Muffin', 'oats': 'Oats', 'snack': 'Snack', 'meal': 'Meal'}
 
 lanes_by_row = {r: [] for r in ROWS_ORDER}
@@ -94,10 +97,11 @@ story = []
 # ---- Page 1+: walking-order pick sheet ----
 story.append(Paragraph('Hummus Fit — Walk-In Pick Sheet', title_style))
 story.append(Paragraph(
-    'Physical walking order (K1 → K2 → K3 → M1 → M2 → M3, position 1 → 27) — matches the room blueprint. '
+    'Physical walking order (K1 → K2 → K3 → M1 → M2 → M3) — matches the room blueprint. Bakery rows (K1-K3) run '
+    '35 positions/row; Meals rows (M1-M3) run 27 positions/row. '
     'Demand is sourced from real Shopify Online Store sales (90-day trailing daily average). '
     '"~" after a lane code means the last 7 days diverge more than 2x from that 90-day average — worth a spot-check. '
-    '"Crates / Day" is daily replenishment need; "Units / Crate" is how many units fill one crate. Max stack per lane is now 7 crates.',
+    '"Crates / Day" is daily replenishment need; "Units / Crate" is how many units fill one crate. Max stack per lane is 7 crates.',
     sub_style
 ))
 
@@ -108,7 +112,8 @@ for r in ROWS_ORDER:
         story.append(Paragraph(sec_name, section_style))
         current_section = sec_name
     used = len(lanes_by_row[r])
-    story.append(Paragraph(f'Row {r} — {used}/27 positions in use', row_style))
+    total = POS_BY_SECTION[ROW_SECTION_KEY[r]]
+    story.append(Paragraph(f'Row {r} — {used}/{total} positions in use', row_style))
     story.append(lane_table(lanes_by_row[r], sec_name))
     story.append(Spacer(1, 4))
 

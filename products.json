@@ -1,1 +1,612 @@
-[{"name": "Arnold 2022 Bowl", "cat": "meal", "u30": 5465}, {"name": "Baja Chicken Tacos", "cat": "meal", "u30": 7651}, {"name": "Baked Herbed Tilapia (1lb Competition Approved)", "cat": "meal", "u30": 439}, {"name": "BBQ Chicken Garlic Parm Potatoes", "cat": "meal", "u30": 10987}, {"name": "BBQ Chicken Mac Bowl", "cat": "meal", "u30": 5094}, {"name": "BBQ Meltdown", "cat": "meal", "u30": 5099}, {"name": "Blueberry French Toast", "cat": "meal", "u30": 2642}, {"name": "Breakfast Burrito", "cat": "meal", "u30": 4146}, {"name": "Brookfield Chicken Bowl", "cat": "meal", "u30": 5642}, {"name": "Broritto Burrito", "cat": "meal", "u30": 12644}, {"name": "Buffalo Chicken Meatballs", "cat": "meal", "u30": 5281}, {"name": "Buffalo Chicken Quesadilla", "cat": "meal", "u30": 4921}, {"name": "Buffalo Crispy Chicken Wrap", "cat": "meal", "u30": 5620}, {"name": "Buffalo Mac N Chicken", "cat": "meal", "u30": 4078}, {"name": "Chicken Mushroom Pot Stickers", "cat": "meal", "u30": 2529}, {"name": "Chicken Stir Fry", "cat": "meal", "u30": 4181}, {"name": "Chicken Taco Bowl", "cat": "meal", "u30": 5512}, {"name": "Chipotle Chicken (1lb Competition Approved)", "cat": "meal", "u30": 4208}, {"name": "Cinnamon Roll Pancakes", "cat": "meal", "u30": 2946}, {"name": "Closed on Sunday Crispy Chicken Bowl", "cat": "meal", "u30": 9339}, {"name": "Club Wrap", "cat": "meal", "u30": 4455}, {"name": "Competition Approved 90/10 Lean Ground Beef (1lb)", "cat": "meal", "u30": 1256}, {"name": "Competition Approved Baked Sweet Potato Fries (1lb)", "cat": "meal", "u30": 1939}, {"name": "Competition Approved Chicken Kebab (1lb)", "cat": "meal", "u30": 1857}, {"name": "Competition Approved Grilled Chicken (1lb)", "cat": "meal", "u30": 4489}, {"name": "Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)", "cat": "meal", "u30": 2486}, {"name": "Competition Approved Grilled Flank Steak (1lb)", "cat": "meal", "u30": 1951}, {"name": "Competition Approved Lemon Pepper Salmon (1lb)", "cat": "meal", "u30": 924}, {"name": "Competition Approved Oven Baked Cod (1lb)", "cat": "meal", "u30": 794}, {"name": "Competition Approved Sticky Rice (1lb)", "cat": "meal", "u30": 1552}, {"name": "Competition Approved White Basmati Rice (1lb)", "cat": "meal", "u30": 1071}, {"name": "Crispy Baked Chicken Wrap", "cat": "meal", "u30": 8564}, {"name": "Crispy Vegan Wrap", "cat": "meal", "u30": 403}, {"name": "Farfalle & Chicken Alfredo", "cat": "meal", "u30": 5052}, {"name": "Fit Ala Vodka With Chicken", "cat": "meal", "u30": 4147}, {"name": "Fit-Fil-A", "cat": "meal", "u30": 4472}, {"name": "6-Guys Patty Melt", "cat": "meal", "u30": 4026}, {"name": "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice", "cat": "meal", "u30": 5246}, {"name": "Gluten Free Carbonara Chicken", "cat": "meal", "u30": 3704}, {"name": "Grilled Chicken Parmesan Wrap", "cat": "meal", "u30": 5506}, {"name": "Grilled Chicken Pesto Wrap", "cat": "meal", "u30": 4964}, {"name": "Herb Butter Steak Tips Bowl", "cat": "meal", "u30": 6924}, {"name": "Hey Arnold! Burrito", "cat": "meal", "u30": 5275}, {"name": "HFit Signature Fold", "cat": "meal", "u30": 5163}, {"name": "Honey Garlic Crispy Chicken Tacos", "cat": "meal", "u30": 0}, {"name": "Hot Honey Steak & Mac", "cat": "meal", "u30": 4124}, {"name": "Keto Ricotta Meatballs", "cat": "meal", "u30": 4223}, {"name": "Lo Mein Teriyaki Steak", "cat": "meal", "u30": 5300}, {"name": "Low Carb Keto Cheeseburger Bowl", "cat": "meal", "u30": 4531}, {"name": "Meatball Parmesan Wrap", "cat": "meal", "u30": 5255}, {"name": "MsWendy Buff Nuggets", "cat": "meal", "u30": 4601}, {"name": "Nacho Average Bowl", "cat": "meal", "u30": 3334}, {"name": "Nacho Average Vegan Bowl", "cat": "meal", "u30": 557}, {"name": "Philly Cheesesteak Quesadilla", "cat": "meal", "u30": 1385}, {"name": "Pineapple Teriyaki Meatballs", "cat": "meal", "u30": 2708}, {"name": "Rigatoni & Meatballs", "cat": "meal", "u30": 5197}, {"name": "Soho Steak Bowl", "cat": "meal", "u30": 4319}, {"name": "Southwest Chicken Bowl", "cat": "meal", "u30": 5639}, {"name": "Southwest Chicken Quesadilla", "cat": "meal", "u30": 4151}, {"name": "Spicy Buffalo Wrap", "cat": "meal", "u30": 6720}, {"name": "Stacked and Jacked", "cat": "meal", "u30": 5628}, {"name": "Strawberry Protein French Toast", "cat": "meal", "u30": 2771}, {"name": "Strongsville Chicken Ranch Fold", "cat": "meal", "u30": 4892}, {"name": "Taco Build Quesadilla", "cat": "meal", "u30": 5599}, {"name": "Teriyaki Flank Bowl", "cat": "meal", "u30": 5105}, {"name": "TexMex Potato Hash", "cat": "meal", "u30": 5468}, {"name": "Thai Chili Chicken", "cat": "meal", "u30": 5894}, {"name": "The Arches Mac Daddy Wrap", "cat": "meal", "u30": 3367}, {"name": "The Clean Bulk Pasta Bowl", "cat": "meal", "u30": 4121}, {"name": "Texas Queso Steak Bowl", "cat": "meal", "u30": 3894}, {"name": "Turkey Bacon Cheddar Egg Muffins", "cat": "meal", "u30": 1474}, {"name": "Vegan Breakfast Sandwich", "cat": "meal", "u30": 402}, {"name": "Vegan Cheeseburger Bowl", "cat": "meal", "u30": 592}, {"name": "Vegan Chorizo Quesadilla", "cat": "meal", "u30": 449}, {"name": "West Coast Secret Sauce Bowl", "cat": "meal", "u30": 0}, {"name": "Zeus Bowl", "cat": "meal", "u30": 7155}, {"name": "Zeus Bowl V2", "cat": "meal", "u30": 4154}, {"name": "Peanut Butter & Jelly Sandwich", "cat": "meal", "u30": 3144}, {"name": "Buffin Muffin - Apple Pie-Ceps", "cat": "muffin", "u30": 12179}, {"name": "Buffin Muffin - Buff Roll", "cat": "muffin", "u30": 12141}, {"name": "Buffin Muffin - Blueberry", "cat": "muffin", "u30": 5885}, {"name": "Buffin Muffin - Strawberry Crunch Milkshake", "cat": "muffin", "u30": 9729}, {"name": "Buffin Muffin - Double Chocolate Brownie", "cat": "muffin", "u30": 10258}, {"name": "Buffin Muffin - Strawberry Buff Blast", "cat": "muffin", "u30": 11204}, {"name": "Buffin Muffin - Cookie Butter Tres Leches", "cat": "muffin", "u30": 8391}, {"name": "Buffin Muffin - German Chocolate Cake", "cat": "muffin", "u30": 7092}, {"name": "Buffin Muffin - ChocoLIT", "cat": "muffin", "u30": 8885}, {"name": "Buffin Muffin - TwistBar", "cat": "muffin", "u30": 10782}, {"name": "Buffin Muffin - Cookies and Cream Crunch", "cat": "muffin", "u30": 2082}, {"name": "Buffin Muffin - Gluten Free Confetti Pop", "cat": "muffin", "u30": 2276}, {"name": "Buffin Muffin - Gluten Free Cookies and Milk", "cat": "muffin", "u30": 6790}, {"name": "Buffin Muffin - Banana Choc. Chip", "cat": "muffin", "u30": 7011}, {"name": "Buffin Muffin - Buff Served", "cat": "muffin", "u30": 5811}, {"name": "Buffin Muffin - Boston Chocolate Creme", "cat": "muffin", "u30": 7969}, {"name": "Buffin Muffin - Welcome to the Sno", "cat": "muffin", "u30": 4631}, {"name": "Buffin Muffin - Cinna Blast", "cat": "muffin", "u30": 8551}, {"name": "Buffin Muffin - Banana Cream Protein Dream", "cat": "muffin", "u30": 12997}, {"name": "Buffin Muffin - Buffcoff", "cat": "muffin", "u30": 7922}, {"name": "Overnight Oats - Dubai Chocolate", "cat": "oats", "u30": 2212}, {"name": "Overnight Oats - Graham Fetti", "cat": "oats", "u30": 2101}, {"name": "Overnight Oats - Toast n' Crunch", "cat": "oats", "u30": 1408}, {"name": "Overnight Oats - Blueberry Muffin", "cat": "oats", "u30": 2183}, {"name": "Overnight Oats - Fitella", "cat": "oats", "u30": 1856}, {"name": "Overnight Oats - Banana Chocolate Chip", "cat": "oats", "u30": 1748}, {"name": "Overnight Oats - Cannoli", "cat": "oats", "u30": 1245}, {"name": "Overnight Oats - Chocolate Peanut Butter", "cat": "oats", "u30": 2032}, {"name": "Overnight Oats - Peanut Butter Brownie", "cat": "oats", "u30": 2029}, {"name": "Overnight Oats - Cookie Creme", "cat": "oats", "u30": 2075}, {"name": "Overnight Oats - Peanut Butter & Jelly", "cat": "oats", "u30": 1658}, {"name": "Overnight Oats - Cookie Dough", "cat": "oats", "u30": 1727}, {"name": "Overnight Oats - Cookies n Cream", "cat": "oats", "u30": 1575}, {"name": "Buff Crisp Bar - Cinna Crunch", "cat": "snack", "u30": 3611}, {"name": "Buff Crisp Bar - Original Recipe", "cat": "snack", "u30": 2656}, {"name": "Buff Crisp Bar - Fruity Cereal", "cat": "snack", "u30": 2038}, {"name": "Buff Crisp Bar - Chocolate", "cat": "snack", "u30": 816}, {"name": "Peanut Butter Chocolate Gree-Yo", "cat": "snack", "u30": 4836}, {"name": "S'Mores Gree-Yo", "cat": "snack", "u30": 2542}, {"name": "Protein Chocolate Pudding", "cat": "snack", "u30": 3459}, {"name": "3 Banana Chocolate Protein Poppers", "cat": "snack", "u30": 3386}, {"name": "Peanut Butter Energy Bites", "cat": "snack", "u30": 3590}]
+[
+  {
+    "name": "Arnold 2022 Bowl",
+    "cat": "meal",
+    "u30": 5465
+  },
+  {
+    "name": "Baja Chicken Tacos",
+    "cat": "meal",
+    "u30": 7651
+  },
+  {
+    "name": "Baked Herbed Tilapia (1lb Competition Approved)",
+    "cat": "meal",
+    "u30": 439
+  },
+  {
+    "name": "BBQ Chicken Garlic Parm Potatoes",
+    "cat": "meal",
+    "u30": 10987
+  },
+  {
+    "name": "BBQ Chicken Mac Bowl",
+    "cat": "meal",
+    "u30": 5094
+  },
+  {
+    "name": "BBQ Meltdown",
+    "cat": "meal",
+    "u30": 5099
+  },
+  {
+    "name": "Blueberry French Toast",
+    "cat": "meal",
+    "u30": 2642
+  },
+  {
+    "name": "Breakfast Burrito",
+    "cat": "meal",
+    "u30": 4146
+  },
+  {
+    "name": "Brookfield Chicken Bowl",
+    "cat": "meal",
+    "u30": 5642
+  },
+  {
+    "name": "Broritto Burrito",
+    "cat": "meal",
+    "u30": 12644
+  },
+  {
+    "name": "Buffalo Chicken Meatballs",
+    "cat": "meal",
+    "u30": 5281
+  },
+  {
+    "name": "Buffalo Chicken Quesadilla",
+    "cat": "meal",
+    "u30": 4921
+  },
+  {
+    "name": "Buffalo Crispy Chicken Wrap",
+    "cat": "meal",
+    "u30": 5620
+  },
+  {
+    "name": "Buffalo Mac N Chicken",
+    "cat": "meal",
+    "u30": 4078
+  },
+  {
+    "name": "Chicken Mushroom Pot Stickers",
+    "cat": "meal",
+    "u30": 2529
+  },
+  {
+    "name": "Chicken Stir Fry",
+    "cat": "meal",
+    "u30": 4181
+  },
+  {
+    "name": "Chicken Taco Bowl",
+    "cat": "meal",
+    "u30": 5512
+  },
+  {
+    "name": "Chipotle Chicken (1lb Competition Approved)",
+    "cat": "meal",
+    "u30": 4208
+  },
+  {
+    "name": "Cinnamon Roll Pancakes",
+    "cat": "meal",
+    "u30": 2946
+  },
+  {
+    "name": "Closed on Sunday Crispy Chicken Bowl",
+    "cat": "meal",
+    "u30": 9339
+  },
+  {
+    "name": "Club Wrap",
+    "cat": "meal",
+    "u30": 4455
+  },
+  {
+    "name": "Competition Approved 90/10 Lean Ground Beef (1lb)",
+    "cat": "meal",
+    "u30": 1256
+  },
+  {
+    "name": "Competition Approved Baked Sweet Potato Fries (1lb)",
+    "cat": "meal",
+    "u30": 1939
+  },
+  {
+    "name": "Competition Approved Chicken Kebab (1lb)",
+    "cat": "meal",
+    "u30": 1857
+  },
+  {
+    "name": "Competition Approved Grilled Chicken (1lb)",
+    "cat": "meal",
+    "u30": 4489
+  },
+  {
+    "name": "Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)",
+    "cat": "meal",
+    "u30": 2486
+  },
+  {
+    "name": "Competition Approved Grilled Flank Steak (1lb)",
+    "cat": "meal",
+    "u30": 1951
+  },
+  {
+    "name": "Competition Approved Lemon Pepper Salmon (1lb)",
+    "cat": "meal",
+    "u30": 924
+  },
+  {
+    "name": "Competition Approved Oven Baked Cod (1lb)",
+    "cat": "meal",
+    "u30": 794
+  },
+  {
+    "name": "Competition Approved Sticky Rice (1lb)",
+    "cat": "meal",
+    "u30": 1552
+  },
+  {
+    "name": "Competition Approved White Basmati Rice (1lb)",
+    "cat": "meal",
+    "u30": 1071
+  },
+  {
+    "name": "Crispy Baked Chicken Wrap",
+    "cat": "meal",
+    "u30": 8564
+  },
+  {
+    "name": "Crispy Vegan Wrap",
+    "cat": "meal",
+    "u30": 403
+  },
+  {
+    "name": "Farfalle & Chicken Alfredo",
+    "cat": "meal",
+    "u30": 5052
+  },
+  {
+    "name": "Fit Ala Vodka With Chicken",
+    "cat": "meal",
+    "u30": 4147
+  },
+  {
+    "name": "Fit-Fil-A",
+    "cat": "meal",
+    "u30": 4472
+  },
+  {
+    "name": "6-Guys Patty Melt",
+    "cat": "meal",
+    "u30": 4026
+  },
+  {
+    "name": "GLORIOUS GAINS Steak Bites & Cilantro Lime Rice",
+    "cat": "meal",
+    "u30": 5246
+  },
+  {
+    "name": "Gluten Free Carbonara Chicken",
+    "cat": "meal",
+    "u30": 3704
+  },
+  {
+    "name": "Grilled Chicken Parmesan Wrap",
+    "cat": "meal",
+    "u30": 5506
+  },
+  {
+    "name": "Grilled Chicken Pesto Wrap",
+    "cat": "meal",
+    "u30": 4964
+  },
+  {
+    "name": "Herb Butter Steak Tips Bowl",
+    "cat": "meal",
+    "u30": 6924
+  },
+  {
+    "name": "Hey Arnold! Burrito",
+    "cat": "meal",
+    "u30": 5275
+  },
+  {
+    "name": "HFit Signature Fold",
+    "cat": "meal",
+    "u30": 5163
+  },
+  {
+    "name": "Honey Garlic Crispy Chicken Tacos",
+    "cat": "meal",
+    "u30": 0
+  },
+  {
+    "name": "Hot Honey Steak & Mac",
+    "cat": "meal",
+    "u30": 4124
+  },
+  {
+    "name": "Keto Ricotta Meatballs",
+    "cat": "meal",
+    "u30": 4223
+  },
+  {
+    "name": "Lo Mein Teriyaki Steak",
+    "cat": "meal",
+    "u30": 5300
+  },
+  {
+    "name": "Low Carb Keto Cheeseburger Bowl",
+    "cat": "meal",
+    "u30": 4531
+  },
+  {
+    "name": "Meatball Parmesan Wrap",
+    "cat": "meal",
+    "u30": 5255
+  },
+  {
+    "name": "MsWendy Buff Nuggets",
+    "cat": "meal",
+    "u30": 4601
+  },
+  {
+    "name": "Nacho Average Bowl",
+    "cat": "meal",
+    "u30": 3334
+  },
+  {
+    "name": "Nacho Average Vegan Bowl",
+    "cat": "meal",
+    "u30": 557
+  },
+  {
+    "name": "Philly Cheesesteak Quesadilla",
+    "cat": "meal",
+    "u30": 1385
+  },
+  {
+    "name": "Pineapple Teriyaki Meatballs",
+    "cat": "meal",
+    "u30": 2708
+  },
+  {
+    "name": "Rigatoni & Meatballs",
+    "cat": "meal",
+    "u30": 5197
+  },
+  {
+    "name": "Soho Steak Bowl",
+    "cat": "meal",
+    "u30": 4319
+  },
+  {
+    "name": "Southwest Chicken Bowl",
+    "cat": "meal",
+    "u30": 5639
+  },
+  {
+    "name": "Southwest Chicken Quesadilla",
+    "cat": "meal",
+    "u30": 4151
+  },
+  {
+    "name": "Spicy Buffalo Wrap",
+    "cat": "meal",
+    "u30": 6720
+  },
+  {
+    "name": "Stacked and Jacked",
+    "cat": "meal",
+    "u30": 5628
+  },
+  {
+    "name": "Strawberry Protein French Toast",
+    "cat": "meal",
+    "u30": 2771
+  },
+  {
+    "name": "Strongsville Chicken Ranch Fold",
+    "cat": "meal",
+    "u30": 4892
+  },
+  {
+    "name": "Taco Build Quesadilla",
+    "cat": "meal",
+    "u30": 5599
+  },
+  {
+    "name": "Teriyaki Flank Bowl",
+    "cat": "meal",
+    "u30": 5105
+  },
+  {
+    "name": "TexMex Potato Hash",
+    "cat": "meal",
+    "u30": 5468
+  },
+  {
+    "name": "Thai Chili Chicken",
+    "cat": "meal",
+    "u30": 5894
+  },
+  {
+    "name": "The Arches Mac Daddy Wrap",
+    "cat": "meal",
+    "u30": 3367
+  },
+  {
+    "name": "The Clean Bulk Pasta Bowl",
+    "cat": "meal",
+    "u30": 4121
+  },
+  {
+    "name": "Texas Queso Steak Bowl",
+    "cat": "meal",
+    "u30": 3894
+  },
+  {
+    "name": "Turkey Bacon Cheddar Egg Muffins",
+    "cat": "meal",
+    "u30": 1474
+  },
+  {
+    "name": "Vegan Breakfast Sandwich",
+    "cat": "meal",
+    "u30": 402
+  },
+  {
+    "name": "Vegan Cheeseburger Bowl",
+    "cat": "meal",
+    "u30": 592
+  },
+  {
+    "name": "Vegan Chorizo Quesadilla",
+    "cat": "meal",
+    "u30": 449
+  },
+  {
+    "name": "West Coast Secret Sauce Bowl",
+    "cat": "meal",
+    "u30": 0
+  },
+  {
+    "name": "Zeus Bowl",
+    "cat": "meal",
+    "u30": 7155
+  },
+  {
+    "name": "Zeus Bowl V2",
+    "cat": "meal",
+    "u30": 4154
+  },
+  {
+    "name": "Peanut Butter & Jelly Sandwich",
+    "cat": "meal",
+    "u30": 3144
+  },
+  {
+    "name": "Buffin Muffin - Apple Pie-Ceps",
+    "cat": "muffin",
+    "u30": 12179
+  },
+  {
+    "name": "Buffin Muffin - Buff Roll",
+    "cat": "muffin",
+    "u30": 12141
+  },
+  {
+    "name": "Buffin Muffin - Blueberry",
+    "cat": "muffin",
+    "u30": 5885
+  },
+  {
+    "name": "Buffin Muffin - Strawberry Crunch Milkshake",
+    "cat": "muffin",
+    "u30": 9729
+  },
+  {
+    "name": "Buffin Muffin - Double Chocolate Brownie",
+    "cat": "muffin",
+    "u30": 10258
+  },
+  {
+    "name": "Buffin Muffin - Strawberry Buff Blast",
+    "cat": "muffin",
+    "u30": 11204
+  },
+  {
+    "name": "Buffin Muffin - Cookie Butter Tres Leches",
+    "cat": "muffin",
+    "u30": 8391
+  },
+  {
+    "name": "Buffin Muffin - German Chocolate Cake",
+    "cat": "muffin",
+    "u30": 7092
+  },
+  {
+    "name": "Buffin Muffin - ChocoLIT",
+    "cat": "muffin",
+    "u30": 8885
+  },
+  {
+    "name": "Buffin Muffin - TwistBar",
+    "cat": "muffin",
+    "u30": 10782
+  },
+  {
+    "name": "Buffin Muffin - Cookies and Cream Crunch",
+    "cat": "muffin",
+    "u30": 2082
+  },
+  {
+    "name": "Buffin Muffin - Gluten Free Confetti Pop",
+    "cat": "muffin",
+    "u30": 2276
+  },
+  {
+    "name": "Buffin Muffin - Gluten Free Cookies and Milk",
+    "cat": "muffin",
+    "u30": 6790
+  },
+  {
+    "name": "Buffin Muffin - Banana Choc. Chip",
+    "cat": "muffin",
+    "u30": 7011
+  },
+  {
+    "name": "Buffin Muffin - Buff Served",
+    "cat": "muffin",
+    "u30": 5811
+  },
+  {
+    "name": "Buffin Muffin - Boston Chocolate Creme",
+    "cat": "muffin",
+    "u30": 7969
+  },
+  {
+    "name": "Buffin Muffin - Welcome to the Sno",
+    "cat": "muffin",
+    "u30": 4631
+  },
+  {
+    "name": "Buffin Muffin - Cinna Blast",
+    "cat": "muffin",
+    "u30": 8551
+  },
+  {
+    "name": "Buffin Muffin - Banana Cream Protein Dream",
+    "cat": "muffin",
+    "u30": 12997
+  },
+  {
+    "name": "Buffin Muffin - Buffcoff",
+    "cat": "muffin",
+    "u30": 7922
+  },
+  {
+    "name": "Overnight Oats - Dubai Chocolate",
+    "cat": "oats",
+    "u30": 2212
+  },
+  {
+    "name": "Overnight Oats - Graham Fetti",
+    "cat": "oats",
+    "u30": 2101
+  },
+  {
+    "name": "Overnight Oats - Toast n' Crunch",
+    "cat": "oats",
+    "u30": 1408
+  },
+  {
+    "name": "Overnight Oats - Blueberry Muffin",
+    "cat": "oats",
+    "u30": 2183
+  },
+  {
+    "name": "Overnight Oats - Fitella",
+    "cat": "oats",
+    "u30": 1856
+  },
+  {
+    "name": "Overnight Oats - Banana Chocolate Chip",
+    "cat": "oats",
+    "u30": 1748
+  },
+  {
+    "name": "Overnight Oats - Cannoli",
+    "cat": "oats",
+    "u30": 1245
+  },
+  {
+    "name": "Overnight Oats - Chocolate Peanut Butter",
+    "cat": "oats",
+    "u30": 2032
+  },
+  {
+    "name": "Overnight Oats - Peanut Butter Brownie",
+    "cat": "oats",
+    "u30": 2029
+  },
+  {
+    "name": "Overnight Oats - Cookie Creme",
+    "cat": "oats",
+    "u30": 2075
+  },
+  {
+    "name": "Overnight Oats - Peanut Butter & Jelly",
+    "cat": "oats",
+    "u30": 1658
+  },
+  {
+    "name": "Overnight Oats - Cookie Dough",
+    "cat": "oats",
+    "u30": 1727
+  },
+  {
+    "name": "Overnight Oats - Cookies n Cream",
+    "cat": "oats",
+    "u30": 1575
+  },
+  {
+    "name": "Buff Crisp Bar - Cinna Crunch",
+    "cat": "snack",
+    "u30": 3611
+  },
+  {
+    "name": "Buff Crisp Bar - Original Recipe",
+    "cat": "snack",
+    "u30": 2656
+  },
+  {
+    "name": "Buff Crisp Bar - Fruity Cereal",
+    "cat": "snack",
+    "u30": 2038
+  },
+  {
+    "name": "Buff Crisp Bar - Chocolate",
+    "cat": "snack",
+    "u30": 816
+  },
+  {
+    "name": "Peanut Butter Chocolate Gree-Yo",
+    "cat": "snack",
+    "u30": 4836
+  },
+  {
+    "name": "S'Mores Gree-Yo",
+    "cat": "snack",
+    "u30": 2542
+  },
+  {
+    "name": "Protein Chocolate Pudding",
+    "cat": "snack",
+    "u30": 3459
+  },
+  {
+    "name": "3 Banana Chocolate Protein Poppers",
+    "cat": "snack",
+    "u30": 3386
+  },
+  {
+    "name": "Peanut Butter Energy Bites",
+    "cat": "snack",
+    "u30": 3590
+  },
+  {
+    "name": "Cookies and Cream Crunch",
+    "cat": "snack",
+    "u30": 0
+  },
+  {
+    "name": "Cookies and Cream Crunch - Exclusive- 20",
+    "cat": "snack",
+    "u30": 0
+  }
+]

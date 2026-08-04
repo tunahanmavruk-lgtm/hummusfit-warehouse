@@ -21,8 +21,7 @@ for sec in lane_plan.values():
 CAT_COLOR = {'muffin': '#2BBFAA', 'oats': '#4C9BE8', 'snack': '#E8612C', 'meal': '#3A3F46'}
 
 row_x0, row_x1 = g['row_x0'], g['row_x1']
-POS = g['POSITIONS_PER_ROW']
-pos_w = (row_x1 - row_x0) / POS
+POS_BY_SECTION = g['positions_per_row_by_section']  # bakery rows: 35/row, meals rows: 27/row
 CRATE_W, CRATE_D, CRATE_H = g['CRATE_W'], g['CRATE_D'], g['CRATE_H']
 
 crates_js = []
@@ -31,6 +30,8 @@ for entry in g['layout']:
         continue
     r = entry['row']
     sec = g['row_section'][r]
+    POS = POS_BY_SECTION[sec]
+    pos_w = (row_x1 - row_x0) / POS
     y0, y1 = entry['y0'], entry['y1']
     for p in range(1, POS + 1):
         code = f'{r}-{p:02d}'
