@@ -9,9 +9,13 @@ v5 -- relabel + rotate per Tony's correction:
 Still open: the Wall-A(new)-to-Center aisle distance was never actually
 measured in this orientation -- see backstock_geometry.json._relabel_v5_open.
 """
-import json
+import json, re
 
 g = json.load(open('/home/claude/hummusfit-warehouse/backstock/backstock_geometry.json'))
+try:
+    pos_fill = json.load(open('/home/claude/hummusfit-warehouse/backstock/position_fill.json'))
+except FileNotFoundError:
+    pos_fill = {}
 
 SCALE = 1.6
 ZONE_W = g['zone_width_in']   # 384in (32ft) -- Wall A's real confirmed span
@@ -95,7 +99,71 @@ parts.append(text(wd_x + WD_DEPTH/2, -10, 'Wall D (ours)', 9.5, '700', '#5b6470'
 parts.append(text(wd_x + WD_DEPTH/2, 2*WD_BAY_LEN + WD_BAY_LEN/2, "3rd bay —", 8, '600', '#9aa0a8', 'middle'))
 parts.append(text(wd_x + WD_DEPTH/2, 2*WD_BAY_LEN + WD_BAY_LEN/2 + 12, "not counted", 8, '600', '#9aa0a8', 'middle'))
 parts.append(f'<line x1="{MARGIN:.1f}" y1="{MARGIN:.1f}" x2="{(X_OFFSET+ZONE_W)*SCALE+MARGIN:.1f}" y2="{MARGIN:.1f}" stroke="#E8612C" stroke-width="2"/>')
-parts.append(text((X_OFFSET+ZONE_W)/2, -22, "door-end row — Wall D's D01 and Wall A's A01 both start flush at this line", 8.5, '600', '#E8612C', 'middle'))
+
+# ---- Shelf Tag Strip -- same technique as the main walk-in blueprint:
+# one strip per rack (Wall D, Wall A, Center), every position shown with its
+# code and exactly which product(s)/crates it holds, rotated 90deg so long
+# names fit in a narrow column. Source: position_fill.json (the real
+# 3.5-day location assignment), not guessed.
+def short_name(name):
+    s = re.sub(r'^(Buffin Muffin|Overnight Oats|Buff Crisp Bar)\s*-\s*', '', name)
+    return s if len(s) <= 26 else s[:24] + '…'
+
+CAT_COLOR = {'meal': '#3b82f6', 'muffin': '#E8612C', 'oats': '#22c55e', 'snack': '#8b5cf6'}
+STRIP_TOP_PAD = 60
+STRIP_HEAD_H = 22
+STRIP_H = 150
+STRIP_GAP = 34
+POS_W = 30
+
+strip_y0_start = ZONE_L + STRIP_TOP_PAD
+parts.append(text(X_OFFSET, strip_y0_start - 34, 'Shelf Tag Strip — every position, exactly what it holds', 15, '800', '#111417', 'start'))
+parts.append(text(X_OFFSET, strip_y0_start - 18, 'Same real 3.5-day assignment as backstock_location_assignment.csv — no lookup required.', 10.5, '600', '#767c85', 'start'))
+
+def strip_positions(zone):
+    codes = []
+    if zone == 'walld':
+        for b in (1, 2):
+            for l in (1, 2, 3, 4):
+                codes.append(f'D{b:02d}-L{l}')
+    elif zone == 'walla':
+        for b in (1, 2, 3, 4):
+            for l in (1, 2, 3):
+                codes.append(f'A{b:02d}-L{l}')
+    else:
+        for b in range(1, 8):
+            for l in (1, 2, 3, 4):
+                codes.append(f'C{b:02d}-L{l}')
+    return codes
+
+sy = strip_y0_start
+for zone, label in [('walld', 'Wall D'), ('walla', 'Wall A'), ('center', 'Center')]:
+    codes = strip_positions(zone)
+    strip_w = len(codes) * POS_W
+    parts.append(text(X_OFFSET, sy + STRIP_HEAD_H - 8, f'{label}', 12, '800', '#111417', 'start'))
+    strip_y0 = sy + STRIP_HEAD_H
+    strip_y1 = strip_y0 + STRIP_H
+    parts.append(rect(X_OFFSET, strip_y0, strip_w, STRIP_H, '#fafafa', '#e9ebee', 1))
+    for i, code in enumerate(codes):
+        cx = X_OFFSET + (i + 0.5) * POS_W
+        parts.append(f'<line x1="{cx*SCALE+MARGIN:.1f}" y1="{strip_y0*SCALE+MARGIN:.1f}" x2="{cx*SCALE+MARGIN:.1f}" y2="{strip_y1*SCALE+MARGIN:.1f}" stroke="#111417" stroke-width="0.4" opacity="0.2"/>')
+        v = pos_fill.get(code)
+        ty = strip_y0 + 8
+        if v and v.get('products'):
+            cat = v.get('cat')
+            color = CAT_COLOR.get(cat, '#111417')
+            bits = ' + '.join(short_name(p['name']) for p in v['products'])
+            label_txt = f'{code}: {bits}'
+            parts.append(f'<text x="{cx*SCALE+4:.1f}" y="{ty*SCALE+MARGIN:.1f}" transform="rotate(90 {cx*SCALE+4:.1f} {ty*SCALE+MARGIN:.1f})" text-anchor="start" font-size="7.4" font-weight="700" fill="{color}" font-family="Inter, sans-serif"><title>{code}: {bits}</title>{label_txt}</text>')
+        else:
+            parts.append(f'<text x="{cx*SCALE+4:.1f}" y="{ty*SCALE+MARGIN:.1f}" transform="rotate(90 {cx*SCALE+4:.1f} {ty*SCALE+MARGIN:.1f})" text-anchor="start" font-size="7" fill="#9aa0a8" opacity="0.6" font-family="Inter, sans-serif">{code}: empty</text>')
+    sy = strip_y1 + STRIP_GAP
+
+SVG_H = sy * SCALE + MARGIN * 2 + 20
+# Center's strip (28 positions x POS_W) can be wider than the room drawing --
+# widen the canvas to whichever is bigger so nothing gets clipped.
+widest_strip_w = max(len(strip_positions(z)) for z in ('walld', 'walla', 'center')) * POS_W
+SVG_W = max(SVG_W, (X_OFFSET + widest_strip_w) * SCALE + MARGIN * 2)
 
 svg = f'''<svg viewBox="0 0 {SVG_W:.1f} {SVG_H:.1f}" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
 {''.join(parts)}
