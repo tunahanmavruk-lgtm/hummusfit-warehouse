@@ -147,7 +147,11 @@ for entry in g['layout']:
         x0, y0 = room_x(row_x0), room_y(entry['y0'])
         x1, y1 = room_x(row_x1), room_y(entry['y1'])
         add(f'<rect x="{x0}" y="{y0}" width="{x1-x0}" height="{y1-y0}" fill="#fdfdfd"/>')
-        add(f'<text x="{(x0+x1)/2}" y="{(y0+y1)/2+4}" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">{entry["aisle"]}</text>')
+        # Moved from dead-center to the top-left corner of the aisle band --
+        # dead-center is where the zone-transition pathway arrows and the
+        # row-direction labels for the row below this aisle both land, and
+        # collided with this label there.
+        add(f'<text x="{x0+8}" y="{y0+11}" text-anchor="start" font-size="11" font-weight="700" fill="{DIM}">{entry["aisle"]}</text>')
 
 # ---- columns (drawn AFTER rows so the marker is visible, not painted over
 # by the row/aisle fill) ----
@@ -172,18 +176,36 @@ fx0 = room_x(row_x1)
 fx1 = room_x(ROOM_W)
 add(f'<text x="{(fx0+fx1)/2}" y="{room_y(ROOM_D/2)}" transform="rotate(-90 {(fx0+fx1)/2} {room_y(ROOM_D/2)})" text-anchor="middle" font-size="10.5" fill="{DIM}">{g["far_clearance"]:.0f}" spare — reserve pallets / overflow crates</text>')
 
-# ---- pathway arrows — travel ONLY through the 3 aisles and the two end
-# margins (entry spine on the left, spare clearance strip on the right).
-# The previous version routed the first leg straight down the K1 ROW's own
-# centerline, which drew the picker's path directly on top of the K1
-# crates — exactly the "arrows going over crates" problem. Every turn here
-# now happens in an aisle or a margin, never inside a crate row. ----
+# ---- pathway arrows — real confirmed walk order (Aug 2026 correction from
+# Tony): NOT a single loop through each aisle once. The picker actually
+# zigzags row by row -- row 1 of a zone ascending (low position -> high),
+# row 2 descending (high back to low), row 3 ascending again -- and that
+# alternation RESETS to ascending at the start of each new zone rather than
+# continuing across the zone boundary. Meals (M1-M3) is walked first,
+# bakery (K1-K3) second.
+#
+# Physically, each aisle sits between exactly two rows (Aisle A: K1/K2,
+# Aisle B: K3/M1, Aisle C: M2/M3), so a row that isn't the first or last in
+# its zone shares its aisle with the row before or after it in the order --
+# the confirmed direction pattern is exactly consistent with that: the
+# picker walks the shared aisle, turns around at the end, and walks back
+# for the paired row (M2 desc immediately followed by M3 asc back through
+# Aisle C; K1 asc immediately followed by K2 desc back through Aisle A).
+#
+# Each row's own arrow is drawn along THAT row's centerline (not just the
+# adjacent aisle's), per Tony's request that "each row's arrowhead points
+# in its actual walked direction" -- turns between rows still route through
+# an aisle or margin, never straight across a different crate row, so nothing
+# here draws a path on top of crates that aren't the ones being picked.
 def arrow(points, color=TEAL):
     d = 'M ' + ' L '.join(f'{p[0]},{p[1]}' for p in points)
-    add(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="3" stroke-dasharray="10,6" marker-end="url(#arrowhead)"/>')
+    marker = 'arrowhead-teal' if color == TEAL else 'arrowhead-ink'
+    add(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="3" stroke-dasharray="10,6" marker-end="url(#{marker})"/>')
 
-add(f'''<defs><marker id="arrowhead" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
-<polygon points="0 0, 10 4, 0 8" fill="{TEAL}"/></marker></defs>''')
+add(f'''<defs>
+<marker id="arrowhead-teal" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><polygon points="0 0, 10 4, 0 8" fill="{TEAL}"/></marker>
+<marker id="arrowhead-ink" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto"><polygon points="0 0, 10 4, 0 8" fill="{INK}"/></marker>
+</defs>''')
 
 door_mid_y = (door_y0+door_y1)/2
 spine_mid_x = (sx0+sx1)/2
@@ -192,25 +214,74 @@ aisleB_mid_y = room_y((g['layout'][5]['y0']+g['layout'][5]['y1'])/2)
 aisleC_mid_y = room_y((g['layout'][8]['y0']+g['layout'][8]['y1'])/2)
 row_end_x = room_x(row_x1) - 14
 
-# enter door -> down the spine to Aisle A's level (spine only, no crates)
-arrow([(rx0, door_mid_y), (spine_mid_x, door_mid_y), (spine_mid_x, aisleA_mid_y)])
-# traverse Aisle A rightward (picks K1 + K2, both bakery)
-arrow([(spine_mid_x, aisleA_mid_y), (row_end_x, aisleA_mid_y)])
-# turn in the far-end margin, drop to Aisle B's level
-arrow([(row_end_x, aisleA_mid_y), (row_end_x, aisleB_mid_y)])
-# traverse Aisle B leftward (picks K3 finishing bakery, then M1 starting meals)
-arrow([(row_end_x, aisleB_mid_y), (spine_mid_x, aisleB_mid_y)])
-# turn in the spine margin, drop to Aisle C's level
-arrow([(spine_mid_x, aisleB_mid_y), (spine_mid_x, aisleC_mid_y)], color=INK)
-# traverse Aisle C rightward (picks M2 + M3)
-arrow([(spine_mid_x, aisleC_mid_y), (row_end_x, aisleC_mid_y)], color=INK)
-# exit: turn in the far-end margin, back up the spine, out the door
-arrow([(row_end_x, aisleC_mid_y), (row_end_x, aisleC_mid_y+40), (spine_mid_x, aisleC_mid_y+40), (spine_mid_x, door_mid_y), (rx0, door_mid_y)], color=INK)
+# Each row's own crate band is only ~24px tall in this drawing (already
+# packed with position-number ticks near the top and occupied/empty dots
+# near the bottom) -- nowhere near enough room for a direction arrow AND a
+# readable label. Each aisle band, by contrast, is ~74px tall and serves
+# exactly two rows (Aisle A: K1 above / K2 below, Aisle B: K3 above / M1
+# below, Aisle C: M2 above / M3 below). So each row's arrow is drawn inside
+# its ADJACENT aisle, offset toward whichever side that row is actually on
+# (near the top of the aisle for the row above, near the bottom for the row
+# below) -- close enough to read as "this row's arrow," with an explicit
+# text label next to it so there's no ambiguity about which row it's for.
+aisleA_y0, aisleA_y1 = room_y(g['layout'][2]['y0']), room_y(g['layout'][2]['y1'])
+aisleB_y0, aisleB_y1 = room_y(g['layout'][5]['y0']), room_y(g['layout'][5]['y1'])
+aisleC_y0, aisleC_y1 = room_y(g['layout'][8]['y0']), room_y(g['layout'][8]['y1'])
+NEAR, FAR = 0.30, 0.70  # fraction down the aisle band: near the top row vs. the bottom row
+
+K1_y = aisleA_y0 + (aisleA_y1-aisleA_y0)*NEAR   # K1 is above Aisle A
+K2_y = aisleA_y0 + (aisleA_y1-aisleA_y0)*FAR    # K2 is below Aisle A
+K3_y = aisleB_y0 + (aisleB_y1-aisleB_y0)*NEAR   # K3 is above Aisle B
+M1_y = aisleB_y0 + (aisleB_y1-aisleB_y0)*FAR    # M1 is below Aisle B
+M2_y = aisleC_y0 + (aisleC_y1-aisleC_y0)*NEAR   # M2 is above Aisle C
+M3_y = aisleC_y0 + (aisleC_y1-aisleC_y0)*FAR    # M3 is below Aisle C
+
+def row_label(text, x, y, color):
+    add(f'<text x="{x}" y="{y-6}" text-anchor="middle" font-size="10.5" font-weight="800" fill="{color}">{text}</text>')
+
+mid_x = (spine_mid_x + row_end_x) / 2
+
+# ---- Meals zone first (dark/INK), reset to ascending ----
+# Enter door -> spine down to M1's level -> M1 ascending (1 -> 27)
+arrow([(rx0, door_mid_y), (spine_mid_x, door_mid_y), (spine_mid_x, M1_y), (row_end_x, M1_y)], color=INK)
+row_label('M1 →', mid_x, M1_y, INK)
+# M1 ends at the far end -> M2 descending (27 -> 1), immediate return pass
+arrow([(row_end_x, M1_y), (row_end_x, M2_y), (spine_mid_x, M2_y)], color=INK)
+row_label('M2 ←', mid_x, M2_y, INK)
+# M2 ends at the spine -> M3 ascending (1 -> 27), immediate return pass
+arrow([(spine_mid_x, M2_y), (spine_mid_x, M3_y), (row_end_x, M3_y)], color=INK)
+row_label('M3 →', mid_x, M3_y, INK)
+
+# ---- Zone transition: meals done, reset to ascending for bakery ----
+# From M3's end, up the far-end margin, left through Aisle A (a clear
+# walkway, not a crate row) to the spine, then up to K1's level -- gets us
+# from the far end of the room back to K1's start (position 1) without ever
+# crossing a row that isn't the one currently being picked.
+# The horizontal jog is offset 16px above the aisle's dead-center so it
+# doesn't run straight through the pre-existing "Aisle A/B" label text,
+# which sits exactly at that center point.
+aisleA_trans_y = aisleA_mid_y - 16
+arrow([(row_end_x, M3_y), (row_end_x, aisleA_trans_y), (spine_mid_x, aisleA_trans_y), (spine_mid_x, K1_y), (row_end_x, K1_y)], color=TEAL)
+row_label('K1 →', mid_x, K1_y, TEAL)
+
+# ---- Bakery zone second (teal), same reset-to-ascending pattern ----
+# K1 ends at the far end -> K2 descending (35 -> 1), immediate return pass
+arrow([(row_end_x, K1_y), (row_end_x, K2_y), (spine_mid_x, K2_y)], color=TEAL)
+row_label('K2 ←', mid_x, K2_y, TEAL)
+# K2 ends at the spine -> K3 ascending, immediate return pass
+arrow([(spine_mid_x, K2_y), (spine_mid_x, K3_y), (row_end_x, K3_y)], color=TEAL)
+row_label('K3 →', mid_x, K3_y, TEAL)
+
+# Exit: from K3's end, down through Aisle B (clear walkway) to the spine,
+# then up the spine and out the same door. Same 16px offset as the meals
+# -> bakery transition, so this jog also clears the "Aisle B" label text.
+aisleB_trans_y = aisleB_mid_y - 16
+arrow([(row_end_x, K3_y), (row_end_x, aisleB_trans_y), (spine_mid_x, aisleB_trans_y), (spine_mid_x, door_mid_y), (rx0, door_mid_y)], color=TEAL)
 
 # Centered under the full room width (not the narrow entry spine) — a long
 # line anchored at the spine's midpoint previously ran off past x=0 where
 # the SVG viewport clipped it.
-add(f'<text x="{(rx0+rx1)/2}" y="{ry1+34}" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">Path runs in the 3 aisles only, never across a crate row &nbsp;•&nbsp; Teal = Bakery leg (Aisle A → B, K1/K2/K3) &nbsp;•&nbsp; Dark = Meals leg (Aisle B → C, M1/M2/M3) &nbsp;•&nbsp; cart exits the same door</text>')
+add(f'<text x="{(rx0+rx1)/2}" y="{ry1+34}" text-anchor="middle" font-size="11" font-weight="700" fill="{DIM}">Zigzag path — each row walked its own direction (ascending →, descending ←), resetting to ascending at the start of each new zone &nbsp;•&nbsp; Dark = Meals leg, walked first (M1 → M2 → M3) &nbsp;•&nbsp; Teal = Bakery leg, walked second (K1 → K2 → K3) &nbsp;•&nbsp; cart exits the same door</text>')
 
 # ---- section labels — placed OUTSIDE the room's right wall ----
 label_x = rx1 + 60
