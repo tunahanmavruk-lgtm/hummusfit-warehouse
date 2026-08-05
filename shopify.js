@@ -112,6 +112,12 @@ const NAME_ALIASES = {
   'Buff Crisp Bar - Chocolate': 'Chocolate Buff Crisp Bar',
   'Fit Ala Vodka With Chicken': 'Fit A La Vodka With Chicken',
   'Peanut Butter Chocolate Gree-Yo': 'Peanut butter gree-yo',
+  // Confirmed by Tony (Aug 5, 2026): this is the renamed product. Still
+  // won't match until it's flipped to Active in Shopify -- confirmed with
+  // him to keep the sync Active-only, so this alias sits ready for when
+  // that happens rather than firing a false match against a Draft/0-stock
+  // listing today.
+  'West Coast Secret Sauce Bowl': 'Animal Style West Coast Beef Bowl',
 };
 
 // Loose key for matching: lowercase, collapse whitespace, and fold curly
