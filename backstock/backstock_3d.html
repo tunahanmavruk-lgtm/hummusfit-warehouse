@@ -13,8 +13,13 @@
   #pagenav a{text-decoration:none;font-size:12.5px;font-weight:800;color:#fff;background:rgba(17,20,23,0.85);border-radius:10px;padding:8px 14px;}
   #pagenav a.active{background:#2BBFAA;}
   #labelLayer{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
-  .pos-label{position:absolute;transform:translate(-50%,-100%);font-size:9.5px;font-weight:700;line-height:1.3;background:rgba(255,255,255,.95);border:1px solid rgba(17,20,23,.15);border-radius:5px;padding:3px 6px;white-space:pre;color:var(--ink,#111417);pointer-events:none;box-shadow:0 1px 2px rgba(0,0,0,.08);max-width:220px;white-space:normal;}
-  .pos-label b{color:#E8612C;}
+  .pos-label{position:absolute;transform:translate(-50%,-100%);font-size:9.5px;font-weight:800;line-height:1;background:rgba(255,255,255,.92);border:1px solid rgba(17,20,23,.15);border-radius:4px;padding:2px 5px;color:#111417;pointer-events:none;box-shadow:0 1px 2px rgba(0,0,0,.08);white-space:nowrap;}
+  #panel{position:absolute;top:150px;right:16px;width:280px;background:rgba(255,255,255,.97);border:1.5px solid #e9ebee;border-radius:14px;padding:14px 16px;font-size:12.5px;box-shadow:0 6px 20px rgba(0,0,0,.12);display:none;max-height:calc(100% - 170px);overflow-y:auto;}
+  #panel .code{font-weight:900;font-size:16px;color:#111417;}
+  #panel .row{margin:8px 0 2px;font-weight:700;line-height:1.4;padding-bottom:6px;border-bottom:1px solid #f0f1f3;}
+  #panel .meta{color:#767c85;font-size:11.5px;margin-top:8px;}
+  #panel .hint{color:#767c85;font-size:11.5px;line-height:1.5;}
+  #crosshair{position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.85);border:1px solid rgba(0,0,0,.4);display:none;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -27,8 +32,18 @@
     Block height = how full that position is (short = lightly filled, tall = at capacity).<br>
     <span class="warn">Room capacity (720 crates) only covers ~27% of full 3.5-day demand (2,613 crates) — most positions shown are already at max fill; 97 products have no assigned spot at all. Beam spacing/level heights still placeholders.</span>
   </div>
-  <div id="toggle">Drag to rotate · scroll to zoom in to read position labels<br><label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-weight:600;margin-top:4px;"><input type="checkbox" id="labelToggle" checked> Show position labels</label></div>
+  <div id="toggle">
+    Click any block for full details · drag to rotate · scroll to zoom<br>
+    <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-weight:600;margin-top:4px;"><input type="checkbox" id="labelToggle" checked> Show position code tags</label>
+    <button id="walkBtn" style="margin-top:8px;width:100%;background:#2BBFAA;color:#fff;border:none;border-radius:8px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer;">Walk mode (WASD + mouse)</button>
+  </div>
   <div id="labelLayer"></div>
+  <div id="panel">
+    <div class="code" id="panelCode"></div>
+    <div id="panelRows"></div>
+    <div class="meta" id="panelMeta"></div>
+  </div>
+  <div id="crosshair"></div>
 </div>
 <script>/**
  * @license
@@ -1083,9 +1098,170 @@
 
 } )();
 </script>
+<script>( function () {
+
+	const _euler = new THREE.Euler( 0, 0, 0, 'YXZ' );
+
+	const _vector = new THREE.Vector3();
+
+	const _changeEvent = {
+		type: 'change'
+	};
+	const _lockEvent = {
+		type: 'lock'
+	};
+	const _unlockEvent = {
+		type: 'unlock'
+	};
+
+	const _PI_2 = Math.PI / 2;
+
+	class PointerLockControls extends THREE.EventDispatcher {
+
+		constructor( camera, domElement ) {
+
+			super();
+
+			if ( domElement === undefined ) {
+
+				console.warn( 'THREE.PointerLockControls: The second parameter "domElement" is now mandatory.' );
+				domElement = document.body;
+
+			}
+
+			this.domElement = domElement;
+			this.isLocked = false; // Set to constrain the pitch of the camera
+			// Range is 0 to Math.PI radians
+
+			this.minPolarAngle = 0; // radians
+
+			this.maxPolarAngle = Math.PI; // radians
+
+			const scope = this;
+
+			function onMouseMove( event ) {
+
+				if ( scope.isLocked === false ) return;
+				const movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+				const movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+				_euler.setFromQuaternion( camera.quaternion );
+
+				_euler.y -= movementX * 0.002;
+				_euler.x -= movementY * 0.002;
+				_euler.x = Math.max( _PI_2 - scope.maxPolarAngle, Math.min( _PI_2 - scope.minPolarAngle, _euler.x ) );
+				camera.quaternion.setFromEuler( _euler );
+				scope.dispatchEvent( _changeEvent );
+
+			}
+
+			function onPointerlockChange() {
+
+				if ( scope.domElement.ownerDocument.pointerLockElement === scope.domElement ) {
+
+					scope.dispatchEvent( _lockEvent );
+					scope.isLocked = true;
+
+				} else {
+
+					scope.dispatchEvent( _unlockEvent );
+					scope.isLocked = false;
+
+				}
+
+			}
+
+			function onPointerlockError() {
+
+				console.error( 'THREE.PointerLockControls: Unable to use Pointer Lock API' );
+
+			}
+
+			this.connect = function () {
+
+				scope.domElement.ownerDocument.addEventListener( 'mousemove', onMouseMove );
+				scope.domElement.ownerDocument.addEventListener( 'pointerlockchange', onPointerlockChange );
+				scope.domElement.ownerDocument.addEventListener( 'pointerlockerror', onPointerlockError );
+
+			};
+
+			this.disconnect = function () {
+
+				scope.domElement.ownerDocument.removeEventListener( 'mousemove', onMouseMove );
+				scope.domElement.ownerDocument.removeEventListener( 'pointerlockchange', onPointerlockChange );
+				scope.domElement.ownerDocument.removeEventListener( 'pointerlockerror', onPointerlockError );
+
+			};
+
+			this.dispose = function () {
+
+				this.disconnect();
+
+			};
+
+			this.getObject = function () {
+
+				// retaining this method for backward compatibility
+				return camera;
+
+			};
+
+			this.getDirection = function () {
+
+				const direction = new THREE.Vector3( 0, 0, - 1 );
+				return function ( v ) {
+
+					return v.copy( direction ).applyQuaternion( camera.quaternion );
+
+				};
+
+			}();
+
+			this.moveForward = function ( distance ) {
+
+				// move forward parallel to the xz-plane
+				// assumes camera.up is y-up
+				_vector.setFromMatrixColumn( camera.matrix, 0 );
+
+				_vector.crossVectors( camera.up, _vector );
+
+				camera.position.addScaledVector( _vector, distance );
+
+			};
+
+			this.moveRight = function ( distance ) {
+
+				_vector.setFromMatrixColumn( camera.matrix, 0 );
+
+				camera.position.addScaledVector( _vector, distance );
+
+			};
+
+			this.lock = function () {
+
+				this.domElement.requestPointerLock();
+
+			};
+
+			this.unlock = function () {
+
+				scope.domElement.ownerDocument.exitPointerLock();
+
+			};
+
+			this.connect();
+
+		}
+
+	}
+
+	THREE.PointerLockControls = PointerLockControls;
+
+} )();
+</script>
 <script>
 const CFG = {"roomW": 466, "roomD": 384, "wallA": {"bays": 4, "levels": 3, "depth": 42, "bayW": 96.0, "x0": 82, "y0": 0}, "wallD": {"bays": 2, "levels": 4, "depth": 42, "bayLen": 96, "x0": 0, "y0": 0}, "center": {"bays": 7, "depth": 40, "bayW": 54.0, "totalRun": 378, "zoneW": 384, "x0": 82, "y0": 174}, "levelH": 60};
-const LOADS = [{"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C01-L1", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-12 Broritto Burrito (20cr)"}, {"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C01-L2", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-12 Broritto Burrito (20cr)"}, {"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C01-L3", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-12 Broritto Burrito (20cr)"}, {"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C01-L4", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-12 Broritto Burrito (2cr); M1-05 BBQ Chicken Garlic Parm Potatoes (18cr)"}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C02-L1", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-05 BBQ Chicken Garlic Parm Potatoes (20cr)"}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C02-L2", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-05 BBQ Chicken Garlic Parm Potatoes (16cr); M1-23 Closed on Sunday Crispy Chicken Bowl (4cr)"}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C02-L3", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-23 Closed on Sunday Crispy Chicken Bowl (20cr)"}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C02-L4", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-23 Closed on Sunday Crispy Chicken Bowl (20cr)"}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C03-L1", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-23 Closed on Sunday Crispy Chicken Bowl (2cr); M2-08 Crispy Baked Chicken Wrap (18cr)"}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C03-L2", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M2-08 Crispy Baked Chicken Wrap (20cr)"}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C03-L3", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M2-08 Crispy Baked Chicken Wrap (4cr); M1-03 Baja Chicken Tacos (16cr)"}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C03-L4", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-03 Baja Chicken Tacos (20cr)"}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C04-L1", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-03 Baja Chicken Tacos (2cr); M3-26 Zeus Bowl (18cr)"}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C04-L2", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M3-26 Zeus Bowl (17cr); M2-18 Herb Butter Steak Tips Bowl (3cr)"}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C04-L3", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M2-18 Herb Butter Steak Tips Bowl (20cr)"}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C04-L4", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M2-18 Herb Butter Steak Tips Bowl (11cr); M3-10 Spicy Buffalo Wrap (9cr)"}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C05-L1", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M3-10 Spicy Buffalo Wrap (20cr)"}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C05-L2", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M3-10 Spicy Buffalo Wrap (4cr); M3-18 Thai Chili Chicken (16cr)"}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C05-L3", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M3-18 Thai Chili Chicken (13cr); M1-11 Brookfield Chicken Bowl (7cr)"}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C05-L4", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-11 Brookfield Chicken Bowl (20cr)"}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C06-L1", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-11 Brookfield Chicken Bowl (1cr); M1-16 Buffalo Crispy Chicken Wrap (19cr)"}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C06-L2", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M1-16 Buffalo Crispy Chicken Wrap (9cr); M3-08 Southwest Chicken Bowl (11cr)"}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C06-L3", "cat": "meal", "filled": 20, "cap": 20, "laneText": "M3-08 Southwest Chicken Bowl (17cr); M3-11 Stacked and Jacked (3cr)"}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 15229228, "code": "C06-L4", "cat": "muffin", "filled": 20, "cap": 20, "laneText": "K1-06 Buffin Muffin - Banana Cream Protein Dream (20cr)"}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 15229228, "code": "C07-L1", "cat": "muffin", "filled": 20, "cap": 20, "laneText": "K1-06 Buffin Muffin - Banana Cream Protein Dream (20cr)"}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 15229228, "code": "C07-L2", "cat": "muffin", "filled": 20, "cap": 20, "laneText": "K1-06 Buffin Muffin - Banana Cream Protein Dream (20cr)"}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 15229228, "code": "C07-L3", "cat": "muffin", "filled": 20, "cap": 20, "laneText": "K1-06 Buffin Muffin - Banana Cream Protein Dream (4cr); K1-01 Buffin Muffin - Apple Pie-Ceps (16cr)"}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 15229228, "code": "C07-L4", "cat": "muffin", "filled": 20, "cap": 20, "laneText": "K1-01 Buffin Muffin - Apple Pie-Ceps (20cr)"}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 4, "h": 50.0, "color": 15229228, "code": "D01-L1", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-01 Buffin Muffin - Apple Pie-Ceps (8cr)"}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 64, "h": 50.0, "color": 15229228, "code": "D01-L2", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-01 Buffin Muffin - Apple Pie-Ceps (8cr)"}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 124, "h": 50.0, "color": 15229228, "code": "D01-L3", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-01 Buffin Muffin - Apple Pie-Ceps (8cr)"}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 184, "h": 50.0, "color": 15229228, "code": "D01-L4", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 4, "h": 50.0, "color": 15229228, "code": "D02-L1", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 64, "h": 50.0, "color": 15229228, "code": "D02-L2", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 124, "h": 50.0, "color": 15229228, "code": "D02-L3", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 184, "h": 50.0, "color": 15229228, "code": "D02-L4", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 82.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 15229228, "code": "A01-L1", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 82.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 15229228, "code": "A01-L2", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (8cr)"}, {"x": 82.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 15229228, "code": "A01-L3", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-12 Buffin Muffin - Buff Roll (4cr); K1-32 Buffin Muffin - Strawberry Buff Blast (4cr)"}, {"x": 178.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 15229228, "code": "A02-L1", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-32 Buffin Muffin - Strawberry Buff Blast (8cr)"}, {"x": 178.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 15229228, "code": "A02-L2", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-32 Buffin Muffin - Strawberry Buff Blast (8cr)"}, {"x": 178.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 15229228, "code": "A02-L3", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-32 Buffin Muffin - Strawberry Buff Blast (8cr)"}, {"x": 274.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 15229228, "code": "A03-L1", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-32 Buffin Muffin - Strawberry Buff Blast (8cr)"}, {"x": 274.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 15229228, "code": "A03-L2", "cat": "muffin", "filled": 8, "cap": 8, "laneText": "K1-32 Buffin Muffin - Strawberry Buff Blast (8cr)"}, {"x": 274.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 2278750, "code": "A03-L3", "cat": "oats", "filled": 8, "cap": 8, "laneText": "K2-17 Overnight Oats - Dubai Chocolate (8cr)"}, {"x": 370.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 2278750, "code": "A04-L1", "cat": "oats", "filled": 8, "cap": 8, "laneText": "K2-17 Overnight Oats - Dubai Chocolate (2cr); K2-05 Overnight Oats - Blueberry Muffin (6cr)"}, {"x": 370.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 2278750, "code": "A04-L2", "cat": "oats", "filled": 8, "cap": 8, "laneText": "K2-05 Overnight Oats - Blueberry Muffin (4cr); K2-20 Overnight Oats - Graham Fetti (4cr)"}, {"x": 370.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 2278750, "code": "A04-L3", "cat": "oats", "filled": 8, "cap": 8, "laneText": "K2-20 Overnight Oats - Graham Fetti (5cr); K2-08 Overnight Oats - Chocolate Peanut Butter (3cr)"}];
+const LOADS = [{"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C01-L1", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-12", "name": "Broritto Burrito", "crates": 20}]}, {"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C01-L2", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-12", "name": "Broritto Burrito", "crates": 20}]}, {"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C01-L3", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-12", "name": "Broritto Burrito", "crates": 20}]}, {"x": 82.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C01-L4", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-12", "name": "Broritto Burrito", "crates": 2}, {"lane": "M1-05", "name": "BBQ Chicken Garlic Parm Potatoes", "crates": 18}]}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C02-L1", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-05", "name": "BBQ Chicken Garlic Parm Potatoes", "crates": 20}]}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C02-L2", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-05", "name": "BBQ Chicken Garlic Parm Potatoes", "crates": 16}, {"lane": "M1-23", "name": "Closed on Sunday Crispy Chicken Bowl", "crates": 4}]}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C02-L3", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-23", "name": "Closed on Sunday Crispy Chicken Bowl", "crates": 20}]}, {"x": 136.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C02-L4", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-23", "name": "Closed on Sunday Crispy Chicken Bowl", "crates": 20}]}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C03-L1", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-23", "name": "Closed on Sunday Crispy Chicken Bowl", "crates": 2}, {"lane": "M2-08", "name": "Crispy Baked Chicken Wrap", "crates": 18}]}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C03-L2", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M2-08", "name": "Crispy Baked Chicken Wrap", "crates": 20}]}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C03-L3", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M2-08", "name": "Crispy Baked Chicken Wrap", "crates": 4}, {"lane": "M1-03", "name": "Baja Chicken Tacos", "crates": 16}]}, {"x": 190.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C03-L4", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-03", "name": "Baja Chicken Tacos", "crates": 20}]}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C04-L1", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-03", "name": "Baja Chicken Tacos", "crates": 2}, {"lane": "M3-26", "name": "Zeus Bowl", "crates": 18}]}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C04-L2", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M3-26", "name": "Zeus Bowl", "crates": 17}, {"lane": "M2-18", "name": "Herb Butter Steak Tips Bowl", "crates": 3}]}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C04-L3", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M2-18", "name": "Herb Butter Steak Tips Bowl", "crates": 20}]}, {"x": 244.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C04-L4", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M2-18", "name": "Herb Butter Steak Tips Bowl", "crates": 11}, {"lane": "M3-10", "name": "Spicy Buffalo Wrap", "crates": 9}]}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C05-L1", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M3-10", "name": "Spicy Buffalo Wrap", "crates": 20}]}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C05-L2", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M3-10", "name": "Spicy Buffalo Wrap", "crates": 4}, {"lane": "M3-18", "name": "Thai Chili Chicken", "crates": 16}]}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C05-L3", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M3-18", "name": "Thai Chili Chicken", "crates": 13}, {"lane": "M1-11", "name": "Brookfield Chicken Bowl", "crates": 7}]}, {"x": 298.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 3900150, "code": "C05-L4", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-11", "name": "Brookfield Chicken Bowl", "crates": 20}]}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 3900150, "code": "C06-L1", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-11", "name": "Brookfield Chicken Bowl", "crates": 1}, {"lane": "M1-16", "name": "Buffalo Crispy Chicken Wrap", "crates": 19}]}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 3900150, "code": "C06-L2", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M1-16", "name": "Buffalo Crispy Chicken Wrap", "crates": 9}, {"lane": "M3-08", "name": "Southwest Chicken Bowl", "crates": 11}]}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 3900150, "code": "C06-L3", "cat": "meal", "filled": 20, "cap": 20, "rows": [{"lane": "M3-08", "name": "Southwest Chicken Bowl", "crates": 17}, {"lane": "M3-11", "name": "Stacked and Jacked", "crates": 3}]}, {"x": 352.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 15229228, "code": "C06-L4", "cat": "muffin", "filled": 20, "cap": 20, "rows": [{"lane": "K1-06", "name": "Buffin Muffin - Banana Cream Protein Dream", "crates": 20}]}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 4, "h": 50.0, "color": 15229228, "code": "C07-L1", "cat": "muffin", "filled": 20, "cap": 20, "rows": [{"lane": "K1-06", "name": "Buffin Muffin - Banana Cream Protein Dream", "crates": 20}]}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 64, "h": 50.0, "color": 15229228, "code": "C07-L2", "cat": "muffin", "filled": 20, "cap": 20, "rows": [{"lane": "K1-06", "name": "Buffin Muffin - Banana Cream Protein Dream", "crates": 20}]}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 124, "h": 50.0, "color": 15229228, "code": "C07-L3", "cat": "muffin", "filled": 20, "cap": 20, "rows": [{"lane": "K1-06", "name": "Buffin Muffin - Banana Cream Protein Dream", "crates": 4}, {"lane": "K1-01", "name": "Buffin Muffin - Apple Pie-Ceps", "crates": 16}]}, {"x": 406.0, "z": 174, "w": 50.0, "d": 36, "y0": 184, "h": 50.0, "color": 15229228, "code": "C07-L4", "cat": "muffin", "filled": 20, "cap": 20, "rows": [{"lane": "K1-01", "name": "Buffin Muffin - Apple Pie-Ceps", "crates": 20}]}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 4, "h": 50.0, "color": 15229228, "code": "D01-L1", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-01", "name": "Buffin Muffin - Apple Pie-Ceps", "crates": 8}]}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 64, "h": 50.0, "color": 15229228, "code": "D01-L2", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-01", "name": "Buffin Muffin - Apple Pie-Ceps", "crates": 8}]}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 124, "h": 50.0, "color": 15229228, "code": "D01-L3", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-01", "name": "Buffin Muffin - Apple Pie-Ceps", "crates": 8}]}, {"x": 0, "z": 0, "w": 38, "d": 90, "y0": 184, "h": 50.0, "color": 15229228, "code": "D01-L4", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 4, "h": 50.0, "color": 15229228, "code": "D02-L1", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 64, "h": 50.0, "color": 15229228, "code": "D02-L2", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 124, "h": 50.0, "color": 15229228, "code": "D02-L3", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 0, "z": 96, "w": 38, "d": 90, "y0": 184, "h": 50.0, "color": 15229228, "code": "D02-L4", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 82.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 15229228, "code": "A01-L1", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 82.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 15229228, "code": "A01-L2", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 8}]}, {"x": 82.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 15229228, "code": "A01-L3", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-12", "name": "Buffin Muffin - Buff Roll", "crates": 4}, {"lane": "K1-32", "name": "Buffin Muffin - Strawberry Buff Blast", "crates": 4}]}, {"x": 178.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 15229228, "code": "A02-L1", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-32", "name": "Buffin Muffin - Strawberry Buff Blast", "crates": 8}]}, {"x": 178.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 15229228, "code": "A02-L2", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-32", "name": "Buffin Muffin - Strawberry Buff Blast", "crates": 8}]}, {"x": 178.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 15229228, "code": "A02-L3", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-32", "name": "Buffin Muffin - Strawberry Buff Blast", "crates": 8}]}, {"x": 274.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 15229228, "code": "A03-L1", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-32", "name": "Buffin Muffin - Strawberry Buff Blast", "crates": 8}]}, {"x": 274.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 15229228, "code": "A03-L2", "cat": "muffin", "filled": 8, "cap": 8, "rows": [{"lane": "K1-32", "name": "Buffin Muffin - Strawberry Buff Blast", "crates": 8}]}, {"x": 274.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 2278750, "code": "A03-L3", "cat": "oats", "filled": 8, "cap": 8, "rows": [{"lane": "K2-17", "name": "Overnight Oats - Dubai Chocolate", "crates": 8}]}, {"x": 370.0, "z": 0, "w": 92.0, "d": 38, "y0": 4, "h": 50.0, "color": 2278750, "code": "A04-L1", "cat": "oats", "filled": 8, "cap": 8, "rows": [{"lane": "K2-17", "name": "Overnight Oats - Dubai Chocolate", "crates": 2}, {"lane": "K2-05", "name": "Overnight Oats - Blueberry Muffin", "crates": 6}]}, {"x": 370.0, "z": 0, "w": 92.0, "d": 38, "y0": 64, "h": 50.0, "color": 2278750, "code": "A04-L2", "cat": "oats", "filled": 8, "cap": 8, "rows": [{"lane": "K2-05", "name": "Overnight Oats - Blueberry Muffin", "crates": 4}, {"lane": "K2-20", "name": "Overnight Oats - Graham Fetti", "crates": 4}]}, {"x": 370.0, "z": 0, "w": 92.0, "d": 38, "y0": 124, "h": 50.0, "color": 2278750, "code": "A04-L3", "cat": "oats", "filled": 8, "cap": 8, "rows": [{"lane": "K2-20", "name": "Overnight Oats - Graham Fetti", "crates": 5}, {"lane": "K2-08", "name": "Overnight Oats - Chocolate Peanut Butter", "crates": 3}]}];
 const wrap = document.getElementById('wrap');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xdfe3e6);
@@ -1188,17 +1364,31 @@ if (CFG.center.totalRun < CFG.center.zoneW) {
 
 // Real crate loads per position, from the actual product-location assignment
 // (backstock_location_assignment.csv) -- one solid block per filled position,
-// colored by category, height scaled to how full that position is. Each also
-// gets an HTML label (same overlay technique as the main walk-in 3D model)
-// showing the position code + every walk-in row code/product stored there,
-// so a picker can match e.g. "K1-01" here to "K1-01" on the walk-in blueprint.
+// colored by category, height scaled to how full that position is.
+//
+// Fix for "so confusing when zoomed in": the old version put a full
+// multi-product text label permanently floating over EVERY one of the 48
+// positions -- at any zoom close enough to read one, a dozen others were
+// overlapping it. Same problem the main walk-in 3D model already solved:
+// small always-on tags for orientation (position code only, short), full
+// detail only in a side panel on click. That's what this does now.
 const labelLayer = document.getElementById('labelLayer');
+const panel = document.getElementById('panel');
+const panelCode = document.getElementById('panelCode');
+const panelRows = document.getElementById('panelRows');
+const panelMeta = document.getElementById('panelMeta');
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const pickables = [];
 const posLabels = [];
+
 LOADS.forEach(ld => {
   const mat = new THREE.MeshStandardMaterial({color: ld.color});
   const block = new THREE.Mesh(new THREE.BoxGeometry(ld.w, ld.h, ld.d), mat);
   block.position.set(ld.x + ld.w/2, ld.y0 + ld.h/2, ld.z + ld.d/2);
+  block.userData = ld;
   scene.add(block);
+  pickables.push(block);
   const edges = new THREE.LineSegments(
     new THREE.EdgesGeometry(block.geometry),
     new THREE.LineBasicMaterial({color: 0x111417, transparent:true, opacity:0.35})
@@ -1206,12 +1396,31 @@ LOADS.forEach(ld => {
   edges.position.copy(block.position);
   scene.add(edges);
 
+  // Small code-only tag -- orientation, not detail. Short enough that
+  // overlap stays readable even with many positions on screen at once.
   const div = document.createElement('div');
   div.className = 'pos-label';
-  div.innerHTML = `<b>${ld.code}</b><br>${ld.laneText}`;
+  div.textContent = ld.code;
   labelLayer.appendChild(div);
-  posLabels.push({div, x: ld.x + ld.w/2, y: ld.y0 + ld.h + 10, z: ld.z + ld.d/2});
+  posLabels.push({div, x: ld.x + ld.w/2, y: ld.y0 + ld.h + 8, z: ld.z + ld.d/2});
 });
+
+function showPanel(ld) {
+  panelCode.textContent = ld.code;
+  panelRows.innerHTML = ld.rows.map(r => `<div class="row">${r.lane} — ${r.name} <span style="color:#767c85;font-weight:600;">(${r.crates}cr)</span></div>`).join('');
+  panelMeta.textContent = `${ld.filled} / ${ld.cap} crates (${Math.round(100*ld.filled/ld.cap)}% full)`;
+  panel.style.display = 'block';
+}
+
+function onPick(clientX, clientY) {
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const hit = raycaster.intersectObjects(pickables)[0];
+  if (hit) showPanel(hit.object.userData);
+}
+renderer.domElement.addEventListener('click', (e) => onPick(e.clientX, e.clientY));
 
 const labelVec = new THREE.Vector3();
 const labelToggle = document.getElementById('labelToggle');
@@ -1220,17 +1429,13 @@ function updateLabels() {
   labelLayer.style.display = show ? 'block' : 'none';
   if (!show) return;
   const rect = renderer.domElement.getBoundingClientRect();
-  const camDist = camera.position.distanceTo(controls.target);
-  // Default view is ~1030 units out with 48 labels -- unreadable overlap.
-  // Hide labels until zoomed in past 550 units so only a readable cluster shows.
-  const declutter = camDist > 550;
   for (const lb of posLabels) {
     labelVec.set(lb.x, lb.y, lb.z);
     labelVec.project(camera);
-    if (labelVec.z > 1 || declutter) { lb.div.style.display = 'none'; continue; }
+    if (labelVec.z > 1) { lb.div.style.display = 'none'; continue; }
     const sx = (labelVec.x * 0.5 + 0.5) * rect.width;
     const sy = (-labelVec.y * 0.5 + 0.5) * rect.height;
-    if (sx < -60 || sx > rect.width + 60 || sy < -30 || sy > rect.height + 30) {
+    if (sx < -30 || sx > rect.width + 30 || sy < -20 || sy > rect.height + 20) {
       lb.div.style.display = 'none';
       continue;
     }
@@ -1240,13 +1445,82 @@ function updateLabels() {
   }
 }
 
-function animate() {
+// ---- Walk mode: first-person WASD + mouse-look, like walking the aisle
+// yourself instead of orbiting the whole room from outside. Toggle back to
+// the normal orbit/overview camera any time with the same button or Esc. ----
+const walkBtn = document.getElementById('walkBtn');
+const crosshair = document.getElementById('crosshair');
+const plControls = new THREE.PointerLockControls(camera, renderer.domElement);
+let walking = false;
+const walkKeys = {};
+const EYE_HEIGHT = 66; // ~5'6" eye height in inches, matches the room's inch units
+document.addEventListener('keydown', e => walkKeys[e.code] = true);
+document.addEventListener('keyup', e => walkKeys[e.code] = false);
+walkBtn.addEventListener('click', () => {
+  if (!walking) {
+    camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, -60);
+    plControls.getObject().rotation.set(0,0,0);
+    plControls.lock();
+  } else {
+    plControls.unlock();
+  }
+});
+plControls.addEventListener('lock', () => {
+  walking = true;
+  controls.enabled = false;
+  walkBtn.textContent = 'Exit walk mode (Esc)';
+  crosshair.style.display = 'block';
+  panel.style.display = 'none';
+});
+plControls.addEventListener('unlock', () => {
+  walking = false;
+  controls.enabled = true;
+  walkBtn.textContent = 'Walk mode (WASD + mouse)';
+  crosshair.style.display = 'none';
+});
+renderer.domElement.addEventListener('click', () => {
+  // Walking-mode click = pick whatever's under the crosshair (screen center),
+  // since the mouse cursor itself is hidden/locked during pointer-lock.
+  if (walking) {
+    raycaster.setFromCamera(new THREE.Vector2(0,0), camera);
+    const hit = raycaster.intersectObjects(pickables)[0];
+    if (hit) showPanel(hit.object.userData);
+  }
+});
+const WALK_SPEED = 160; // inches/sec
+const walkVelocity = new THREE.Vector3();
+function updateWalk(dt) {
+  if (!walking) return;
+  walkVelocity.set(0,0,0);
+  if (walkKeys['KeyW']) walkVelocity.z -= 1;
+  if (walkKeys['KeyS']) walkVelocity.z += 1;
+  if (walkKeys['KeyA']) walkVelocity.x -= 1;
+  if (walkKeys['KeyD']) walkVelocity.x += 1;
+  if (walkVelocity.lengthSq() > 0) {
+    walkVelocity.normalize().multiplyScalar(WALK_SPEED*dt);
+    plControls.moveRight(walkVelocity.x);
+    plControls.moveForward(-walkVelocity.z);
+  }
+  camera.position.y = EYE_HEIGHT;
+  // clamp inside the room so you can't walk through walls
+  camera.position.x = Math.max(4, Math.min(CFG.roomW-4, camera.position.x));
+  camera.position.z = Math.max(-100, Math.min(CFG.roomD-4, camera.position.z));
+}
+let lastT = 0;
+
+function animate(t) {
   requestAnimationFrame(animate);
-  controls.update();
+  const dt = Math.min(0.05, (t - lastT) / 1000 || 0);
+  lastT = t;
+  if (walking) {
+    updateWalk(dt);
+  } else {
+    controls.update();
+  }
   renderer.render(scene, camera);
   updateLabels();
 }
-animate();
+requestAnimationFrame(animate);
 
 window.addEventListener('resize', () => {
   camera.aspect = wrap.clientWidth/wrap.clientHeight;

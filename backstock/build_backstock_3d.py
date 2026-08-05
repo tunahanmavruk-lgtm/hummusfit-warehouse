@@ -12,6 +12,7 @@ g = json.load(open('/home/claude/hummusfit-warehouse/backstock/backstock_geometr
 pos_fill = json.load(open('/home/claude/hummusfit-warehouse/backstock/position_fill.json'))
 THREE_JS = open('/tmp/package/build/three.min.js').read()
 ORBIT_JS = open('/tmp/package/examples/js/controls/OrbitControls.js').read()
+POINTERLOCK_JS = open('/tmp/package/examples/js/controls/PointerLockControls.js').read()
 
 ZONE_W = g['zone_width_in']          # 384in (32ft) -- Wall A's confirmed span
 ZONE_L = g['zone_length_in']
@@ -66,13 +67,13 @@ for code, v in pos_fill.items():
         w, d = c_bay_w - 4, CENTER_DEPTH - 4
     y0 = (level-1) * LEVEL_H + 4
     h = max(6, (LEVEL_H - 10) * frac)
-    # Build the label text: this position's own code, plus every product/lane-code
-    # it holds, so it reads exactly like the walk-in ("K1-01 Apple Pie-Ceps (6cr)").
-    lane_bits = '; '.join(f"{pr['lane']} {pr['name']} ({pr['crates']}cr)" for pr in v['products'])
+    # Structured per-product rows (lane code, name, crates) for the click panel --
+    # full detail lives here now, not crammed into an always-visible floating label.
+    rows = [{'lane': pr['lane'], 'name': pr['name'], 'crates': pr['crates']} for pr in v['products']]
     loads.append({
         'x': x, 'z': z, 'w': w, 'd': d, 'y0': y0, 'h': h,
         'color': CAT_COLOR.get(cat, 0x9aa0a8), 'code': code, 'cat': cat,
-        'filled': v['filled'], 'cap': v['cap'], 'laneText': lane_bits,
+        'filled': v['filled'], 'cap': v['cap'], 'rows': rows,
     })
 
 html_doc = f'''<!DOCTYPE html>
@@ -90,8 +91,13 @@ html_doc = f'''<!DOCTYPE html>
   #pagenav a{{text-decoration:none;font-size:12.5px;font-weight:800;color:#fff;background:rgba(17,20,23,0.85);border-radius:10px;padding:8px 14px;}}
   #pagenav a.active{{background:#2BBFAA;}}
   #labelLayer{{position:absolute;inset:0;overflow:hidden;pointer-events:none;}}
-  .pos-label{{position:absolute;transform:translate(-50%,-100%);font-size:9.5px;font-weight:700;line-height:1.3;background:rgba(255,255,255,.95);border:1px solid rgba(17,20,23,.15);border-radius:5px;padding:3px 6px;white-space:pre;color:var(--ink,#111417);pointer-events:none;box-shadow:0 1px 2px rgba(0,0,0,.08);max-width:220px;white-space:normal;}}
-  .pos-label b{{color:#E8612C;}}
+  .pos-label{{position:absolute;transform:translate(-50%,-100%);font-size:9.5px;font-weight:800;line-height:1;background:rgba(255,255,255,.92);border:1px solid rgba(17,20,23,.15);border-radius:4px;padding:2px 5px;color:#111417;pointer-events:none;box-shadow:0 1px 2px rgba(0,0,0,.08);white-space:nowrap;}}
+  #panel{{position:absolute;top:150px;right:16px;width:280px;background:rgba(255,255,255,.97);border:1.5px solid #e9ebee;border-radius:14px;padding:14px 16px;font-size:12.5px;box-shadow:0 6px 20px rgba(0,0,0,.12);display:none;max-height:calc(100% - 170px);overflow-y:auto;}}
+  #panel .code{{font-weight:900;font-size:16px;color:#111417;}}
+  #panel .row{{margin:8px 0 2px;font-weight:700;line-height:1.4;padding-bottom:6px;border-bottom:1px solid #f0f1f3;}}
+  #panel .meta{{color:#767c85;font-size:11.5px;margin-top:8px;}}
+  #panel .hint{{color:#767c85;font-size:11.5px;line-height:1.5;}}
+  #crosshair{{position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.85);border:1px solid rgba(0,0,0,.4);display:none;pointer-events:none;}}
 </style>
 </head>
 <body>
@@ -104,11 +110,22 @@ html_doc = f'''<!DOCTYPE html>
     Block height = how full that position is (short = lightly filled, tall = at capacity).<br>
     <span class="warn">Room capacity (720 crates) only covers ~27% of full 3.5-day demand (2,613 crates) — most positions shown are already at max fill; 97 products have no assigned spot at all. Beam spacing/level heights still placeholders.</span>
   </div>
-  <div id="toggle">Drag to rotate · scroll to zoom in to read position labels<br><label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-weight:600;margin-top:4px;"><input type="checkbox" id="labelToggle" checked> Show position labels</label></div>
+  <div id="toggle">
+    Click any block for full details · drag to rotate · scroll to zoom<br>
+    <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-weight:600;margin-top:4px;"><input type="checkbox" id="labelToggle" checked> Show position code tags</label>
+    <button id="walkBtn" style="margin-top:8px;width:100%;background:#2BBFAA;color:#fff;border:none;border-radius:8px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer;">Walk mode (WASD + mouse)</button>
+  </div>
   <div id="labelLayer"></div>
+  <div id="panel">
+    <div class="code" id="panelCode"></div>
+    <div id="panelRows"></div>
+    <div class="meta" id="panelMeta"></div>
+  </div>
+  <div id="crosshair"></div>
 </div>
 <script>{THREE_JS}</script>
 <script>{ORBIT_JS}</script>
+<script>{POINTERLOCK_JS}</script>
 <script>
 const CFG = {json.dumps(config)};
 const LOADS = {json.dumps(loads)};
@@ -214,17 +231,31 @@ if (CFG.center.totalRun < CFG.center.zoneW) {{
 
 // Real crate loads per position, from the actual product-location assignment
 // (backstock_location_assignment.csv) -- one solid block per filled position,
-// colored by category, height scaled to how full that position is. Each also
-// gets an HTML label (same overlay technique as the main walk-in 3D model)
-// showing the position code + every walk-in row code/product stored there,
-// so a picker can match e.g. "K1-01" here to "K1-01" on the walk-in blueprint.
+// colored by category, height scaled to how full that position is.
+//
+// Fix for "so confusing when zoomed in": the old version put a full
+// multi-product text label permanently floating over EVERY one of the 48
+// positions -- at any zoom close enough to read one, a dozen others were
+// overlapping it. Same problem the main walk-in 3D model already solved:
+// small always-on tags for orientation (position code only, short), full
+// detail only in a side panel on click. That's what this does now.
 const labelLayer = document.getElementById('labelLayer');
+const panel = document.getElementById('panel');
+const panelCode = document.getElementById('panelCode');
+const panelRows = document.getElementById('panelRows');
+const panelMeta = document.getElementById('panelMeta');
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const pickables = [];
 const posLabels = [];
+
 LOADS.forEach(ld => {{
   const mat = new THREE.MeshStandardMaterial({{color: ld.color}});
   const block = new THREE.Mesh(new THREE.BoxGeometry(ld.w, ld.h, ld.d), mat);
   block.position.set(ld.x + ld.w/2, ld.y0 + ld.h/2, ld.z + ld.d/2);
+  block.userData = ld;
   scene.add(block);
+  pickables.push(block);
   const edges = new THREE.LineSegments(
     new THREE.EdgesGeometry(block.geometry),
     new THREE.LineBasicMaterial({{color: 0x111417, transparent:true, opacity:0.35}})
@@ -232,12 +263,31 @@ LOADS.forEach(ld => {{
   edges.position.copy(block.position);
   scene.add(edges);
 
+  // Small code-only tag -- orientation, not detail. Short enough that
+  // overlap stays readable even with many positions on screen at once.
   const div = document.createElement('div');
   div.className = 'pos-label';
-  div.innerHTML = `<b>${{ld.code}}</b><br>${{ld.laneText}}`;
+  div.textContent = ld.code;
   labelLayer.appendChild(div);
-  posLabels.push({{div, x: ld.x + ld.w/2, y: ld.y0 + ld.h + 10, z: ld.z + ld.d/2}});
+  posLabels.push({{div, x: ld.x + ld.w/2, y: ld.y0 + ld.h + 8, z: ld.z + ld.d/2}});
 }});
+
+function showPanel(ld) {{
+  panelCode.textContent = ld.code;
+  panelRows.innerHTML = ld.rows.map(r => `<div class="row">${{r.lane}} — ${{r.name}} <span style="color:#767c85;font-weight:600;">(${{r.crates}}cr)</span></div>`).join('');
+  panelMeta.textContent = `${{ld.filled}} / ${{ld.cap}} crates (${{Math.round(100*ld.filled/ld.cap)}}% full)`;
+  panel.style.display = 'block';
+}}
+
+function onPick(clientX, clientY) {{
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const hit = raycaster.intersectObjects(pickables)[0];
+  if (hit) showPanel(hit.object.userData);
+}}
+renderer.domElement.addEventListener('click', (e) => onPick(e.clientX, e.clientY));
 
 const labelVec = new THREE.Vector3();
 const labelToggle = document.getElementById('labelToggle');
@@ -246,17 +296,13 @@ function updateLabels() {{
   labelLayer.style.display = show ? 'block' : 'none';
   if (!show) return;
   const rect = renderer.domElement.getBoundingClientRect();
-  const camDist = camera.position.distanceTo(controls.target);
-  // Default view is ~1030 units out with 48 labels -- unreadable overlap.
-  // Hide labels until zoomed in past 550 units so only a readable cluster shows.
-  const declutter = camDist > 550;
   for (const lb of posLabels) {{
     labelVec.set(lb.x, lb.y, lb.z);
     labelVec.project(camera);
-    if (labelVec.z > 1 || declutter) {{ lb.div.style.display = 'none'; continue; }}
+    if (labelVec.z > 1) {{ lb.div.style.display = 'none'; continue; }}
     const sx = (labelVec.x * 0.5 + 0.5) * rect.width;
     const sy = (-labelVec.y * 0.5 + 0.5) * rect.height;
-    if (sx < -60 || sx > rect.width + 60 || sy < -30 || sy > rect.height + 30) {{
+    if (sx < -30 || sx > rect.width + 30 || sy < -20 || sy > rect.height + 20) {{
       lb.div.style.display = 'none';
       continue;
     }}
@@ -266,13 +312,82 @@ function updateLabels() {{
   }}
 }}
 
-function animate() {{
+// ---- Walk mode: first-person WASD + mouse-look, like walking the aisle
+// yourself instead of orbiting the whole room from outside. Toggle back to
+// the normal orbit/overview camera any time with the same button or Esc. ----
+const walkBtn = document.getElementById('walkBtn');
+const crosshair = document.getElementById('crosshair');
+const plControls = new THREE.PointerLockControls(camera, renderer.domElement);
+let walking = false;
+const walkKeys = {{}};
+const EYE_HEIGHT = 66; // ~5'6" eye height in inches, matches the room's inch units
+document.addEventListener('keydown', e => walkKeys[e.code] = true);
+document.addEventListener('keyup', e => walkKeys[e.code] = false);
+walkBtn.addEventListener('click', () => {{
+  if (!walking) {{
+    camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, -60);
+    plControls.getObject().rotation.set(0,0,0);
+    plControls.lock();
+  }} else {{
+    plControls.unlock();
+  }}
+}});
+plControls.addEventListener('lock', () => {{
+  walking = true;
+  controls.enabled = false;
+  walkBtn.textContent = 'Exit walk mode (Esc)';
+  crosshair.style.display = 'block';
+  panel.style.display = 'none';
+}});
+plControls.addEventListener('unlock', () => {{
+  walking = false;
+  controls.enabled = true;
+  walkBtn.textContent = 'Walk mode (WASD + mouse)';
+  crosshair.style.display = 'none';
+}});
+renderer.domElement.addEventListener('click', () => {{
+  // Walking-mode click = pick whatever's under the crosshair (screen center),
+  // since the mouse cursor itself is hidden/locked during pointer-lock.
+  if (walking) {{
+    raycaster.setFromCamera(new THREE.Vector2(0,0), camera);
+    const hit = raycaster.intersectObjects(pickables)[0];
+    if (hit) showPanel(hit.object.userData);
+  }}
+}});
+const WALK_SPEED = 160; // inches/sec
+const walkVelocity = new THREE.Vector3();
+function updateWalk(dt) {{
+  if (!walking) return;
+  walkVelocity.set(0,0,0);
+  if (walkKeys['KeyW']) walkVelocity.z -= 1;
+  if (walkKeys['KeyS']) walkVelocity.z += 1;
+  if (walkKeys['KeyA']) walkVelocity.x -= 1;
+  if (walkKeys['KeyD']) walkVelocity.x += 1;
+  if (walkVelocity.lengthSq() > 0) {{
+    walkVelocity.normalize().multiplyScalar(WALK_SPEED*dt);
+    plControls.moveRight(walkVelocity.x);
+    plControls.moveForward(-walkVelocity.z);
+  }}
+  camera.position.y = EYE_HEIGHT;
+  // clamp inside the room so you can't walk through walls
+  camera.position.x = Math.max(4, Math.min(CFG.roomW-4, camera.position.x));
+  camera.position.z = Math.max(-100, Math.min(CFG.roomD-4, camera.position.z));
+}}
+let lastT = 0;
+
+function animate(t) {{
   requestAnimationFrame(animate);
-  controls.update();
+  const dt = Math.min(0.05, (t - lastT) / 1000 || 0);
+  lastT = t;
+  if (walking) {{
+    updateWalk(dt);
+  }} else {{
+    controls.update();
+  }}
   renderer.render(scene, camera);
   updateLabels();
 }}
-animate();
+requestAnimationFrame(animate);
 
 window.addEventListener('resize', () => {{
   camera.aspect = wrap.clientWidth/wrap.clientHeight;
