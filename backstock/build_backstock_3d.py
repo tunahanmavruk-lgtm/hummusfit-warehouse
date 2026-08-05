@@ -104,11 +104,11 @@ html_doc = f'''<!DOCTYPE html>
 <div id="wrap">
   <div id="pagenav"><a href="/blueprint.html">Blueprint</a><a href="/3d-model.html">3D Model</a><a href="/backstock-blueprint.html">Backstock Blueprint</a><a href="/backstock-3d.html" class="active">Backstock 3D</a></div>
   <div id="hud">
-    <b>Backstock Room — with real product assignment (3.5-day reserve)</b><br>
+    <b>Backstock Room — tiered reserve plan (Center = pallets, one SKU each)</b><br>
     Colored blocks = actual crate load per position, from backstock_location_assignment.csv.<br>
     <span style="color:#60a5fa">■</span> Meals &nbsp; <span style="color:#E8612C">■</span> Muffins &nbsp; <span style="color:#4ade80">■</span> Oats &nbsp; <span style="color:#a78bfa">■</span> Snacks<br>
     Block height = how full that position is (short = lightly filled, tall = at capacity).<br>
-    <span class="warn">Room capacity (720 crates) only covers ~27% of full 3.5-day demand (2,613 crates) — most positions shown are already at max fill; 97 products have no assigned spot at all. Beam spacing/level heights still placeholders.</span>
+    <span class="warn">Room only holds 720 crates total, so not every SKU gets a backstock reserve. Tier A: top 28 movers, one dedicated pallet each on Center, full 3.5-day reserve. Tier B: next 21 movers, shared shelving on Wall A/D, 1-day reserve. Tier C: remaining 69 slower-moving products — walk-in pick face only, no backstock buffer, restocked directly. Beam spacing/level heights still placeholders.</span>
   </div>
   <div id="toggle">
     Click any block for full details · drag to rotate · scroll to zoom<br>

@@ -38,7 +38,7 @@
 </head>
 <body>
 <div class="topbar">
-  <div class="pagenav"><a href="/blueprint.html">Blueprint</a><a href="/3d-model.html" class="active">3D Model</a></div>
+  <div class="pagenav"><a href="/blueprint.html">Blueprint</a><a href="/3d-model.html" class="active">3D Model</a><a href="/backstock-blueprint.html">Backstock Blueprint</a><a href="/backstock-3d.html">Backstock 3D</a></div>
   <h1>Walk-In Storage — Interactive 3D Model</h1>
   <p class="sub">To the real room dimensions, built from the same geometry and product plan as the 2D blueprint. Orbit, pan, zoom. Click a crate stack for its product.</p>
 </div>
@@ -1243,9 +1243,13 @@ crates.forEach(c => {
   scene.add(mesh);
   pickables.push(mesh);
 
+  // Code-only tag -- with ~189 lanes, a full product name on every always-on
+  // label overlapped into an unreadable smear even zoomed in. Full product
+  // detail is one click away in the side panel; the floating tag is just
+  // for "which lane is this" orientation, so it needs to stay short.
   const div = document.createElement('div');
   div.className = 'crate-label';
-  div.innerHTML = `<span class="cl-code">${c.code}</span>${shortName(c.product)}`;
+  div.textContent = c.code;
   labelLayer.appendChild(div);
   crateLabels.push({div, x: c.x, y: h + 16, z: c.y});
 });
