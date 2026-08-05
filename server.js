@@ -116,10 +116,14 @@ app.get('/shopify/callback', async (req, res) => {
     const token = await shopify.exchangeCodeForToken(code);
     shopify.saveToken(db, token);
     const result = await shopify.syncInventory(db);
-    res.send(
+    const unmatchedList = result.unmatched.length
+      ? `\n\nDidn't match:\n- ${result.unmatched.join('\n- ')}`
+      : '';
+    res.type('text/plain').send(
       `Connected to Shopify. Matched ${result.matched} products on the first sync ` +
-      `(${result.unmatchedCount} product names didn't match anything in Shopify -- check spelling). ` +
-      `Live crate targets will now refresh automatically. You can close this tab.`
+      `(${result.unmatchedCount} product names didn't match anything in Shopify).` +
+      unmatchedList +
+      `\n\nLive crate targets will now refresh automatically. You can close this tab.`
     );
   } catch (err) {
     console.error('Shopify OAuth callback failed:', err);

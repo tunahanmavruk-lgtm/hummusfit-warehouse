@@ -91,16 +91,62 @@ function getToken(db) {
   return row ? row.value : null;
 }
 
+// Names that don't line up between our product list and Shopify's real
+// titles, discovered by diffing the first live sync's unmatched list against
+// a manual Shopify lookup (Aug 5, 2026). Two real patterns:
+//  - Buff Crisp Bar: each flavor is its OWN single-variant Shopify product,
+//    not a variant of one "Buff Crisp Bar" product -- and Shopify's title
+//    has the flavor word BEFORE "Buff Crisp Bar" ("Cinna Crunch Buff Crisp
+//    Bar"), the reverse of our "Buff Crisp Bar - Cinna Crunch". This was
+//    already flagged as a known risk in pick-list-generator-design-reference.
+//  - A couple of others drifted from a rename on the Shopify side ("Fit Ala
+//    Vodka With Chicken" -> "Fit A La Vodka With Chicken", "Peanut Butter
+//    Chocolate Gree-Yo" -> "Peanut butter gree-yo" dropped "Chocolate").
+// Add to this map instead of renaming products.json -- it keeps our product
+// names stable (they're also lane/lookup keys elsewhere) while still
+// tolerating Shopify's actual title.
+const NAME_ALIASES = {
+  'Buff Crisp Bar - Cinna Crunch': 'Cinna Crunch Buff Crisp Bar',
+  'Buff Crisp Bar - Original Recipe': 'Buff Crisp Bar Original Recipe',
+  'Buff Crisp Bar - Fruity Cereal': 'Fruity Cereal Buff Crisp Bar',
+  'Buff Crisp Bar - Chocolate': 'Chocolate Buff Crisp Bar',
+  'Fit Ala Vodka With Chicken': 'Fit A La Vodka With Chicken',
+  'Peanut Butter Chocolate Gree-Yo': 'Peanut butter gree-yo',
+};
+
+// Loose key for matching: lowercase, collapse whitespace, and fold curly
+// apostrophes/quotes to straight ones. Fixes real mismatches seen on the
+// first live sync -- "Blueberry French Toast" vs Shopify's "Blueberry
+// french toast" (case only), and "S'Mores Gree-Yo" vs Shopify's literal
+// "S’Mores Gree-Yo" (curly apostrophe, a different Unicode character than
+// the straight one our product list uses).
+function normalizeKey(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/[‘’‛]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 // Pull every active product's title + variant titles + inventory quantities.
 // Returns a map of "matchable name" -> total on-hand units, built two ways
 // per product so the products.json naming style ("Buffin Muffin - X") and a
 // plain variant title both have a chance to match:
 //   - "{ProductTitle}" -> inventory (single-variant products, e.g. meals)
 //   - "{ProductTitle} - {VariantTitle}" -> inventory (multi-variant products)
+// Keys are stored both as-is and under a normalized (case/quote-insensitive)
+// form so lookups can fall back to the normalized form without every caller
+// needing to know about it.
 async function fetchInventoryMap(token) {
+  // sortKey: ID makes cursor pagination deterministic across pages -- without
+  // it, a query-filtered connection's ordering isn't guaranteed stable while
+  // paging, which is the leading suspect for why "MsWendy Buff Nuggets" (an
+  // exact-title, active product) came back missing from the first live sync
+  // despite existing exactly as named.
   const query = `
     query($cursor: String) {
-      products(first: 100, after: $cursor, query: "status:active") {
+      products(first: 100, after: $cursor, query: "status:active", sortKey: ID) {
         pageInfo { hasNextPage endCursor }
         edges {
           node {
@@ -114,6 +160,12 @@ async function fetchInventoryMap(token) {
     }
   `;
   const inventory = {};
+  const normalized = {};
+  const setKey = (key, qty) => {
+    inventory[key] = (inventory[key] || 0) + qty;
+    const nk = normalizeKey(key);
+    normalized[nk] = (normalized[nk] || 0) + qty;
+  };
   let cursor = null;
   let hasNext = true;
   while (hasNext) {
@@ -134,18 +186,31 @@ async function fetchInventoryMap(token) {
     for (const { node: p } of products.edges) {
       const variants = p.variants.edges.map((e) => e.node);
       const totalQty = variants.reduce((sum, v) => sum + Math.max(0, v.inventoryQuantity || 0), 0);
-      inventory[p.title] = (inventory[p.title] || 0) + totalQty;
+      setKey(p.title, totalQty);
       for (const v of variants) {
         if (v.title && v.title !== 'Default Title') {
-          const key = `${p.title} - ${v.title}`;
-          inventory[key] = (inventory[key] || 0) + Math.max(0, v.inventoryQuantity || 0);
+          setKey(`${p.title} - ${v.title}`, Math.max(0, v.inventoryQuantity || 0));
         }
       }
     }
     hasNext = products.pageInfo.hasNextPage;
     cursor = products.pageInfo.endCursor;
   }
-  return inventory;
+  return { exact: inventory, normalized };
+}
+
+// Look up a product by our name: exact match first, then the alias table,
+// then a case/quote-insensitive match as a last resort. Returns undefined
+// if none of those find anything -- a real "doesn't exist in Shopify (yet,
+// or anymore)" case, which the caller reports as unmatched rather than
+// guessing.
+function lookupInventory(inventoryMap, name) {
+  if (inventoryMap.exact[name] !== undefined) return inventoryMap.exact[name];
+  const alias = NAME_ALIASES[name];
+  if (alias && inventoryMap.exact[alias] !== undefined) return inventoryMap.exact[alias];
+  const nk = normalizeKey(alias || name);
+  if (inventoryMap.normalized[nk] !== undefined) return inventoryMap.normalized[nk];
+  return undefined;
 }
 
 // Recompute products.target_crates = ceil(on-hand units / cap) for every
@@ -161,7 +226,7 @@ async function syncInventory(db) {
   let matched = 0, unmatched = [];
   const applyAll = db.transaction(() => {
     for (const p of products) {
-      const onHand = inventory[p.name];
+      const onHand = lookupInventory(inventory, p.name);
       if (onHand === undefined) {
         unmatched.push(p.name);
         continue;
@@ -190,4 +255,7 @@ module.exports = {
   getToken,
   fetchInventoryMap,
   syncInventory,
+  lookupInventory,
+  normalizeKey,
+  NAME_ALIASES,
 };
