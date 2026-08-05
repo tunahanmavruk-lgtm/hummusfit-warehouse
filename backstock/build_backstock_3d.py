@@ -360,10 +360,19 @@ const walkKeys = {{}};
 const EYE_HEIGHT = 66; // ~5'6" eye height in inches, matches the room's inch units
 document.addEventListener('keydown', e => walkKeys[e.code] = true);
 document.addEventListener('keyup', e => walkKeys[e.code] = false);
+// Bug fix (Aug 2026): this used to set camera.position/rotation and call
+// plControls.lock() together in the click handler, BEFORE knowing whether
+// pointer lock actually succeeded. PointerLockControls silently swallows a
+// failed lock request (just a console.error, no 'unlock' or error event
+// fires from the library) -- so on any browser/context where pointer lock
+// is rejected (seen with Safari), the camera got yanked into the walking
+// eye position and orbit controls got left enabled with a stale internal
+// state, rendering a blank gray screen with no recovery. Fix: only touch
+// the camera once 'lock' actually fires, and listen for pointerlockerror
+// ourselves so a rejected request fails visibly instead of corrupting the
+// view silently.
 walkBtn.addEventListener('click', () => {{
   if (!walking) {{
-    camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, -60);
-    plControls.getObject().rotation.set(0,0,0);
     plControls.lock();
   }} else {{
     plControls.unlock();
@@ -372,15 +381,33 @@ walkBtn.addEventListener('click', () => {{
 plControls.addEventListener('lock', () => {{
   walking = true;
   controls.enabled = false;
+  camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, -60);
+  plControls.getObject().rotation.set(0,0,0);
   walkBtn.textContent = 'Exit walk mode (Esc)';
+  walkBtn.disabled = false;
   crosshair.style.display = 'block';
   panel.style.display = 'none';
 }});
 plControls.addEventListener('unlock', () => {{
   walking = false;
   controls.enabled = true;
+  // Point orbit controls at wherever walking left off, so returning to
+  // orbit mode doesn't snap the camera back to its pre-walk framing.
+  const lookDir = new THREE.Vector3();
+  camera.getWorldDirection(lookDir);
+  controls.target.copy(camera.position).addScaledVector(lookDir, 200);
+  controls.update();
   walkBtn.textContent = 'Walk mode (WASD + mouse)';
   crosshair.style.display = 'none';
+}});
+document.addEventListener('pointerlockerror', () => {{
+  // Library only console.errors this -- without our own listener the UI
+  // stays stuck saying "Walk mode (WASD + mouse)" with no clue anything
+  // went wrong, while nothing in the scene actually changed (we no longer
+  // mutate the camera before lock succeeds, so orbit mode is still intact).
+  walkBtn.textContent = 'Walk mode unavailable in this browser';
+  walkBtn.disabled = true;
+  setTimeout(() => {{ walkBtn.textContent = 'Walk mode (WASD + mouse)'; walkBtn.disabled = false; }}, 3000);
 }});
 renderer.domElement.addEventListener('click', () => {{
   // Walking-mode click = pick whatever's under the crosshair (screen center),
