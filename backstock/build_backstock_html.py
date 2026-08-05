@@ -1,15 +1,26 @@
 import json
 svg = open('/home/claude/hummusfit-warehouse/backstock/backstock_blueprint.svg').read().strip()
 g = json.load(open('/home/claude/hummusfit-warehouse/backstock/backstock_geometry.json'))
+pos_fill = json.load(open('/home/claude/hummusfit-warehouse/backstock/position_fill.json'))
 
-confirmed = ''.join(f'<li>{a}</li>' for a in g['_confirmed_by_tony'])
-open_items = ''.join(f'<li>{a}</li>' for a in g['_still_assumed_or_open'] + g.get('_relabel_v5_open', []))
+# name -> {position, lane, category, crates (static baseline)} lookup, embedded
+# into the page so the live-inventory overlay (fetched client-side from
+# /api/target-crates) has something to join against without another round
+# trip. This is the same "location stays put, only the number changes" model
+# used on blueprint.html.
+product_positions = {}
+for pos_code, pos in pos_fill.items():
+    for pr in pos['products']:
+        product_positions[pr['name']] = {
+            'position': pos_code, 'lane': pr['lane'], 'cat': pos['cat'], 'crates': pr['crates'],
+        }
+product_positions_json = json.dumps(product_positions)
 
 # Compute stat-card numbers from the live geometry instead of hardcoding them,
 # so this script can't silently go stale again the way it just did (v4's
 # numbers got shipped as "v7" until this was caught).
-WA_BAYS, WA_LEVELS = 4, 3
-WD_BAYS_OURS, WD_LEVELS = 2, 4
+WA_BAYS, WA_LEVELS = 4, 7
+WD_BAYS_OURS, WD_LEVELS = 2, 7
 C_BAYS = g['center_bays']
 C_LEVELS = 4  # still unconfirmed, see _relabel_v5_open
 wa_positions = WA_BAYS * WA_LEVELS
@@ -45,21 +56,22 @@ html_doc = f'''<!DOCTYPE html>
   .pagenav{{display:flex;gap:8px;margin-bottom:16px;}}
   .pagenav a{{text-decoration:none;font-size:13px;font-weight:800;color:var(--dim);border:1.5px solid var(--line);border-radius:10px;padding:9px 18px;}}
   .pagenav a.active{{background:var(--ink);color:#fff;border-color:var(--ink);}}
+  .live-badge{{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--dim);margin-bottom:20px;}}
+  .live-badge .dot{{width:8px;height:8px;border-radius:50%;background:#c7cbd1;}}
+  .live-badge.on .dot{{background:var(--teal);}}
+  .livetable{{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:20px;margin-bottom:28px;}}
+  .livetable h2{{font-size:15px;margin:0 0 4px;}}
+  .livetable .hint{{color:var(--dim);font-size:12.5px;margin:0 0 14px;}}
+  .livetable table{{width:100%;border-collapse:collapse;font-size:13px;}}
+  .livetable th{{text-align:left;color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:6px 10px;border-bottom:1.5px solid var(--line);}}
+  .livetable td{{padding:7px 10px;border-bottom:1px solid var(--line);}}
+  .livetable td.n{{font-weight:800;color:var(--teal);}}
+  .livetable tr.stale td.n{{color:var(--dim);font-weight:600;}}
 </style></head>
 <body><div class="wrap">
   <div class="pagenav"><a href="/blueprint.html">Blueprint</a><a href="/3d-model.html">3D Model</a><a href="/backstock-blueprint.html" class="active">Backstock Blueprint</a><a href="/backstock-3d.html">Backstock 3D</a></div>
-  <h1>Backstock Room — Draft v7 (C07 added)</h1>
-  <p class="sub">Top-down · Wall A 32ft/4 bays, Wall D 2-of-3 bays, Center 7 bays/31.5ft · still a few open items</p>
-
-  <div class="confirmedbanner">
-    <h2>Confirmed by you — real, not guessed</h2>
-    <ul>{confirmed}</ul>
-  </div>
-
-  <div class="draftbanner">
-    <h2>Still open</h2>
-    <ul>{open_items}</ul>
-  </div>
+  <h1>Backstock Room</h1>
+  <span class="live-badge" id="liveBadge"><span class="dot"></span><span id="liveBadgeText">Checking live inventory…</span></span>
 
   <div class="statgrid">
     <div class="stat"><div class="n">{wd_positions}</div><div class="l">positions — Wall D ({WD_BAYS_OURS}×{WD_LEVELS})</div></div>
@@ -68,7 +80,40 @@ html_doc = f'''<!DOCTYPE html>
   </div>
 
   <div class="diagram-card">{svg}</div>
-</div></body></html>
+
+  <div class="livetable">
+    <h2>Live crate targets by position</h2>
+    <p class="hint">Position stays fixed — only the crate count updates, pulled straight from Shopify on-hand inventory every 20 minutes. Rows still showing the old baseline number haven't matched a Shopify product name yet.</p>
+    <table>
+      <thead><tr><th>Position</th><th>Lane</th><th>Product</th><th>Category</th><th>Crates</th></tr></thead>
+      <tbody id="liveTableBody"><tr><td colspan="5" style="color:var(--dim);">Loading…</td></tr></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const PRODUCT_POSITIONS = {product_positions_json};
+fetch('/api/target-crates').then(r => r.json()).then(data => {{
+  const badge = document.getElementById('liveBadge');
+  const badgeText = document.getElementById('liveBadgeText');
+  const live = data.products || {{}};
+  const rows = Object.entries(PRODUCT_POSITIONS)
+    .sort((a, b) => a[1].position.localeCompare(b[1].position))
+    .map(([name, p]) => {{
+      const l = live[name];
+      const isLive = l && l.target_crates != null;
+      const crates = isLive ? l.target_crates : p.crates;
+      return `<tr class="${{isLive ? '' : 'stale'}}"><td>${{p.position}}</td><td>${{p.lane}}</td><td>${{name}}</td><td>${{p.cat}}</td><td class="n">${{crates}}${{isLive ? '' : ' (baseline)'}}</td></tr>`;
+    }});
+  document.getElementById('liveTableBody').innerHTML = rows.join('') || '<tr><td colspan="5">No positions found.</td></tr>';
+  if (!data.last_sync) {{ badgeText.textContent = 'Live inventory not connected yet'; return; }}
+  badge.classList.add('on');
+  badgeText.textContent = `Live inventory synced ${{new Date(data.last_sync).toLocaleString()}}`;
+}}).catch(() => {{
+  document.getElementById('liveBadgeText').textContent = 'Live inventory unavailable';
+  document.getElementById('liveTableBody').innerHTML = '<tr><td colspan="5">Could not load live data.</td></tr>';
+}});
+</script>
+</body></html>
 '''
 open('/home/claude/hummusfit-warehouse/backstock/backstock_blueprint.html', 'w').write(html_doc)
 print('HTML written', len(html_doc), 'bytes')

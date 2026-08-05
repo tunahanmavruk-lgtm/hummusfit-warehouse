@@ -21,8 +21,12 @@ SCALE = 1.6
 ZONE_W = g['zone_width_in']   # 384in (32ft) -- Wall A's real confirmed span
 ZONE_L = g['zone_length_in']  # 324in, y-axis, door at y=0
 
-WA_BAYS, WA_LEVELS, WA_DEPTH = 4, 3, 42          # new Wall A, 8ft/bay confirmed
-WD_BAYS_OURS, WD_LEVELS, WD_DEPTH = 2, 4, 42     # new Wall D, 8ft/bay confirmed, only 2 bays ours
+WA_BAYS, WA_LEVELS, WA_DEPTH = 4, 7, 42          # new Wall A, 8ft/bay confirmed
+WD_BAYS_OURS, WD_LEVELS, WD_DEPTH = 2, 7, 42     # new Wall D, 8ft/bay confirmed, only 2 bays ours
+# Levels went 3/4 -> 7 per Tony's "add however many shelves you want" so all
+# 118 products get a position instead of 69 having none. See build_backstock_3d.py
+# for the ceiling-height assumption behind 7 (10ft ceiling, NOT independently
+# confirmed for this room).
 WD_BAY_W = g['wall_d_bay_width_in']              # 96in
 WD_BAY_LEN = WD_BAY_W
 C_BAYS = g['center_bays']
@@ -60,7 +64,7 @@ wa_bay_w = ZONE_W / WA_BAYS
 for b in range(WA_BAYS):
     parts.append(rect(X_OFFSET + b*wa_bay_w, 0, wa_bay_w, WA_DEPTH, '#e2e5e9', '#5b6470', 1.5))
     parts.append(text(X_OFFSET + b*wa_bay_w + wa_bay_w/2, WA_DEPTH/2 + 3, f'A{b+1:02d} (8ft)', 9.5, '800', '#5b6470', 'middle'))
-parts.append(text(X_OFFSET + 6, WA_DEPTH + 14, f'Wall A (ours) — 4 bays, 3 levels — A1 nearest the door', 9.5, '700', '#5b6470', 'start'))
+parts.append(text(X_OFFSET + 6, WA_DEPTH + 14, f'Wall A (ours) — {WA_BAYS} bays, {WA_LEVELS} levels — A1 nearest the door', 9.5, '700', '#5b6470', 'start'))
 
 y_cursor = WA_DEPTH + 26
 
@@ -123,12 +127,12 @@ parts.append(text(X_OFFSET, strip_y0_start - 18, 'Same real 3.5-day assignment a
 def strip_positions(zone):
     codes = []
     if zone == 'walld':
-        for b in (1, 2):
-            for l in (1, 2, 3, 4):
+        for b in range(1, WD_BAYS_OURS + 1):
+            for l in range(1, WD_LEVELS + 1):
                 codes.append(f'D{b:02d}-L{l}')
     elif zone == 'walla':
-        for b in (1, 2, 3, 4):
-            for l in (1, 2, 3):
+        for b in range(1, WA_BAYS + 1):
+            for l in range(1, WA_LEVELS + 1):
                 codes.append(f'A{b:02d}-L{l}')
     else:
         for b in range(1, 8):

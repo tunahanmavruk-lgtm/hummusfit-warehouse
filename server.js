@@ -4,6 +4,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const db = require('./db');
 const { runSeed } = require('./seed');
+const shopify = require('./shopify');
 
 // Auto-seed on boot if the lanes table is empty (fresh volume / fresh
 // deploy). ALSO re-seed whenever lane_plan.json itself has changed since
@@ -61,6 +62,7 @@ app.get('/api/lanes', (req, res) => {
       l.id, l.code, l.section, l.row_num, l.position_num,
       la.product_id, la.crates_current, la.max_stack,
       p.name AS product_name, p.category, p.cap, p.u30,
+      p.target_crates, p.target_crates_source,
       EXISTS(SELECT 1 FROM restock_log WHERE restock_log.lane_id = l.id) AS ever_stocked
     FROM lanes l
     LEFT JOIN lane_assignments la ON la.lane_id = l.id
@@ -68,6 +70,79 @@ app.get('/api/lanes', (req, res) => {
     ORDER BY l.section, l.row_num, l.position_num
   `).all();
   res.json(lanes);
+});
+
+// ---------- Live crate targets (both fridges read this) ----------
+// Simple name -> live target map, sourced from Shopify on-hand inventory
+// instead of the old 3.5-day demand forecast. This is what backstock's
+// static-generated pages fetch client-side to overlay real numbers on top
+// of the last-generated snapshot, and what /api/lanes' target_crates field
+// is built from for the main walk-in.
+app.get('/api/target-crates', (req, res) => {
+  const rows = db.prepare(`
+    SELECT name, cap, target_crates, target_crates_source FROM products
+    WHERE target_crates IS NOT NULL
+  `).all();
+  const lastSync = db.prepare(`SELECT value FROM meta WHERE key = 'shopify_last_sync'`).get();
+  res.json({
+    last_sync: lastSync ? lastSync.value : null,
+    products: Object.fromEntries(rows.map((r) => [r.name, { target_crates: r.target_crates, cap: r.cap }])),
+  });
+});
+
+// ---------- Shopify connection (one-time grant + live inventory sync) ----------
+app.get('/shopify/install', (req, res) => {
+  if (!shopify.configured()) {
+    return res.status(500).send('Missing SHOPIFY_CLIENT_ID / SHOPIFY_CLIENT_SECRET / SHOPIFY_SHOP env vars.');
+  }
+  const redirectUri = `${req.protocol}://${req.get('host')}/shopify/callback`;
+  res.redirect(shopify.installUrl(redirectUri));
+});
+
+app.get('/shopify/callback', async (req, res) => {
+  const { code, state } = req.query;
+  if (!code || !state || !shopify.verifyState(state)) {
+    return res.status(400).send('Invalid or expired install request -- go back to /shopify/install and try again.');
+  }
+  try {
+    const token = await shopify.exchangeCodeForToken(code);
+    shopify.saveToken(db, token);
+    const result = await shopify.syncInventory(db);
+    res.send(
+      `Connected to Shopify. Matched ${result.matched} products on the first sync ` +
+      `(${result.unmatchedCount} product names didn't match anything in Shopify -- check spelling). ` +
+      `Live crate targets will now refresh automatically. You can close this tab.`
+    );
+  } catch (err) {
+    console.error('Shopify OAuth callback failed:', err);
+    res.status(500).send(`Something went wrong connecting to Shopify: ${err.message}`);
+  }
+});
+
+app.get('/api/shopify/status', (req, res) => {
+  const token = shopify.getToken(db);
+  const savedAt = db.prepare(`SELECT value FROM meta WHERE key = 'shopify_token_saved_at'`).get();
+  const lastSync = db.prepare(`SELECT value FROM meta WHERE key = 'shopify_last_sync'`).get();
+  const matched = db.prepare(`SELECT COUNT(*) AS n FROM products WHERE target_crates IS NOT NULL`).get().n;
+  const total = db.prepare(`SELECT COUNT(*) AS n FROM products`).get().n;
+  res.json({
+    connected: Boolean(token),
+    connected_at: savedAt ? savedAt.value : null,
+    last_sync: lastSync ? lastSync.value : null,
+    products_with_live_target: matched,
+    products_total: total,
+  });
+});
+
+// Manual trigger, e.g. right after connecting or for testing -- the periodic
+// job below handles normal refresh so nobody needs to remember to call this.
+app.post('/api/shopify/sync', async (req, res) => {
+  try {
+    const result = await shopify.syncInventory(db);
+    res.json({ ok: true, ...result });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 // Assign (or clear) a product to a lane. Body: { product_id: number|null, max_stack?: number }
@@ -153,3 +228,23 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Hummus Fit warehouse app running on port ${PORT}`);
 });
+
+// ---------- Periodic live inventory refresh ----------
+// Every 20 minutes, if we've been granted access, re-pull Shopify on-hand
+// inventory and update products.target_crates. Skips silently (with a log
+// line) if /shopify/install hasn't been completed yet -- this is not fatal,
+// the app just keeps showing whatever crate numbers it last had.
+const SYNC_INTERVAL_MS = 20 * 60 * 1000;
+async function runScheduledSync() {
+  if (!shopify.configured() || !shopify.getToken(db)) return;
+  try {
+    const result = await shopify.syncInventory(db);
+    console.log(`Shopify inventory sync: matched ${result.matched} products, ${result.unmatchedCount} unmatched.`);
+  } catch (err) {
+    console.error('Scheduled Shopify sync failed:', err.message);
+  }
+}
+setInterval(runScheduledSync, SYNC_INTERVAL_MS);
+// Also try once shortly after boot, in case the token was already saved
+// from a previous deploy (the volume persists it across redeploys).
+setTimeout(runScheduledSync, 15 * 1000);

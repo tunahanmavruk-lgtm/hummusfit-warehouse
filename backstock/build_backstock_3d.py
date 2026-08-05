@@ -16,15 +16,24 @@ POINTERLOCK_JS = open('/tmp/package/examples/js/controls/PointerLockControls.js'
 
 ZONE_W = g['zone_width_in']          # 384in (32ft) -- Wall A's confirmed span
 ZONE_L = g['zone_length_in']
-WA_BAYS, WA_LEVELS, WA_DEPTH = 4, 3, 42
-WD_BAYS_OURS, WD_LEVELS, WD_DEPTH = 2, 4, 42
+WA_BAYS, WA_LEVELS, WA_DEPTH = 4, 7, 42
+WD_BAYS_OURS, WD_LEVELS, WD_DEPTH = 2, 7, 42
 WD_BAY_W = g['wall_d_bay_width_in']  # 96in, confirmed same as Wall A
 WD_BAY_LEN = WD_BAY_W
 C_BAYS = g['center_bays']            # 7, corrected from 6 (C07 added)
 C_TOTAL_RUN = g['center_total_run_in']  # 378in (31.5ft) -- shorter than Wall A
 CENTER_DEPTH = 40
 AISLE = 132
-LEVEL_H = 60  # placeholder, unconfirmed per-level height
+LEVEL_H = 60  # Center pallet beam spacing, confirmed by Tony
+# Wall A/D went from 3-4 levels to 7 per Tony's "add however many shelves you
+# want" -- needed so every one of the 118 products gets an actual position
+# instead of 69 having zero backstock reserve. Wire-deck shelving needs a much
+# tighter pitch than Center's pallet beams: 10.70in crate + ~5in hand-grab/deck
+# clearance = ~16in/level. 7 levels x 16in = 112in, fits inside a 10ft (120in)
+# ceiling -- ASSUMED same as the main walk-in's confirmed 10ft, NOT independently
+# confirmed for this room. Flag to Tony before building: if backstock ceiling is
+# shorter than 10ft, 7 levels will not physically fit and this needs to drop.
+WALL_LEVEL_H = 16
 GAP_TO_WD = 40
 X_OFFSET = GAP_TO_WD + WD_DEPTH
 
@@ -40,6 +49,7 @@ config = {
     'wallD': {'bays': WD_BAYS_OURS, 'levels': WD_LEVELS, 'depth': WD_DEPTH, 'bayLen': WD_BAY_LEN, 'x0': 0, 'y0': 0},
     'center': {'bays': C_BAYS, 'depth': CENTER_DEPTH, 'bayW': c_bay_w, 'totalRun': C_TOTAL_RUN, 'zoneW': ZONE_W, 'x0': X_OFFSET, 'y0': WA_DEPTH + AISLE},
     'levelH': LEVEL_H,
+    'wallLevelH': WALL_LEVEL_H,
 }
 
 CAT_COLOR = {'meal': 0x3b82f6, 'muffin': 0xE8612C, 'oats': 0x22c55e, 'snack': 0x8b5cf6}
@@ -65,8 +75,9 @@ for code, v in pos_fill.items():
         x = X_OFFSET + (bay-1)*c_bay_w
         z = WA_DEPTH + AISLE
         w, d = c_bay_w - 4, CENTER_DEPTH - 4
-    y0 = (level-1) * LEVEL_H + 4
-    h = max(6, (LEVEL_H - 10) * frac)
+    pitch = WALL_LEVEL_H if zone in ('walla', 'walld') else LEVEL_H
+    y0 = (level-1) * pitch + 4
+    h = max(6, (pitch - 10) * frac)
     # Structured per-product rows (lane code, name, crates) for the click panel --
     # full detail lives here now, not crammed into an always-visible floating label.
     rows = [{'lane': pr['lane'], 'name': pr['name'], 'crates': pr['crates']} for pr in v['products']]
@@ -104,16 +115,17 @@ html_doc = f'''<!DOCTYPE html>
 <div id="wrap">
   <div id="pagenav"><a href="/blueprint.html">Blueprint</a><a href="/3d-model.html">3D Model</a><a href="/backstock-blueprint.html">Backstock Blueprint</a><a href="/backstock-3d.html" class="active">Backstock 3D</a></div>
   <div id="hud">
-    <b>Backstock Room — tiered reserve plan (Center = pallets, one SKU each)</b><br>
+    <b>Backstock Room — full 118-product coverage (Center = pallets, one SKU each)</b><br>
     Colored blocks = actual crate load per position, from backstock_location_assignment.csv.<br>
     <span style="color:#60a5fa">■</span> Meals &nbsp; <span style="color:#E8612C">■</span> Muffins &nbsp; <span style="color:#4ade80">■</span> Oats &nbsp; <span style="color:#a78bfa">■</span> Snacks<br>
     Block height = how full that position is (short = lightly filled, tall = at capacity).<br>
-    <span class="warn">Room only holds 720 crates total, so not every SKU gets a backstock reserve. Tier A: top 28 movers, one dedicated pallet each on Center, full 3.5-day reserve. Tier B: next 21 movers, shared shelving on Wall A/D, 1-day reserve. Tier C: remaining 69 slower-moving products — walk-in pick face only, no backstock buffer, restocked directly. Beam spacing/level heights still placeholders.</span>
+    <span class="warn">Every one of the 118 products now has a backstock position, per Tony's request. Center: top 28 movers, one dedicated pallet each, full 3.5-day reserve. Wall A/D: expanded from 3-4 levels to 7 levels/bay so the other 90 products all fit -- reserve depth on Wall varies by product (roughly 0.4-1.75 days each, largest movers get more) since 7 levels only holds so much. 7-level pitch assumes a 10ft backstock ceiling, matching the confirmed 10ft walk-in ceiling -- NOT independently confirmed for this room, needs a check before building shelving this tall.</span>
   </div>
   <div id="toggle">
     Click any block for full details · drag to rotate · scroll to zoom<br>
     <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-weight:600;margin-top:4px;"><input type="checkbox" id="labelToggle" checked> Show position code tags</label>
     <button id="walkBtn" style="margin-top:8px;width:100%;background:#2BBFAA;color:#fff;border:none;border-radius:8px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer;">Walk mode (WASD + mouse)</button>
+    <div id="liveBadge" style="margin-top:8px;display:flex;align-items:center;gap:6px;"><span id="liveDot" style="width:7px;height:7px;border-radius:50%;background:#767c85;flex-shrink:0;"></span><span id="liveBadgeText">Checking live inventory…</span></div>
   </div>
   <div id="labelLayer"></div>
   <div id="panel">
@@ -202,13 +214,13 @@ function rackBay(x, z, w, d, levels, levelH, color) {{
 
 // Wall A -- 4 bays, 3 levels, green, door end
 for (let b=0; b<CFG.wallA.bays; b++) {{
-  scene.add(rackBay(CFG.wallA.x0 + b*CFG.wallA.bayW, CFG.wallA.y0, CFG.wallA.bayW-2, CFG.wallA.depth, CFG.wallA.levels, CFG.levelH, GREEN));
+  scene.add(rackBay(CFG.wallA.x0 + b*CFG.wallA.bayW, CFG.wallA.y0, CFG.wallA.bayW-2, CFG.wallA.depth, CFG.wallA.levels, CFG.wallLevelH, GREEN));
 }}
 
 // Wall D -- 2 bays, 4 levels, green, left side (only 2 of 3 bays ours; 3rd shown gray)
 for (let b=0; b<3; b++) {{
   const color = b < CFG.wallD.bays ? GREEN : GRAYKIT;
-  scene.add(rackBay(CFG.wallD.x0, CFG.wallD.y0 + b*CFG.wallD.bayLen, CFG.wallD.depth, CFG.wallD.bayLen-2, CFG.wallD.levels, CFG.levelH, color));
+  scene.add(rackBay(CFG.wallD.x0, CFG.wallD.y0 + b*CFG.wallD.bayLen, CFG.wallD.depth, CFG.wallD.bayLen-2, CFG.wallD.levels, CFG.wallLevelH, color));
 }}
 
 // Center -- 7 bays (C01-C07), double-deep. Front face (ours, dark) + back face (kitchen's, gray)
@@ -272,9 +284,34 @@ LOADS.forEach(ld => {{
   posLabels.push({{div, x: ld.x + ld.w/2, y: ld.y0 + ld.h + 8, z: ld.z + ld.d/2}});
 }});
 
+// Live Shopify on-hand crate targets, fetched once on load and reused by
+// showPanel() below. This is the SAME live layer that patches blueprint.html
+// -- backstock physical locations never change, only the "how many crates
+// should be here" number does, so this just overlays that number wherever a
+// product name matches. See /api/target-crates on the server.
+let LIVE_TARGETS = {{}};
+let LIVE_SYNCED_AT = null;
+fetch('/api/target-crates').then(r => r.json()).then(data => {{
+  LIVE_TARGETS = data.products || {{}};
+  LIVE_SYNCED_AT = data.last_sync;
+  const dot = document.getElementById('liveDot');
+  const txt = document.getElementById('liveBadgeText');
+  if (!LIVE_SYNCED_AT) {{ txt.textContent = 'Live inventory not connected yet'; return; }}
+  dot.style.background = '#2BBFAA';
+  txt.textContent = `Live inventory synced ${{new Date(LIVE_SYNCED_AT).toLocaleString()}}`;
+}}).catch(() => {{
+  document.getElementById('liveBadgeText').textContent = 'Live inventory unavailable';
+}});
+
 function showPanel(ld) {{
   panelCode.textContent = ld.code;
-  panelRows.innerHTML = ld.rows.map(r => `<div class="row">${{r.lane}} — ${{r.name}} <span style="color:#767c85;font-weight:600;">(${{r.crates}}cr)</span></div>`).join('');
+  panelRows.innerHTML = ld.rows.map(r => {{
+    const live = LIVE_TARGETS[r.name];
+    const crateText = (live && live.target_crates != null)
+      ? `<span style="color:#2BBFAA;font-weight:800;" title="Live from Shopify on-hand inventory as of ${{LIVE_SYNCED_AT ? new Date(LIVE_SYNCED_AT).toLocaleString() : ''}}">${{live.target_crates}}cr live</span>`
+      : `<span style="color:#767c85;font-weight:600;">${{r.crates}}cr</span>`;
+    return `<div class="row">${{r.lane}} — ${{r.name}} ${{crateText}}</div>`;
+  }}).join('');
   panelMeta.textContent = `${{ld.filled}} / ${{ld.cap}} crates (${{Math.round(100*ld.filled/ld.cap)}}% full)`;
   panel.style.display = 'block';
 }}

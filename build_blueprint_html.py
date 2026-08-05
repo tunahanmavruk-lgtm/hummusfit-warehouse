@@ -56,10 +56,10 @@ def legend_row_card(r):
         flag = ''
         if l.get('divergence_flag'):
             flag = '<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span>'
-        cells.append(f'''<div class="lc-cell">
+        cells.append(f'''<div class="lc-cell" data-product="{esc(l['product'])}">
       <div class="lc-code" style="color:{color}">{esc(l['code'])}{flag}</div>
       <div class="lc-name">{esc(l['product'])}</div>
-      <div class="lc-meta">{esc(l['crates_needed'])} crate{'s' if l['crates_needed']!=1 else ''} · {CAT_LABEL.get(l['category'], l['category'])}</div>
+      <div class="lc-meta"><span class="lc-crates-num">{esc(l['crates_needed'])}</span> crate{'s' if l['crates_needed']!=1 else ''} · {CAT_LABEL.get(l['category'], l['category'])}</div>
     </div>''')
     used = len(lanes)
     total = POS_BY_SECTION[sec]
@@ -121,13 +121,19 @@ html_doc = f'''<!DOCTYPE html>
   .lc-flag{{color:var(--orange);font-weight:900;margin-left:2px;}}
   .lc-name{{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3;margin-top:2px;}}
   .lc-meta{{font-size:10.5px;color:var(--dim);margin-top:3px;}}
+  .lc-cell.is-live .lc-crates-num{{color:var(--teal);font-weight:800;}}
+  .live-badge{{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--dim);margin-left:10px;}}
+  .live-badge .dot{{width:7px;height:7px;border-radius:50%;background:#c7cbd1;}}
+  .live-badge.on .dot{{background:var(--teal);}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="pagenav"><a href="/blueprint.html" class="active">Blueprint</a><a href="/3d-model.html">3D Model</a><a href="/backstock-blueprint.html">Backstock Blueprint</a><a href="/backstock-3d.html">Backstock 3D</a></div>
   <h1>Walk-In Storage Blueprint — Birds-Eye View</h1>
-  <p class="sub">To scale · single view · pathway runs in the aisles only, never across a crate row</p>
+  <p class="sub">To scale · single view · pathway runs in the aisles only, never across a crate row
+    <span class="live-badge" id="liveBadge"><span class="dot"></span><span id="liveBadgeText">Checking live inventory…</span></span>
+  </p>
 
   <div class="mockupcard">
     <h2 style="margin-bottom:6px;">Room Mockup — Fully Stocked</h2>
@@ -173,6 +179,39 @@ html_doc = f'''<!DOCTYPE html>
 
   <p class="footnote">Generated from the room dimensions and the real 178-order demand sample. Product legend generated directly from lane_plan.json — the same file that drives the live picking app.</p>
 </div>
+<script>
+// Overlay live Shopify-inventory crate counts on top of the numbers baked in
+// at generation time. The baked numbers are a fallback (shown as-is until
+// this loads, and if the fetch fails); the live numbers, when available,
+// replace them and get a teal highlight + the "live" dot in the header so
+// it's obvious which is which.
+fetch('/api/target-crates').then(r => r.json()).then(data => {{
+  const badge = document.getElementById('liveBadge');
+  const badgeText = document.getElementById('liveBadgeText');
+  const products = data.products || {{}};
+  if (!data.last_sync) {{
+    badgeText.textContent = 'Live inventory not connected yet';
+    return;
+  }}
+  let patched = 0;
+  document.querySelectorAll('.lc-cell[data-product]').forEach(cell => {{
+    const name = cell.getAttribute('data-product');
+    const live = products[name];
+    if (!live || live.target_crates == null) return;
+    const numEl = cell.querySelector('.lc-crates-num');
+    if (!numEl) return;
+    numEl.textContent = live.target_crates;
+    cell.classList.add('is-live');
+    cell.title = 'Live from Shopify on-hand inventory as of ' + new Date(data.last_sync).toLocaleString();
+    patched++;
+  }});
+  badge.classList.add('on');
+  const when = new Date(data.last_sync).toLocaleString();
+  badgeText.textContent = `Live inventory: ${{patched}} lanes updated · synced ${{when}}`;
+}}).catch(() => {{
+  document.getElementById('liveBadgeText').textContent = 'Live inventory unavailable';
+}});
+</script>
 </body>
 </html>
 '''

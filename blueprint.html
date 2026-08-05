@@ -44,13 +44,19 @@
   .lc-flag{color:var(--orange);font-weight:900;margin-left:2px;}
   .lc-name{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3;margin-top:2px;}
   .lc-meta{font-size:10.5px;color:var(--dim);margin-top:3px;}
+  .lc-cell.is-live .lc-crates-num{color:var(--teal);font-weight:800;}
+  .live-badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--dim);margin-left:10px;}
+  .live-badge .dot{width:7px;height:7px;border-radius:50%;background:#c7cbd1;}
+  .live-badge.on .dot{background:var(--teal);}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="pagenav"><a href="/blueprint.html" class="active">Blueprint</a><a href="/3d-model.html">3D Model</a><a href="/backstock-blueprint.html">Backstock Blueprint</a><a href="/backstock-3d.html">Backstock 3D</a></div>
   <h1>Walk-In Storage Blueprint — Birds-Eye View</h1>
-  <p class="sub">To scale · single view · pathway runs in the aisles only, never across a crate row</p>
+  <p class="sub">To scale · single view · pathway runs in the aisles only, never across a crate row
+    <span class="live-badge" id="liveBadge"><span class="dot"></span><span id="liveBadgeText">Checking live inventory…</span></span>
+  </p>
 
   <div class="mockupcard">
     <h2 style="margin-bottom:6px;">Room Mockup — Fully Stocked</h2>
@@ -1070,146 +1076,146 @@
       <span class="rowcard-title" style="color:#2BBFAA">Row K1</span>
       <span class="rowcard-sub">35/35 positions in use</span>
     </div>
-    <div class="lc-grid"><div class="lc-cell">
+    <div class="lc-grid"><div class="lc-cell" data-product="Buffin Muffin - Apple Pie-Ceps">
       <div class="lc-code" style="color:#2BBFAA">K1-01</div>
       <div class="lc-name">Buffin Muffin - Apple Pie-Ceps</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Apple Pie-Ceps">
       <div class="lc-code" style="color:#2BBFAA">K1-02</div>
       <div class="lc-name">Buffin Muffin - Apple Pie-Ceps</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Apple Pie-Ceps">
       <div class="lc-code" style="color:#2BBFAA">K1-03</div>
       <div class="lc-name">Buffin Muffin - Apple Pie-Ceps</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Banana Choc. Chip">
       <div class="lc-code" style="color:#2BBFAA">K1-04</div>
       <div class="lc-name">Buffin Muffin - Banana Choc. Chip</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Banana Choc. Chip">
       <div class="lc-code" style="color:#2BBFAA">K1-05</div>
       <div class="lc-name">Buffin Muffin - Banana Choc. Chip</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Banana Cream Protein Dream">
       <div class="lc-code" style="color:#2BBFAA">K1-06</div>
       <div class="lc-name">Buffin Muffin - Banana Cream Protein Dream</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Banana Cream Protein Dream">
       <div class="lc-code" style="color:#2BBFAA">K1-07</div>
       <div class="lc-name">Buffin Muffin - Banana Cream Protein Dream</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Blueberry">
       <div class="lc-code" style="color:#2BBFAA">K1-08</div>
       <div class="lc-name">Buffin Muffin - Blueberry</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Blueberry">
       <div class="lc-code" style="color:#2BBFAA">K1-09</div>
       <div class="lc-name">Buffin Muffin - Blueberry</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Boston Chocolate Creme">
       <div class="lc-code" style="color:#2BBFAA">K1-10</div>
       <div class="lc-name">Buffin Muffin - Boston Chocolate Creme</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Boston Chocolate Creme">
       <div class="lc-code" style="color:#2BBFAA">K1-11</div>
       <div class="lc-name">Buffin Muffin - Boston Chocolate Creme</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Buff Roll">
       <div class="lc-code" style="color:#2BBFAA">K1-12</div>
       <div class="lc-name">Buffin Muffin - Buff Roll</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Buff Roll">
       <div class="lc-code" style="color:#2BBFAA">K1-13</div>
       <div class="lc-name">Buffin Muffin - Buff Roll</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Buff Roll">
       <div class="lc-code" style="color:#2BBFAA">K1-14</div>
       <div class="lc-name">Buffin Muffin - Buff Roll</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Buff Served">
       <div class="lc-code" style="color:#2BBFAA">K1-15</div>
       <div class="lc-name">Buffin Muffin - Buff Served</div>
-      <div class="lc-meta">7 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Buffcoff">
       <div class="lc-code" style="color:#2BBFAA">K1-16</div>
       <div class="lc-name">Buffin Muffin - Buffcoff</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Buffcoff">
       <div class="lc-code" style="color:#2BBFAA">K1-17</div>
       <div class="lc-name">Buffin Muffin - Buffcoff</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - ChocoLIT">
       <div class="lc-code" style="color:#2BBFAA">K1-18</div>
       <div class="lc-name">Buffin Muffin - ChocoLIT</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - ChocoLIT">
       <div class="lc-code" style="color:#2BBFAA">K1-19</div>
       <div class="lc-name">Buffin Muffin - ChocoLIT</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Cinna Blast">
       <div class="lc-code" style="color:#2BBFAA">K1-20</div>
       <div class="lc-name">Buffin Muffin - Cinna Blast</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Cinna Blast">
       <div class="lc-code" style="color:#2BBFAA">K1-21</div>
       <div class="lc-name">Buffin Muffin - Cinna Blast</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Cookie Butter Tres Leches">
       <div class="lc-code" style="color:#2BBFAA">K1-22</div>
       <div class="lc-name">Buffin Muffin - Cookie Butter Tres Leches</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Cookie Butter Tres Leches">
       <div class="lc-code" style="color:#2BBFAA">K1-23</div>
       <div class="lc-name">Buffin Muffin - Cookie Butter Tres Leches</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Cookies and Cream Crunch">
       <div class="lc-code" style="color:#2BBFAA">K1-24</div>
       <div class="lc-name">Buffin Muffin - Cookies and Cream Crunch</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Double Chocolate Brownie">
       <div class="lc-code" style="color:#2BBFAA">K1-25</div>
       <div class="lc-name">Buffin Muffin - Double Chocolate Brownie</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Double Chocolate Brownie">
       <div class="lc-code" style="color:#2BBFAA">K1-26</div>
       <div class="lc-name">Buffin Muffin - Double Chocolate Brownie</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - German Chocolate Cake">
       <div class="lc-code" style="color:#2BBFAA">K1-27</div>
       <div class="lc-name">Buffin Muffin - German Chocolate Cake</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - German Chocolate Cake">
       <div class="lc-code" style="color:#2BBFAA">K1-28</div>
       <div class="lc-name">Buffin Muffin - German Chocolate Cake</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Gluten Free Confetti Pop">
       <div class="lc-code" style="color:#2BBFAA">K1-29</div>
       <div class="lc-name">Buffin Muffin - Gluten Free Confetti Pop</div>
-      <div class="lc-meta">3 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Gluten Free Cookies and Milk">
       <div class="lc-code" style="color:#2BBFAA">K1-30</div>
       <div class="lc-name">Buffin Muffin - Gluten Free Cookies and Milk</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Gluten Free Cookies and Milk">
       <div class="lc-code" style="color:#2BBFAA">K1-31</div>
       <div class="lc-name">Buffin Muffin - Gluten Free Cookies and Milk</div>
-      <div class="lc-meta">4 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Strawberry Buff Blast">
       <div class="lc-code" style="color:#2BBFAA">K1-32</div>
       <div class="lc-name">Buffin Muffin - Strawberry Buff Blast</div>
-      <div class="lc-meta">7 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Strawberry Buff Blast">
       <div class="lc-code" style="color:#2BBFAA">K1-33</div>
       <div class="lc-name">Buffin Muffin - Strawberry Buff Blast</div>
-      <div class="lc-meta">7 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Strawberry Crunch Milkshake">
       <div class="lc-code" style="color:#2BBFAA">K1-34<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span></div>
       <div class="lc-name">Buffin Muffin - Strawberry Crunch Milkshake</div>
-      <div class="lc-meta">5 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - TwistBar">
       <div class="lc-code" style="color:#2BBFAA">K1-35</div>
       <div class="lc-name">Buffin Muffin - TwistBar</div>
-      <div class="lc-meta">7 crates · Muffin</div>
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Muffin</div>
     </div></div>
   </div>
 <div class="rowcard">
@@ -1217,118 +1223,118 @@
       <span class="rowcard-title" style="color:#2BBFAA">Row K2</span>
       <span class="rowcard-sub">28/35 positions in use</span>
     </div>
-    <div class="lc-grid"><div class="lc-cell">
+    <div class="lc-grid"><div class="lc-cell" data-product="Buffin Muffin - TwistBar">
       <div class="lc-code" style="color:#2BBFAA">K2-01</div>
       <div class="lc-name">Buffin Muffin - TwistBar</div>
-      <div class="lc-meta">7 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="Buffin Muffin - Welcome to the Sno">
       <div class="lc-code" style="color:#2BBFAA">K2-02</div>
       <div class="lc-name">Buffin Muffin - Welcome to the Sno</div>
-      <div class="lc-meta">6 crates · Muffin</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Muffin</div>
+    </div><div class="lc-cell" data-product="3 Banana Chocolate Protein Poppers">
       <div class="lc-code" style="color:#E8612C">K2-03</div>
       <div class="lc-name">3 Banana Chocolate Protein Poppers</div>
-      <div class="lc-meta">4 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Banana Chocolate Chip">
       <div class="lc-code" style="color:#4C9BE8">K2-04</div>
       <div class="lc-name">Overnight Oats - Banana Chocolate Chip</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Blueberry Muffin">
       <div class="lc-code" style="color:#4C9BE8">K2-05</div>
       <div class="lc-name">Overnight Oats - Blueberry Muffin</div>
-      <div class="lc-meta">3 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Cannoli">
       <div class="lc-code" style="color:#4C9BE8">K2-06</div>
       <div class="lc-name">Overnight Oats - Cannoli</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Buff Crisp Bar - Chocolate">
       <div class="lc-code" style="color:#E8612C">K2-07</div>
       <div class="lc-name">Buff Crisp Bar - Chocolate</div>
-      <div class="lc-meta">1 crate · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Chocolate Peanut Butter">
       <div class="lc-code" style="color:#4C9BE8">K2-08</div>
       <div class="lc-name">Overnight Oats - Chocolate Peanut Butter</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Buff Crisp Bar - Cinna Crunch">
       <div class="lc-code" style="color:#E8612C">K2-09</div>
       <div class="lc-name">Buff Crisp Bar - Cinna Crunch</div>
-      <div class="lc-meta">2 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Cookie Creme">
       <div class="lc-code" style="color:#4C9BE8">K2-10</div>
       <div class="lc-name">Overnight Oats - Cookie Creme</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Cookie Dough">
       <div class="lc-code" style="color:#4C9BE8">K2-11</div>
       <div class="lc-name">Overnight Oats - Cookie Dough</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Cookies and Cream Crunch">
       <div class="lc-code" style="color:#E8612C">K2-12<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span></div>
       <div class="lc-name">Cookies and Cream Crunch</div>
-      <div class="lc-meta">6 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Cookies and Cream Crunch">
       <div class="lc-code" style="color:#E8612C">K2-13<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span></div>
       <div class="lc-name">Cookies and Cream Crunch</div>
-      <div class="lc-meta">6 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Cookies and Cream Crunch">
       <div class="lc-code" style="color:#E8612C">K2-14<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span></div>
       <div class="lc-name">Cookies and Cream Crunch</div>
-      <div class="lc-meta">5 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Cookies and Cream Crunch - Exclusive- 20">
       <div class="lc-code" style="color:#E8612C">K2-15</div>
       <div class="lc-name">Cookies and Cream Crunch - Exclusive- 20</div>
-      <div class="lc-meta">2 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Cookies n Cream">
       <div class="lc-code" style="color:#4C9BE8">K2-16</div>
       <div class="lc-name">Overnight Oats - Cookies n Cream</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Dubai Chocolate">
       <div class="lc-code" style="color:#4C9BE8">K2-17</div>
       <div class="lc-name">Overnight Oats - Dubai Chocolate</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Fitella">
       <div class="lc-code" style="color:#4C9BE8">K2-18</div>
       <div class="lc-name">Overnight Oats - Fitella</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Buff Crisp Bar - Fruity Cereal">
       <div class="lc-code" style="color:#E8612C">K2-19</div>
       <div class="lc-name">Buff Crisp Bar - Fruity Cereal</div>
-      <div class="lc-meta">2 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Graham Fetti">
       <div class="lc-code" style="color:#4C9BE8">K2-20</div>
       <div class="lc-name">Overnight Oats - Graham Fetti</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Buff Crisp Bar - Original Recipe">
       <div class="lc-code" style="color:#E8612C">K2-21</div>
       <div class="lc-name">Buff Crisp Bar - Original Recipe</div>
-      <div class="lc-meta">2 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Peanut Butter &amp; Jelly">
       <div class="lc-code" style="color:#4C9BE8">K2-22</div>
       <div class="lc-name">Overnight Oats - Peanut Butter &amp; Jelly</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Peanut Butter Brownie">
       <div class="lc-code" style="color:#4C9BE8">K2-23</div>
       <div class="lc-name">Overnight Oats - Peanut Butter Brownie</div>
-      <div class="lc-meta">2 crates · Oats</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
+    </div><div class="lc-cell" data-product="Peanut Butter Chocolate Gree-Yo">
       <div class="lc-code" style="color:#E8612C">K2-24</div>
       <div class="lc-name">Peanut Butter Chocolate Gree-Yo</div>
-      <div class="lc-meta">5 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Peanut Butter Energy Bites">
       <div class="lc-code" style="color:#E8612C">K2-25</div>
       <div class="lc-name">Peanut Butter Energy Bites</div>
-      <div class="lc-meta">4 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Protein Chocolate Pudding">
       <div class="lc-code" style="color:#E8612C">K2-26</div>
       <div class="lc-name">Protein Chocolate Pudding</div>
-      <div class="lc-meta">3 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="S&#x27;Mores Gree-Yo">
       <div class="lc-code" style="color:#E8612C">K2-27</div>
       <div class="lc-name">S&#x27;Mores Gree-Yo</div>
-      <div class="lc-meta">3 crates · Snack</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Snack</div>
+    </div><div class="lc-cell" data-product="Overnight Oats - Toast n&#x27; Crunch">
       <div class="lc-code" style="color:#4C9BE8">K2-28</div>
       <div class="lc-name">Overnight Oats - Toast n&#x27; Crunch</div>
-      <div class="lc-meta">2 crates · Oats</div>
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Oats</div>
     </div></div>
   </div>
 <div class="rowcard">
@@ -1343,114 +1349,114 @@
       <span class="rowcard-title" style="color:#111417">Row M1</span>
       <span class="rowcard-sub">27/27 positions in use</span>
     </div>
-    <div class="lc-grid"><div class="lc-cell">
+    <div class="lc-grid"><div class="lc-cell" data-product="6-Guys Patty Melt">
       <div class="lc-code" style="color:#111417">M1-01</div>
       <div class="lc-name">6-Guys Patty Melt</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Arnold 2022 Bowl">
       <div class="lc-code" style="color:#111417">M1-02</div>
       <div class="lc-name">Arnold 2022 Bowl</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Baja Chicken Tacos">
       <div class="lc-code" style="color:#111417">M1-03</div>
       <div class="lc-name">Baja Chicken Tacos</div>
-      <div class="lc-meta">7 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Baked Herbed Tilapia (1lb Competition Approved)">
       <div class="lc-code" style="color:#111417">M1-04</div>
       <div class="lc-name">Baked Herbed Tilapia (1lb Competition Approved)</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="BBQ Chicken Garlic Parm Potatoes">
       <div class="lc-code" style="color:#111417">M1-05</div>
       <div class="lc-name">BBQ Chicken Garlic Parm Potatoes</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="BBQ Chicken Garlic Parm Potatoes">
       <div class="lc-code" style="color:#111417">M1-06</div>
       <div class="lc-name">BBQ Chicken Garlic Parm Potatoes</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="BBQ Chicken Mac Bowl">
       <div class="lc-code" style="color:#111417">M1-07</div>
       <div class="lc-name">BBQ Chicken Mac Bowl</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="BBQ Meltdown">
       <div class="lc-code" style="color:#111417">M1-08</div>
       <div class="lc-name">BBQ Meltdown</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Blueberry French Toast">
       <div class="lc-code" style="color:#111417">M1-09</div>
       <div class="lc-name">Blueberry French Toast</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Breakfast Burrito">
       <div class="lc-code" style="color:#111417">M1-10</div>
       <div class="lc-name">Breakfast Burrito</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Brookfield Chicken Bowl">
       <div class="lc-code" style="color:#111417">M1-11</div>
       <div class="lc-name">Brookfield Chicken Bowl</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Broritto Burrito">
       <div class="lc-code" style="color:#111417">M1-12</div>
       <div class="lc-name">Broritto Burrito</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Broritto Burrito">
       <div class="lc-code" style="color:#111417">M1-13</div>
       <div class="lc-name">Broritto Burrito</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Buffalo Chicken Meatballs">
       <div class="lc-code" style="color:#111417">M1-14</div>
       <div class="lc-name">Buffalo Chicken Meatballs</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Buffalo Chicken Quesadilla">
       <div class="lc-code" style="color:#111417">M1-15</div>
       <div class="lc-name">Buffalo Chicken Quesadilla</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Buffalo Crispy Chicken Wrap">
       <div class="lc-code" style="color:#111417">M1-16</div>
       <div class="lc-name">Buffalo Crispy Chicken Wrap</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Buffalo Mac N Chicken">
       <div class="lc-code" style="color:#111417">M1-17</div>
       <div class="lc-name">Buffalo Mac N Chicken</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Chicken Mushroom Pot Stickers">
       <div class="lc-code" style="color:#111417">M1-18</div>
       <div class="lc-name">Chicken Mushroom Pot Stickers</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Chicken Stir Fry">
       <div class="lc-code" style="color:#111417">M1-19</div>
       <div class="lc-name">Chicken Stir Fry</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Chicken Taco Bowl">
       <div class="lc-code" style="color:#111417">M1-20</div>
       <div class="lc-name">Chicken Taco Bowl</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Chipotle Chicken (1lb Competition Approved)">
       <div class="lc-code" style="color:#111417">M1-21</div>
       <div class="lc-name">Chipotle Chicken (1lb Competition Approved)</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Cinnamon Roll Pancakes">
       <div class="lc-code" style="color:#111417">M1-22</div>
       <div class="lc-name">Cinnamon Roll Pancakes</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Closed on Sunday Crispy Chicken Bowl">
       <div class="lc-code" style="color:#111417">M1-23</div>
       <div class="lc-name">Closed on Sunday Crispy Chicken Bowl</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Club Wrap">
       <div class="lc-code" style="color:#111417">M1-24</div>
       <div class="lc-name">Club Wrap</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved 90/10 Lean Ground Beef (1lb)">
       <div class="lc-code" style="color:#111417">M1-25</div>
       <div class="lc-name">Competition Approved 90/10 Lean Ground Beef (1lb)</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Baked Sweet Potato Fries (1lb)">
       <div class="lc-code" style="color:#111417">M1-26</div>
       <div class="lc-name">Competition Approved Baked Sweet Potato Fries (1lb)</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Chicken Kebab (1lb)">
       <div class="lc-code" style="color:#111417">M1-27</div>
       <div class="lc-name">Competition Approved Chicken Kebab (1lb)</div>
-      <div class="lc-meta">2 crates · Meal</div>
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
     </div></div>
   </div>
 <div class="rowcard">
@@ -1458,114 +1464,114 @@
       <span class="rowcard-title" style="color:#111417">Row M2</span>
       <span class="rowcard-sub">27/27 positions in use</span>
     </div>
-    <div class="lc-grid"><div class="lc-cell">
+    <div class="lc-grid"><div class="lc-cell" data-product="Competition Approved Grilled Chicken (1lb)">
       <div class="lc-code" style="color:#111417">M2-01</div>
       <div class="lc-name">Competition Approved Grilled Chicken (1lb)</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)">
       <div class="lc-code" style="color:#111417">M2-02</div>
       <div class="lc-name">Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb)</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Grilled Flank Steak (1lb)">
       <div class="lc-code" style="color:#111417">M2-03</div>
       <div class="lc-name">Competition Approved Grilled Flank Steak (1lb)</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Lemon Pepper Salmon (1lb)">
       <div class="lc-code" style="color:#111417">M2-04</div>
       <div class="lc-name">Competition Approved Lemon Pepper Salmon (1lb)</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Oven Baked Cod (1lb)">
       <div class="lc-code" style="color:#111417">M2-05</div>
       <div class="lc-name">Competition Approved Oven Baked Cod (1lb)</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved Sticky Rice (1lb)">
       <div class="lc-code" style="color:#111417">M2-06</div>
       <div class="lc-name">Competition Approved Sticky Rice (1lb)</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Competition Approved White Basmati Rice (1lb)">
       <div class="lc-code" style="color:#111417">M2-07</div>
       <div class="lc-name">Competition Approved White Basmati Rice (1lb)</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Crispy Baked Chicken Wrap">
       <div class="lc-code" style="color:#111417">M2-08</div>
       <div class="lc-name">Crispy Baked Chicken Wrap</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Crispy Baked Chicken Wrap">
       <div class="lc-code" style="color:#111417">M2-09</div>
       <div class="lc-name">Crispy Baked Chicken Wrap</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Crispy Vegan Wrap">
       <div class="lc-code" style="color:#111417">M2-10</div>
       <div class="lc-name">Crispy Vegan Wrap</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Farfalle &amp; Chicken Alfredo">
       <div class="lc-code" style="color:#111417">M2-11</div>
       <div class="lc-name">Farfalle &amp; Chicken Alfredo</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Fit Ala Vodka With Chicken">
       <div class="lc-code" style="color:#111417">M2-12</div>
       <div class="lc-name">Fit Ala Vodka With Chicken</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Fit-Fil-A">
       <div class="lc-code" style="color:#111417">M2-13</div>
       <div class="lc-name">Fit-Fil-A</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="GLORIOUS GAINS Steak Bites &amp; Cilantro Lime Rice">
       <div class="lc-code" style="color:#111417">M2-14</div>
       <div class="lc-name">GLORIOUS GAINS Steak Bites &amp; Cilantro Lime Rice</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Gluten Free Carbonara Chicken">
       <div class="lc-code" style="color:#111417">M2-15</div>
       <div class="lc-name">Gluten Free Carbonara Chicken</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Grilled Chicken Parmesan Wrap">
       <div class="lc-code" style="color:#111417">M2-16</div>
       <div class="lc-name">Grilled Chicken Parmesan Wrap</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Grilled Chicken Pesto Wrap">
       <div class="lc-code" style="color:#111417">M2-17</div>
       <div class="lc-name">Grilled Chicken Pesto Wrap</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Herb Butter Steak Tips Bowl">
       <div class="lc-code" style="color:#111417">M2-18</div>
       <div class="lc-name">Herb Butter Steak Tips Bowl</div>
-      <div class="lc-meta">7 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Hey Arnold! Burrito">
       <div class="lc-code" style="color:#111417">M2-19</div>
       <div class="lc-name">Hey Arnold! Burrito</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="HFit Signature Fold">
       <div class="lc-code" style="color:#111417">M2-20</div>
       <div class="lc-name">HFit Signature Fold</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Honey Garlic Crispy Chicken Tacos">
       <div class="lc-code" style="color:#111417">M2-21</div>
       <div class="lc-name">Honey Garlic Crispy Chicken Tacos</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Hot Honey Steak &amp; Mac">
       <div class="lc-code" style="color:#111417">M2-22</div>
       <div class="lc-name">Hot Honey Steak &amp; Mac</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Keto Ricotta Meatballs">
       <div class="lc-code" style="color:#111417">M2-23</div>
       <div class="lc-name">Keto Ricotta Meatballs</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Lo Mein Teriyaki Steak">
       <div class="lc-code" style="color:#111417">M2-24</div>
       <div class="lc-name">Lo Mein Teriyaki Steak</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Low Carb Keto Cheeseburger Bowl">
       <div class="lc-code" style="color:#111417">M2-25</div>
       <div class="lc-name">Low Carb Keto Cheeseburger Bowl</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Meatball Parmesan Wrap">
       <div class="lc-code" style="color:#111417">M2-26</div>
       <div class="lc-name">Meatball Parmesan Wrap</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="MsWendy Buff Nuggets">
       <div class="lc-code" style="color:#111417">M2-27</div>
       <div class="lc-name">MsWendy Buff Nuggets</div>
-      <div class="lc-meta">4 crates · Meal</div>
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
     </div></div>
   </div>
 <div class="rowcard">
@@ -1573,114 +1579,114 @@
       <span class="rowcard-title" style="color:#111417">Row M3</span>
       <span class="rowcard-sub">27/27 positions in use</span>
     </div>
-    <div class="lc-grid"><div class="lc-cell">
+    <div class="lc-grid"><div class="lc-cell" data-product="Nacho Average Bowl">
       <div class="lc-code" style="color:#111417">M3-01</div>
       <div class="lc-name">Nacho Average Bowl</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Nacho Average Vegan Bowl">
       <div class="lc-code" style="color:#111417">M3-02</div>
       <div class="lc-name">Nacho Average Vegan Bowl</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Peanut Butter &amp; Jelly Sandwich">
       <div class="lc-code" style="color:#111417">M3-03</div>
       <div class="lc-name">Peanut Butter &amp; Jelly Sandwich</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Philly Cheesesteak Quesadilla">
       <div class="lc-code" style="color:#111417">M3-04<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span></div>
       <div class="lc-name">Philly Cheesesteak Quesadilla</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Pineapple Teriyaki Meatballs">
       <div class="lc-code" style="color:#111417">M3-05</div>
       <div class="lc-name">Pineapple Teriyaki Meatballs</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Rigatoni &amp; Meatballs">
       <div class="lc-code" style="color:#111417">M3-06</div>
       <div class="lc-name">Rigatoni &amp; Meatballs</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Soho Steak Bowl">
       <div class="lc-code" style="color:#111417">M3-07</div>
       <div class="lc-name">Soho Steak Bowl</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Southwest Chicken Bowl">
       <div class="lc-code" style="color:#111417">M3-08</div>
       <div class="lc-name">Southwest Chicken Bowl</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Southwest Chicken Quesadilla">
       <div class="lc-code" style="color:#111417">M3-09</div>
       <div class="lc-name">Southwest Chicken Quesadilla</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Spicy Buffalo Wrap">
       <div class="lc-code" style="color:#111417">M3-10</div>
       <div class="lc-name">Spicy Buffalo Wrap</div>
-      <div class="lc-meta">7 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Stacked and Jacked">
       <div class="lc-code" style="color:#111417">M3-11</div>
       <div class="lc-name">Stacked and Jacked</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Strawberry Protein French Toast">
       <div class="lc-code" style="color:#111417">M3-12</div>
       <div class="lc-name">Strawberry Protein French Toast</div>
-      <div class="lc-meta">3 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">3</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Strongsville Chicken Ranch Fold">
       <div class="lc-code" style="color:#111417">M3-13</div>
       <div class="lc-name">Strongsville Chicken Ranch Fold</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Taco Build Quesadilla">
       <div class="lc-code" style="color:#111417">M3-14</div>
       <div class="lc-name">Taco Build Quesadilla</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Teriyaki Flank Bowl">
       <div class="lc-code" style="color:#111417">M3-15</div>
       <div class="lc-name">Teriyaki Flank Bowl</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Texas Queso Steak Bowl">
       <div class="lc-code" style="color:#111417">M3-16<span class="lc-flag" title="7-day and 90-day Shopify averages diverge more than 2x — spot-check before trusting">~</span></div>
       <div class="lc-name">Texas Queso Steak Bowl</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="TexMex Potato Hash">
       <div class="lc-code" style="color:#111417">M3-17</div>
       <div class="lc-name">TexMex Potato Hash</div>
-      <div class="lc-meta">5 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">5</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Thai Chili Chicken">
       <div class="lc-code" style="color:#111417">M3-18</div>
       <div class="lc-name">Thai Chili Chicken</div>
-      <div class="lc-meta">6 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">6</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="The Arches Mac Daddy Wrap">
       <div class="lc-code" style="color:#111417">M3-19</div>
       <div class="lc-name">The Arches Mac Daddy Wrap</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="The Clean Bulk Pasta Bowl">
       <div class="lc-code" style="color:#111417">M3-20</div>
       <div class="lc-name">The Clean Bulk Pasta Bowl</div>
-      <div class="lc-meta">4 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Turkey Bacon Cheddar Egg Muffins">
       <div class="lc-code" style="color:#111417">M3-21</div>
       <div class="lc-name">Turkey Bacon Cheddar Egg Muffins</div>
-      <div class="lc-meta">2 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">2</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Vegan Breakfast Sandwich">
       <div class="lc-code" style="color:#111417">M3-22</div>
       <div class="lc-name">Vegan Breakfast Sandwich</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Vegan Cheeseburger Bowl">
       <div class="lc-code" style="color:#111417">M3-23</div>
       <div class="lc-name">Vegan Cheeseburger Bowl</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Vegan Chorizo Quesadilla">
       <div class="lc-code" style="color:#111417">M3-24</div>
       <div class="lc-name">Vegan Chorizo Quesadilla</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="West Coast Secret Sauce Bowl">
       <div class="lc-code" style="color:#111417">M3-25</div>
       <div class="lc-name">West Coast Secret Sauce Bowl</div>
-      <div class="lc-meta">1 crate · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">1</span> crate · Meal</div>
+    </div><div class="lc-cell" data-product="Zeus Bowl">
       <div class="lc-code" style="color:#111417">M3-26</div>
       <div class="lc-name">Zeus Bowl</div>
-      <div class="lc-meta">7 crates · Meal</div>
-    </div><div class="lc-cell">
+      <div class="lc-meta"><span class="lc-crates-num">7</span> crates · Meal</div>
+    </div><div class="lc-cell" data-product="Zeus Bowl V2">
       <div class="lc-code" style="color:#111417">M3-27</div>
       <div class="lc-name">Zeus Bowl V2</div>
-      <div class="lc-meta">4 crates · Meal</div>
+      <div class="lc-meta"><span class="lc-crates-num">4</span> crates · Meal</div>
     </div></div>
   </div>
 
@@ -1707,5 +1713,38 @@
 
   <p class="footnote">Generated from the room dimensions and the real 178-order demand sample. Product legend generated directly from lane_plan.json — the same file that drives the live picking app.</p>
 </div>
+<script>
+// Overlay live Shopify-inventory crate counts on top of the numbers baked in
+// at generation time. The baked numbers are a fallback (shown as-is until
+// this loads, and if the fetch fails); the live numbers, when available,
+// replace them and get a teal highlight + the "live" dot in the header so
+// it's obvious which is which.
+fetch('/api/target-crates').then(r => r.json()).then(data => {
+  const badge = document.getElementById('liveBadge');
+  const badgeText = document.getElementById('liveBadgeText');
+  const products = data.products || {};
+  if (!data.last_sync) {
+    badgeText.textContent = 'Live inventory not connected yet';
+    return;
+  }
+  let patched = 0;
+  document.querySelectorAll('.lc-cell[data-product]').forEach(cell => {
+    const name = cell.getAttribute('data-product');
+    const live = products[name];
+    if (!live || live.target_crates == null) return;
+    const numEl = cell.querySelector('.lc-crates-num');
+    if (!numEl) return;
+    numEl.textContent = live.target_crates;
+    cell.classList.add('is-live');
+    cell.title = 'Live from Shopify on-hand inventory as of ' + new Date(data.last_sync).toLocaleString();
+    patched++;
+  });
+  badge.classList.add('on');
+  const when = new Date(data.last_sync).toLocaleString();
+  badgeText.textContent = `Live inventory: ${patched} lanes updated · synced ${when}`;
+}).catch(() => {
+  document.getElementById('liveBadgeText').textContent = 'Live inventory unavailable';
+});
+</script>
 </body>
 </html>

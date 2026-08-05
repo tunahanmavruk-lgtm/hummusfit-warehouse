@@ -57,4 +57,17 @@ CREATE TABLE IF NOT EXISTS pick_log (
 );
 `);
 
+// target_crates: live crate target from Shopify on-hand inventory
+// (ceil(units_on_hand / cap)), replacing the old static 3.5-day demand
+// forecast that ran way ahead of what's actually produced. NULL until the
+// first successful sync. Added via ALTER since these columns didn't exist
+// in earlier deploys -- guarded because SQLite errors on a duplicate ADD
+// COLUMN and this file runs on every boot.
+for (const stmt of [
+  `ALTER TABLE products ADD COLUMN target_crates INTEGER`,
+  `ALTER TABLE products ADD COLUMN target_crates_source TEXT`,
+]) {
+  try { db.exec(stmt); } catch (e) { /* column already exists, fine */ }
+}
+
 module.exports = db;
