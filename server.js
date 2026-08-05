@@ -39,6 +39,14 @@ if (laneCount === 0) {
 }
 
 const app = express();
+// Railway terminates TLS and proxies to this container over plain HTTP,
+// setting X-Forwarded-Proto: https. Without telling Express to trust that
+// header, req.protocol always reads back as "http" -- which broke the
+// Shopify OAuth install link: it built redirect_uri=http://... while the
+// app's registered Redirect URLs (Dev Dashboard) are https://..., an exact
+// match Shopify requires, so every install attempt failed with "redirect_uri
+// is not whitelisted" even though the URL was correctly registered.
+app.set('trust proxy', 1);
 app.use(express.json());
 
 // Blueprint is now the primary landing page — the old Floor Plan/Restock
