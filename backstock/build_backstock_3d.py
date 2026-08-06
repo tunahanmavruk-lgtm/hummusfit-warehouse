@@ -109,6 +109,17 @@ html_doc = f'''<!DOCTYPE html>
   #panel .meta{{color:#767c85;font-size:11.5px;margin-top:8px;}}
   #panel .hint{{color:#767c85;font-size:11.5px;line-height:1.5;}}
   #crosshair{{position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.85);border:1px solid rgba(0,0,0,.4);display:none;pointer-events:none;}}
+  /* Touch walk controls (iPad/iPhone) -- Pointer Lock API doesn't exist on
+     iOS/iPadOS Safari at all (not "flaky", genuinely unimplemented -- WebKit
+     has never shipped it on touch platforms), so walk mode there can't use
+     the same mouse-look + WASD scheme as desktop. This is a virtual
+     joystick (left thumb, move) + drag-to-look (right thumb, look),
+     the standard mobile-FPS control split, with a real on-screen exit
+     button since there's no Escape key to fall back on. */
+  #walkTouchHint{{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(17,20,23,0.75);color:#fff;font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:8px;display:none;pointer-events:none;text-align:center;}}
+  #joyBase{{position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.4);display:none;touch-action:none;}}
+  #joyKnob{{position:absolute;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.55);border:2px solid rgba(255,255,255,.75);left:32px;top:32px;pointer-events:none;}}
+  #walkExitBtn{{position:absolute;top:16px;left:50%;transform:translateX(-50%);background:rgba(232,97,44,0.92);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;display:none;z-index:20;}}
 </style>
 </head>
 <body>
@@ -134,6 +145,9 @@ html_doc = f'''<!DOCTYPE html>
     <div class="meta" id="panelMeta"></div>
   </div>
   <div id="crosshair"></div>
+  <button id="walkExitBtn">Exit walk mode</button>
+  <div id="walkTouchHint">Left thumb: move &nbsp;•&nbsp; right side: drag to look &nbsp;•&nbsp; tap a shelf to select</div>
+  <div id="joyBase"><div id="joyKnob"></div></div>
 </div>
 <script>{THREE_JS}</script>
 <script>{ORBIT_JS}</script>
@@ -349,46 +363,70 @@ function updateLabels() {{
   }}
 }}
 
-// ---- Walk mode: first-person WASD + mouse-look, like walking the aisle
-// yourself instead of orbiting the whole room from outside. Toggle back to
-// the normal orbit/overview camera any time with the same button or Esc. ----
+// ---- Walk mode: first-person move + look, like walking the aisle yourself
+// instead of orbiting the whole room from outside. Two control schemes:
+//  - Desktop (has a mouse): WASD + Pointer Lock mouse-look, via
+//    THREE.PointerLockControls, toggled/exited with the walk button or Esc.
+//  - Touch (iPad/iPhone -- confirmed Aug 2026 as the primary device for the
+//    picking team): the Pointer Lock API is not a "sometimes flaky" thing
+//    here, it's UNIMPLEMENTED on iOS/iPadOS Safari entirely (no mouse to
+//    lock -- WebKit has never shipped it on touch platforms), so no amount
+//    of retry/fallback logic makes plControls.lock() succeed there. Touch
+//    gets its own scheme instead: a virtual joystick (left thumb, move) +
+//    drag-to-look (right side of screen, look), the standard mobile-FPS
+//    split, driving the SAME camera via plControls.moveForward/moveRight
+//    (those just read/write camera.position + camera.matrix directly --
+//    nothing in them actually depends on pointer lock being active) plus
+//    a manual quaternion update for look, copied from the same Euler math
+//    PointerLockControls itself uses for mouse movement. A real on-screen
+//    exit button is shown too, since touch has no Escape key.
 const walkBtn = document.getElementById('walkBtn');
+const walkExitBtn = document.getElementById('walkExitBtn');
+const walkTouchHint = document.getElementById('walkTouchHint');
+const joyBase = document.getElementById('joyBase');
+const joyKnob = document.getElementById('joyKnob');
 const crosshair = document.getElementById('crosshair');
 const plControls = new THREE.PointerLockControls(camera, renderer.domElement);
+const IS_TOUCH = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 let walking = false;
 const walkKeys = {{}};
 const EYE_HEIGHT = 66; // ~5'6" eye height in inches, matches the room's inch units
 document.addEventListener('keydown', e => walkKeys[e.code] = true);
 document.addEventListener('keyup', e => walkKeys[e.code] = false);
-// Bug fix (Aug 2026): this used to set camera.position/rotation and call
-// plControls.lock() together in the click handler, BEFORE knowing whether
-// pointer lock actually succeeded. PointerLockControls silently swallows a
-// failed lock request (just a console.error, no 'unlock' or error event
-// fires from the library) -- so on any browser/context where pointer lock
-// is rejected (seen with Safari), the camera got yanked into the walking
-// eye position and orbit controls got left enabled with a stale internal
-// state, rendering a blank gray screen with no recovery. Fix: only touch
-// the camera once 'lock' actually fires, and listen for pointerlockerror
-// ourselves so a rejected request fails visibly instead of corrupting the
-// view silently.
-walkBtn.addEventListener('click', () => {{
-  if (!walking) {{
-    plControls.lock();
-  }} else {{
-    plControls.unlock();
-  }}
-}});
-plControls.addEventListener('lock', () => {{
+if (IS_TOUCH) {{
+  walkBtn.textContent = 'Walk mode (touch)';
+}}
+
+// ---- shared enter/exit, used by both the desktop pointer-lock path and
+// the touch path so behavior (camera reset, orbit-controls disable, panel
+// hide, etc.) can't drift between the two. ----
+function enterWalk() {{
   walking = true;
   controls.enabled = false;
   camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, -60);
-  plControls.getObject().rotation.set(0,0,0);
-  walkBtn.textContent = 'Exit walk mode (Esc)';
-  walkBtn.disabled = false;
+  // Pre-existing bug found while testing the touch fix (Aug 2026), separate
+  // from the pointer-lock issue: identity/zero rotation here faces straight
+  // down -Z, which is AWAY from the room, not into it -- the room's racks
+  // are all at z > 0, and this starting position sits at z=-60 (just
+  // outside the door). Every walk-mode entry, on every browser, started
+  // staring at the empty void outside the door until you manually turned
+  // ~180 degrees. That's likely a big chunk of "walk mode looks broken" --
+  // it visually IS a blank gray screen on entry even when everything is
+  // working correctly. Fix: face +Z (into the room) on entry instead.
+  camera.quaternion.setFromEuler(new THREE.Euler(0, Math.PI, 0, 'YXZ'));
   crosshair.style.display = 'block';
   panel.style.display = 'none';
-}});
-plControls.addEventListener('unlock', () => {{
+  if (IS_TOUCH) {{
+    walkBtn.style.display = 'none';
+    walkExitBtn.style.display = 'block';
+    walkTouchHint.style.display = 'block';
+    setTimeout(() => {{ walkTouchHint.style.display = 'none'; }}, 4000);
+  }} else {{
+    walkBtn.textContent = 'Exit walk mode (Esc)';
+    walkBtn.disabled = false;
+  }}
+}}
+function exitWalk() {{
   walking = false;
   controls.enabled = true;
   // Point orbit controls at wherever walking left off, so returning to
@@ -397,22 +435,56 @@ plControls.addEventListener('unlock', () => {{
   camera.getWorldDirection(lookDir);
   controls.target.copy(camera.position).addScaledVector(lookDir, 200);
   controls.update();
-  walkBtn.textContent = 'Walk mode (WASD + mouse)';
   crosshair.style.display = 'none';
+  joyBase.style.display = 'none';
+  walkTouchHint.style.display = 'none';
+  if (IS_TOUCH) {{
+    walkBtn.style.display = 'block';
+    walkExitBtn.style.display = 'none';
+  }} else {{
+    walkBtn.textContent = 'Walk mode (WASD + mouse)';
+  }}
+}}
+
+walkBtn.addEventListener('click', () => {{
+  if (walking) return;
+  if (IS_TOUCH) {{
+    enterWalk(); // no lock to request -- touch has nothing pointer lock can grant
+  }} else {{
+    plControls.lock();
+  }}
 }});
+walkExitBtn.addEventListener('click', () => {{ if (walking) exitWalk(); }});
+// Bug fix (Aug 2026): this used to set camera.position/rotation and call
+// plControls.lock() together in the click handler, BEFORE knowing whether
+// pointer lock actually succeeded. PointerLockControls silently swallows a
+// failed lock request (just a console.error, no 'unlock' or error event
+// fires from the library) -- so on any browser/context where pointer lock
+// is rejected, the camera got yanked into the walking eye position and
+// orbit controls got left enabled with a stale internal state, rendering a
+// blank gray screen with no recovery. Fix: only touch the camera once
+// 'lock' actually fires, and listen for pointerlockerror ourselves so a
+// rejected request fails visibly instead of corrupting the view silently.
+plControls.addEventListener('lock', enterWalk);
+plControls.addEventListener('unlock', exitWalk);
 document.addEventListener('pointerlockerror', () => {{
-  // Library only console.errors this -- without our own listener the UI
-  // stays stuck saying "Walk mode (WASD + mouse)" with no clue anything
-  // went wrong, while nothing in the scene actually changed (we no longer
-  // mutate the camera before lock succeeds, so orbit mode is still intact).
+  // Desktop-only path (IS_TOUCH never calls plControls.lock(), so this
+  // can't fire there). Library only console.errors this -- without our own
+  // listener the UI stays stuck saying "Walk mode (WASD + mouse)" with no
+  // clue anything went wrong, while nothing in the scene actually changed
+  // (we no longer mutate the camera before lock succeeds, so orbit mode is
+  // still intact).
   walkBtn.textContent = 'Walk mode unavailable in this browser';
   walkBtn.disabled = true;
   setTimeout(() => {{ walkBtn.textContent = 'Walk mode (WASD + mouse)'; walkBtn.disabled = false; }}, 3000);
 }});
 renderer.domElement.addEventListener('click', () => {{
-  // Walking-mode click = pick whatever's under the crosshair (screen center),
-  // since the mouse cursor itself is hidden/locked during pointer-lock.
-  if (walking) {{
+  // Desktop walking-mode click = pick whatever's under the crosshair
+  // (screen center), since the mouse cursor itself is hidden/locked during
+  // pointer-lock. Touch has its own tap-to-pick in the touch handlers below
+  // (a synthetic 'click' doesn't fire reliably the same way after a
+  // touchend during an active custom drag gesture).
+  if (walking && !IS_TOUCH) {{
     raycaster.setFromCamera(new THREE.Vector2(0,0), camera);
     const hit = raycaster.intersectObjects(pickables)[0];
     if (hit) showPanel(hit.object.userData);
@@ -420,15 +492,25 @@ renderer.domElement.addEventListener('click', () => {{
 }});
 const WALK_SPEED = 160; // inches/sec
 const walkVelocity = new THREE.Vector3();
+// Touch joystick state -- set by the joystick touch handlers below, read
+// each frame by updateWalk(). x/y in [-1,1], 0 when the joystick isn't
+// currently being dragged.
+const touchMove = {{x: 0, y: 0}};
 function updateWalk(dt) {{
   if (!walking) return;
   walkVelocity.set(0,0,0);
-  if (walkKeys['KeyW']) walkVelocity.z -= 1;
-  if (walkKeys['KeyS']) walkVelocity.z += 1;
-  if (walkKeys['KeyA']) walkVelocity.x -= 1;
-  if (walkKeys['KeyD']) walkVelocity.x += 1;
+  if (IS_TOUCH) {{
+    walkVelocity.x = touchMove.x;
+    walkVelocity.z = touchMove.y;
+  }} else {{
+    if (walkKeys['KeyW']) walkVelocity.z -= 1;
+    if (walkKeys['KeyS']) walkVelocity.z += 1;
+    if (walkKeys['KeyA']) walkVelocity.x -= 1;
+    if (walkKeys['KeyD']) walkVelocity.x += 1;
+  }}
   if (walkVelocity.lengthSq() > 0) {{
-    walkVelocity.normalize().multiplyScalar(WALK_SPEED*dt);
+    const mag = Math.min(1, walkVelocity.length());
+    walkVelocity.normalize().multiplyScalar(mag * WALK_SPEED*dt);
     plControls.moveRight(walkVelocity.x);
     plControls.moveForward(-walkVelocity.z);
   }}
@@ -436,6 +518,106 @@ function updateWalk(dt) {{
   // clamp inside the room so you can't walk through walls
   camera.position.x = Math.max(4, Math.min(CFG.roomW-4, camera.position.x));
   camera.position.z = Math.max(-100, Math.min(CFG.roomD-4, camera.position.z));
+}}
+
+// ---- Touch controls: virtual joystick (move) + drag-to-look, tracked by
+// touch identifier so two thumbs on screen at once don't fight each other.
+// Joystick "claims" any touch that starts inside its base circle; every
+// other touch that starts while walking is a look/select touch. ----
+if (IS_TOUCH) {{
+  const JOY_R = 55; // px, matches #joyBase's 110px diameter
+  let joyTouchId = null, joyOriginX = 0, joyOriginY = 0;
+  const LOOK_SENS = 0.0035;
+  const TAP_MOVE_THRESHOLD = 12; // px -- drags shorter than this count as a tap-to-select, not a look-drag
+  const lookTouches = {{}}; // id -> {{x, y, startX, startY, moved}}
+
+  function placeJoyBase(x, y) {{
+    joyOriginX = x; joyOriginY = y;
+    joyBase.style.left = (x - JOY_R) + 'px';
+    joyBase.style.top = (y - JOY_R) + 'px';
+    joyBase.style.display = 'block';
+    joyKnob.style.left = '32px';
+    joyKnob.style.top = '32px';
+  }}
+  function updateJoyKnob(x, y) {{
+    let dx = x - joyOriginX, dy = y - joyOriginY;
+    const dist = Math.hypot(dx, dy);
+    if (dist > JOY_R) {{ dx = dx/dist*JOY_R; dy = dy/dist*JOY_R; }}
+    joyKnob.style.left = (32 + dx) + 'px';
+    joyKnob.style.top = (32 + dy) + 'px';
+    // x: left/right strafe, matches walkKeys A/D. y: forward is dragging UP
+    // (negative dy), matching W -- so touchMove.z uses dy directly (both
+    // "up/forward" are negative in their respective axes).
+    touchMove.x = dx / JOY_R;
+    touchMove.y = dy / JOY_R;
+  }}
+  function resetJoy() {{
+    joyTouchId = null;
+    joyBase.style.display = 'none';
+    touchMove.x = 0; touchMove.y = 0;
+  }}
+
+  renderer.domElement.addEventListener('touchstart', e => {{
+    if (!walking) return;
+    e.preventDefault();
+    for (const t of e.changedTouches) {{
+      const leftHalf = t.clientX < wrap.clientWidth * 0.5;
+      if (leftHalf && joyTouchId === null) {{
+        joyTouchId = t.identifier;
+        placeJoyBase(t.clientX, t.clientY);
+      }} else if (!leftHalf) {{
+        lookTouches[t.identifier] = {{x: t.clientX, y: t.clientY, startX: t.clientX, startY: t.clientY, moved: false}};
+      }}
+    }}
+  }}, {{passive: false}});
+
+  renderer.domElement.addEventListener('touchmove', e => {{
+    if (!walking) return;
+    e.preventDefault();
+    for (const t of e.changedTouches) {{
+      if (t.identifier === joyTouchId) {{
+        updateJoyKnob(t.clientX, t.clientY);
+      }} else if (lookTouches[t.identifier]) {{
+        const lt = lookTouches[t.identifier];
+        const dx = t.clientX - lt.x, dy = t.clientY - lt.y;
+        lt.x = t.clientX; lt.y = t.clientY;
+        if (Math.hypot(t.clientX - lt.startX, t.clientY - lt.startY) > TAP_MOVE_THRESHOLD) lt.moved = true;
+        const _euler = new THREE.Euler(0, 0, 0, 'YXZ');
+        _euler.setFromQuaternion(camera.quaternion);
+        _euler.y -= dx * LOOK_SENS;
+        _euler.x -= dy * LOOK_SENS;
+        _euler.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, _euler.x));
+        camera.quaternion.setFromEuler(_euler);
+      }}
+    }}
+  }}, {{passive: false}});
+
+  renderer.domElement.addEventListener('touchend', e => {{
+    if (!walking) return;
+    for (const t of e.changedTouches) {{
+      if (t.identifier === joyTouchId) {{
+        resetJoy();
+      }} else if (lookTouches[t.identifier]) {{
+        const lt = lookTouches[t.identifier];
+        if (!lt.moved) {{
+          // Tap without a drag = pick whatever's at the tap point.
+          const ndcX = (t.clientX / wrap.clientWidth) * 2 - 1;
+          const ndcY = -(t.clientY / wrap.clientHeight) * 2 + 1;
+          raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+          const hit = raycaster.intersectObjects(pickables)[0];
+          if (hit) showPanel(hit.object.userData);
+        }}
+        delete lookTouches[t.identifier];
+      }}
+    }}
+  }}, {{passive: false}});
+
+  renderer.domElement.addEventListener('touchcancel', e => {{
+    for (const t of e.changedTouches) {{
+      if (t.identifier === joyTouchId) resetJoy();
+      delete lookTouches[t.identifier];
+    }}
+  }}, {{passive: false}});
 }}
 let lastT = 0;
 
