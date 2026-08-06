@@ -1525,16 +1525,23 @@ if (IS_TOUCH) {
 function enterWalk() {
   walking = true;
   controls.enabled = false;
-  camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, -60);
-  // Pre-existing bug found while testing the touch fix (Aug 2026), separate
-  // from the pointer-lock issue: identity/zero rotation here faces straight
-  // down -Z, which is AWAY from the room, not into it -- the room's racks
-  // are all at z > 0, and this starting position sits at z=-60 (just
-  // outside the door). Every walk-mode entry, on every browser, started
-  // staring at the empty void outside the door until you manually turned
-  // ~180 degrees. That's likely a big chunk of "walk mode looks broken" --
-  // it visually IS a blank gray screen on entry even when everything is
-  // working correctly. Fix: face +Z (into the room) on entry instead.
+  // Two stacked pre-existing bugs found testing the touch fix (Aug 2026),
+  // both independent of pointer lock, both making walk mode look "broken"
+  // even when everything under the hood is working:
+  //  1. identity/zero rotation here faces straight down -Z, which is AWAY
+  //     from the room, not into it (room geometry is all at z > 0).
+  //  2. the old z=-60 starting position sits OUTSIDE the room, in front of
+  //     the front wall (wallSeg draws one continuous panel across the full
+  //     room width at z=0-ish, with no door gap actually cut into the
+  //     mesh). So even facing the right way, the camera was still staring
+  //     at a flat, evenly-lit wall face from ~2ft away -- which fills the
+  //     entire frame with one flat gray color, visually indistinguishable
+  //     from a blank/broken screen in a quick glance. Confirmed by sampling
+  //     rendered pixels directly: uniform color across the whole canvas at
+  //     z=-60, varied real geometry colors once moved to z=30.
+  // Fix: face +Z (into the room), AND start just inside the wall instead
+  // of outside it.
+  camera.position.set(CFG.roomW*0.5, EYE_HEIGHT, 30);
   camera.quaternion.setFromEuler(new THREE.Euler(0, Math.PI, 0, 'YXZ'));
   crosshair.style.display = 'block';
   panel.style.display = 'none';
@@ -1637,9 +1644,13 @@ function updateWalk(dt) {
     plControls.moveForward(-walkVelocity.z);
   }
   camera.position.y = EYE_HEIGHT;
-  // clamp inside the room so you can't walk through walls
+  // Clamp inside the room so you can't walk through walls. z used to allow
+  // back down to -100 -- letting you walk backward straight through the
+  // (doorless, in this model) front wall and out into the same dead zone
+  // the entry-position bug above put you in by default. 4 keeps you just
+  // inside the front wall instead.
   camera.position.x = Math.max(4, Math.min(CFG.roomW-4, camera.position.x));
-  camera.position.z = Math.max(-100, Math.min(CFG.roomD-4, camera.position.z));
+  camera.position.z = Math.max(4, Math.min(CFG.roomD-4, camera.position.z));
 }
 
 // ---- Touch controls: virtual joystick (move) + drag-to-look, tracked by
