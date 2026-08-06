@@ -6,7 +6,7 @@ crate-load blocks per position (real 3.5-day crate counts, real Shopify u30
 demand -- see build_backstock_location_assignment.py for the math). Color =
 category. Block height = how full that position is relative to its capacity.
 """
-import json
+import json, colorsys, hashlib
 
 g = json.load(open('/home/claude/hummusfit-warehouse/backstock/backstock_geometry.json'))
 pos_fill = json.load(open('/home/claude/hummusfit-warehouse/backstock/position_fill.json'))
@@ -54,6 +54,30 @@ config = {
 
 CAT_COLOR = {'meal': 0x3b82f6, 'muffin': 0xE8612C, 'oats': 0x22c55e, 'snack': 0x8b5cf6}
 CAT_LABEL = {'meal': 'Meals (blue)', 'muffin': 'Muffins (orange)', 'oats': 'Oats (green)', 'snack': 'Snacks (purple)'}
+# Hue (degrees) matching each CAT_COLOR, used as the center of that
+# category's color family below.
+CAT_HUE = {'meal': 217, 'muffin': 16, 'oats': 142, 'snack': 262}
+
+# Per-Tony (Aug 2026): "if a pallet or shelf shares space with another
+# variant of product we should indicate in crate colors to differentiate
+# for my staff." position_fill.json shows this is common -- 42 of 70 filled
+# backstock positions hold more than one product (a shelf's category is
+# uniform, but the specific products on it aren't). A single category color
+# per shelf hides that. Fix: give each distinct product its own shade
+# within its category's color family -- a stable hash of the product name
+# picks a hue offset (+/-22 degrees) and a lightness variant, so two
+# products on the same shelf are visibly different crate colors, while
+# still reading as "this is the meals shelf" at a glance from the category
+# hue family. Deterministic (same product always gets the same shade,
+# across rebuilds) rather than randomly assigned per build.
+def product_color(name, cat):
+    base_hue = CAT_HUE.get(cat, 210)
+    hval = int(hashlib.md5(name.encode()).hexdigest(), 16)
+    hue_offset = ((hval % 45) - 22)  # -22..+22 degrees
+    lightness = 0.42 + ((hval // 45) % 5) * 0.045  # 0.42..0.60, 5 steps
+    hue = ((base_hue + hue_offset) % 360) / 360
+    r, gg, b = colorsys.hls_to_rgb(hue, lightness, 0.62)
+    return (int(r*255) << 16) | (int(gg*255) << 8) | int(b*255)
 
 # Turn position_fill.json (bay/level/zone/cat/filled/cap keyed by e.g. "C03-L2")
 # into per-position 3D placements matching the rack geometry above.
@@ -80,11 +104,17 @@ for code, v in pos_fill.items():
     h = max(6, (pitch - 10) * frac)
     # Structured per-product rows (lane code, name, crates) for the click panel --
     # full detail lives here now, not crammed into an always-visible floating label.
-    rows = [{'lane': pr['lane'], 'name': pr['name'], 'crates': pr['crates']} for pr in v['products']]
+    # Sorted by crates desc so, on a mixed shelf, the biggest product gets the
+    # first (bottom) crate-unit and its own distinct color takes priority if
+    # there are more distinct products than crate-units to show.
+    products_sorted = sorted(v['products'], key=lambda pr: -pr['crates'])
+    rows = [{'lane': pr['lane'], 'name': pr['name'], 'crates': pr['crates']} for pr in products_sorted]
+    row_colors = [product_color(pr['name'], cat) for pr in products_sorted]
     loads.append({
         'x': x, 'z': z, 'w': w, 'd': d, 'y0': y0, 'h': h,
         'color': CAT_COLOR.get(cat, 0x9aa0a8), 'code': code, 'cat': cat,
-        'filled': v['filled'], 'cap': v['cap'], 'rows': rows,
+        'filled': v['filled'], 'cap': v['cap'], 'rows': rows, 'rowColors': row_colors,
+        'mixed': len(products_sorted) > 1,
     })
 
 html_doc = f'''<!DOCTYPE html>
@@ -274,19 +304,102 @@ const mouse = new THREE.Vector2();
 const pickables = [];
 const posLabels = [];
 
-LOADS.forEach(ld => {{
-  const mat = new THREE.MeshStandardMaterial({{color: ld.color}});
-  const block = new THREE.Mesh(new THREE.BoxGeometry(ld.w, ld.h, ld.d), mat);
-  block.position.set(ld.x + ld.w/2, ld.y0 + ld.h/2, ld.z + ld.d/2);
-  block.userData = ld;
-  scene.add(block);
-  pickables.push(block);
-  const edges = new THREE.LineSegments(
-    new THREE.EdgesGeometry(block.geometry),
-    new THREE.LineBasicMaterial({{color: 0x111417, transparent:true, opacity:0.35}})
+// ---- Real-crate look (Aug 2026, per Tony's Costco link): IRIS 45QT clear
+// storage bin w/ buckles, 21.65"L x 15.70"W x 10.70"H, semi-clear plastic
+// body, black snap-lock buckle latches, grooved stacking lid. Shopify
+// product photos were ruled out as textures (container photos don't match
+// the actual physical totes), so this instead builds an actual crate LOOK
+// out of geometry -- a translucent clear shell + a solid inner "contents"
+// core tinted by category (so the at-a-glance color coding survives even
+// though the shell itself is no longer solid-colored) + dark buckle straps
+// + a lid cap line. Each position's existing envelope (x/y0/w/h/d, still
+// computed in Python exactly as before -- this does NOT change layout,
+// fullness math, or footprint, only how each fill amount is drawn) gets
+// subdivided into 1-3 stacked crate-look units instead of one flat slab,
+// since real totes are visibly separate stacked units, not a single solid
+// block. Unit count is a visual read of "how full" (more stacked crates =
+// fuller), NOT a literal per-unit inventory count -- position_fill.json's
+// filled/cap are unit counts (up to 24), not literal crate counts, so a
+// literal 1-crate-per-unit render would mean dozens of boxes per shelf.
+const CRATE_CLEAR = new THREE.MeshPhysicalMaterial({{
+  color: 0xffffff, transparent: true, opacity: 0.32, roughness: 0.15,
+  metalness: 0, side: THREE.DoubleSide, depthWrite: false,
+}});
+const CRATE_LID = new THREE.MeshPhysicalMaterial({{
+  color: 0xf3f5f6, transparent: true, opacity: 0.5, roughness: 0.25, metalness: 0,
+}});
+const BUCKLE_MAT = new THREE.MeshStandardMaterial({{color: 0x1c1e22, roughness: 0.6}});
+const crateCoreMatCache = {{}};
+function crateCoreMat(color) {{
+  if (!crateCoreMatCache[color]) {{
+    crateCoreMatCache[color] = new THREE.MeshStandardMaterial({{color, roughness: 0.85}});
+  }}
+  return crateCoreMatCache[color];
+}}
+
+function buildCrateUnit(w, h, d, color) {{
+  const group = new THREE.Group();
+  const shell = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), CRATE_CLEAR);
+  group.add(shell);
+
+  // Solid-colored contents core, visible through the translucent shell --
+  // this is what preserves the category color-coding at a glance.
+  const core = new THREE.Mesh(
+    new THREE.BoxGeometry(w*0.72, h*0.6, d*0.72),
+    crateCoreMat(color)
   );
-  edges.position.copy(block.position);
-  scene.add(edges);
+  core.position.y = -h*0.05;
+  group.add(core);
+
+  // Grooved lid cap -- a slightly wider, flatter slab sitting on top,
+  // matching the real bin's lid overhang.
+  const lidH = Math.max(1.2, h*0.14);
+  const lid = new THREE.Mesh(new THREE.BoxGeometry(w*1.04, lidH, d*1.04), CRATE_LID);
+  lid.position.y = h/2 - lidH/2 + 0.3;
+  group.add(lid);
+
+  // Black snap-lock buckle straps on the two long (depth-facing) sides,
+  // matching the real bin's side latches.
+  const buckleW = Math.max(1.5, w*0.09);
+  const buckleH = Math.max(1.5, h*0.5);
+  [-1, 1].forEach(side => {{
+    const buckle = new THREE.Mesh(new THREE.BoxGeometry(buckleW, buckleH, d*1.02), BUCKLE_MAT);
+    buckle.position.set(side * w*0.32, -h*0.03, 0);
+    group.add(buckle);
+  }});
+
+  return group;
+}}
+
+LOADS.forEach(ld => {{
+  // 1-3 stacked crate-look units per position. For a single-product shelf
+  // this is still just a visual read of fullness (see comment above). For a
+  // MIXED shelf (ld.mixed -- more than one distinct product sharing this
+  // position, common: 42/70 filled backstock positions), each unit instead
+  // gets that product's own distinct color from ld.rowColors, biggest
+  // product first, so staff can see at a glance "this shelf has more than
+  // one thing on it" instead of one flat category color hiding the mix.
+  // With more distinct products than crate-units (rare, only shows up to
+  // 3), the remaining smaller products still show correctly in the click
+  // panel's full product list -- only the crate-color slots are capped.
+  const nCrates = ld.mixed
+    ? Math.min(3, ld.rows.length)
+    : Math.max(1, Math.min(3, Math.round(ld.h / 14)));
+  const unitH = ld.h / nCrates;
+  const cx = ld.x + ld.w/2, cz = ld.z + ld.d/2;
+  let pickTarget = null;
+  for (let i = 0; i < nCrates; i++) {{
+    const color = ld.mixed ? ld.rowColors[i] : ld.color;
+    const unit = buildCrateUnit(ld.w, unitH * 0.92, ld.d, color);
+    unit.position.set(cx, ld.y0 + unitH*i + unitH/2, cz);
+    unit.userData = ld;
+    scene.add(unit);
+    // Only the outer shell needs to be pickable -- raycasting against every
+    // sub-mesh (core/lid/buckles) is redundant since they're all coincident.
+    unit.children[0].userData = ld;
+    pickables.push(unit.children[0]);
+    if (!pickTarget) pickTarget = unit;
+  }}
 
   // Small code-only tag -- orientation, not detail. Short enough that
   // overlap stays readable even with many positions on screen at once.

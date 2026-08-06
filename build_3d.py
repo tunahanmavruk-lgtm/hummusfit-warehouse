@@ -66,6 +66,7 @@ def data_uri(path):
 
 THREE_JS = open('/tmp/package/build/three.min.js').read()
 ORBIT_JS = open('/tmp/package/examples/js/controls/OrbitControls.js').read()
+POINTERLOCK_JS = open('/tmp/package/examples/js/controls/PointerLockControls.js').read()
 
 html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -103,6 +104,12 @@ html = f'''<!DOCTYPE html>
   .pagenav{{display:flex;gap:8px;margin:0 24px 4px;}}
   .pagenav a{{text-decoration:none;font-size:13px;font-weight:800;color:var(--dim);border:1.5px solid var(--line);border-radius:10px;padding:9px 18px;}}
   .pagenav a.active{{background:var(--ink);color:#fff;border-color:var(--ink);}}
+  #walkBtn{{margin-top:0;background:var(--teal);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:800;cursor:pointer;}}
+  #crosshair{{position:absolute;top:50%;left:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.85);border:1px solid rgba(0,0,0,.4);display:none;pointer-events:none;}}
+  #walkTouchHint{{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(17,20,23,0.75);color:#fff;font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:8px;display:none;pointer-events:none;text-align:center;}}
+  #joyBase{{position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.4);display:none;touch-action:none;}}
+  #joyKnob{{position:absolute;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.55);border:2px solid rgba(255,255,255,.75);left:32px;top:32px;pointer-events:none;}}
+  #walkExitBtn{{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(232,97,44,0.92);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;display:none;z-index:20;}}
 </style>
 </head>
 <body>
@@ -116,8 +123,13 @@ html = f'''<!DOCTYPE html>
   <div class="controls-hint">
     <span>Drag to orbit · scroll to zoom · right-drag to pan</span>
     <label><input type="checkbox" id="labelToggle" checked> Show product labels</label>
+    <button id="walkBtn">Walk mode (WASD + mouse)</button>
   </div>
   <div id="labelLayer"></div>
+  <div id="crosshair"></div>
+  <button id="walkExitBtn">Exit walk mode</button>
+  <div id="walkTouchHint">Left thumb: move &nbsp;•&nbsp; right side: drag to look &nbsp;•&nbsp; tap a crate to select</div>
+  <div id="joyBase"><div id="joyKnob"></div></div>
   <div class="panel" id="panel">
     <h3>Tap a crate stack</h3>
     <p class="hint">Every colored block is a stocked lane, sized to its real crate count (capped at the 7-crate max stack). Gaps are empty floor positions. Click one to see what goes there.</p>
@@ -135,6 +147,9 @@ html = f'''<!DOCTYPE html>
 </script>
 <script>
 {ORBIT_JS}
+</script>
+<script>
+{POINTERLOCK_JS}
 </script>
 <script>
 const ROOM_W = {g['ROOM_W_IN']}, ROOM_D = {g['ROOM_D_IN']}, CEIL = {g['CEILING_IN']};
@@ -249,17 +264,63 @@ function shortName(name) {{
   return s.length > 24 ? s.slice(0, 22) + '…' : s;
 }}
 
+// ---- Real-crate look (Aug 2026, matching backstock's 3D page -- same
+// IRIS 45QT clear storage bin w/ buckles Tony linked, 21.65"L x 15.70"W x
+// 10.70"H, semi-clear plastic + black snap-lock buckles + grooved lid).
+// This room already stacked crates at the real 10.70in unit height (see
+// `h = c.stack * 10.70` below, unchanged) -- it was just drawing that stack
+// as one flat solid-color slab. Now each 10.70in level gets its own
+// crate-look unit instead, so a 4-crate stack reads as 4 visibly separate
+// totes, the way it actually sits in the room.
+const CRATE_CLEAR = new THREE.MeshPhysicalMaterial({{
+  color: 0xffffff, transparent: true, opacity: 0.32, roughness: 0.15,
+  metalness: 0, side: THREE.DoubleSide, depthWrite: false,
+}});
+const CRATE_LID = new THREE.MeshPhysicalMaterial({{
+  color: 0xf3f5f6, transparent: true, opacity: 0.5, roughness: 0.25, metalness: 0,
+}});
+const BUCKLE_MAT = new THREE.MeshStandardMaterial({{color: 0x1c1e22, roughness: 0.6}});
+const crateCoreMatCache = {{}};
+function crateCoreMat(color) {{
+  if (!crateCoreMatCache[color]) {{
+    crateCoreMatCache[color] = new THREE.MeshStandardMaterial({{color, roughness: 0.85}});
+  }}
+  return crateCoreMatCache[color];
+}}
+function buildCrateUnit(w, h, d, color) {{
+  const group = new THREE.Group();
+  const shell = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), CRATE_CLEAR);
+  group.add(shell);
+  const core = new THREE.Mesh(new THREE.BoxGeometry(w*0.72, h*0.6, d*0.72), crateCoreMat(color));
+  core.position.y = -h*0.05;
+  group.add(core);
+  const lidH = Math.max(1.2, h*0.14);
+  const lid = new THREE.Mesh(new THREE.BoxGeometry(w*1.04, lidH, d*1.04), CRATE_LID);
+  lid.position.y = h/2 - lidH/2 + 0.3;
+  group.add(lid);
+  const buckleW = Math.max(1.5, w*0.09);
+  const buckleH = Math.max(1.5, h*0.5);
+  [-1, 1].forEach(side => {{
+    const buckle = new THREE.Mesh(new THREE.BoxGeometry(buckleW, buckleH, d*1.02), BUCKLE_MAT);
+    buckle.position.set(side * w*0.32, -h*0.03, 0);
+    group.add(buckle);
+  }});
+  return group;
+}}
+
 const crateLabels = [];
 crates.forEach(c => {{
   if (!c.color) return;
-  const h = c.stack * 10.70;
-  const geo = new THREE.BoxGeometry(19, h, 14);
-  const mat = new THREE.MeshStandardMaterial({{color:c.color, roughness:0.55}});
-  const mesh = new THREE.Mesh(geo, mat);
-  mesh.position.set(c.x, h/2, c.y);
-  mesh.userData = c;
-  scene.add(mesh);
-  pickables.push(mesh);
+  const unitH = 10.70;
+  const h = c.stack * unitH;
+  for (let i = 0; i < c.stack; i++) {{
+    const unit = buildCrateUnit(19, unitH * 0.92, 14, c.color);
+    unit.position.set(c.x, unitH*i + unitH/2, c.y);
+    unit.userData = c;
+    scene.add(unit);
+    unit.children[0].userData = c;
+    pickables.push(unit.children[0]);
+  }}
 
   // Code-only tag -- with ~189 lanes, a full product name on every always-on
   // label overlapped into an unreadable smear even zoomed in. Full product
@@ -319,23 +380,219 @@ const pathLine = new THREE.Line(pathGeo, new THREE.LineDashedMaterial({{color:0x
 pathLine.computeLineDistances();
 scene.add(pathLine);
 
+function panelFromHit(hit) {{
+  const panel = document.getElementById('panel');
+  if (!hit) return;
+  const c = hit.object.userData;
+  const srcNote = c.source === 'real' ? 'real order data' : 'corrected blended estimate (no real order match)';
+  panel.innerHTML = `<div class="code">${{c.code}}</div>
+    <div class="prod">${{c.product}}</div>
+    <div class="meta">${{c.crates}} crate${{c.crates!==1?'s':''}} · ${{c.cat}}</div>
+    <div class="meta" style="margin-top:6px;">${{srcNote}}</div>`;
+}}
 function onPick(clientX, clientY) {{
   const rect = renderer.domElement.getBoundingClientRect();
   mouse.x = ((clientX-rect.left)/rect.width)*2-1;
   mouse.y = -((clientY-rect.top)/rect.height)*2+1;
   raycaster.setFromCamera(mouse, camera);
-  let hit = raycaster.intersectObjects(pickables)[0];
-  const panel = document.getElementById('panel');
-  if (hit) {{
-    const c = hit.object.userData;
-    const srcNote = c.source === 'real' ? 'real order data' : 'corrected blended estimate (no real order match)';
-    panel.innerHTML = `<div class="code">${{c.code}}</div>
-      <div class="prod">${{c.product}}</div>
-      <div class="meta">${{c.crates}} crate${{c.crates!==1?'s':''}} · ${{c.cat}}</div>
-      <div class="meta" style="margin-top:6px;">${{srcNote}}</div>`;
+  panelFromHit(raycaster.intersectObjects(pickables)[0]);
+}}
+
+// ---- Walk mode: same system as backstock's 3D page (Aug 2026) -- desktop
+// gets WASD + Pointer Lock mouse-look, touch (iPad/iPhone, the picking
+// team's primary devices) gets a virtual joystick + drag-to-look instead,
+// since Pointer Lock is unimplemented on iOS/iPadOS Safari entirely. See
+// backstock/build_backstock_3d.py for the full history of why this exact
+// shape (shared enter/exit, touch joystick math, entry-position fix) is
+// what it is -- ported here as-is rather than re-derived, since this room's
+// walls have the exact same "solid box, no real door gap" issue that
+// caused walk mode to visually blank out in backstock until the entry
+// point was moved inside the walls instead of outside them.
+const walkBtn = document.getElementById('walkBtn');
+const walkExitBtn = document.getElementById('walkExitBtn');
+const walkTouchHint = document.getElementById('walkTouchHint');
+const joyBase = document.getElementById('joyBase');
+const joyKnob = document.getElementById('joyKnob');
+const crosshair = document.getElementById('crosshair');
+const plControls = new THREE.PointerLockControls(camera, renderer.domElement);
+const IS_TOUCH = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+let walking = false;
+const walkKeys = {{}};
+const EYE_HEIGHT = 66;
+document.addEventListener('keydown', e => walkKeys[e.code] = true);
+document.addEventListener('keyup', e => walkKeys[e.code] = false);
+if (IS_TOUCH) {{ walkBtn.textContent = 'Walk mode (touch)'; }}
+
+// Entry point: just inside the door wall (x=0), facing +X into the room --
+// NOT at x=0 itself, which sits ON the solid door-wall panel (this room's
+// four walls are full solid planes with no actual cut-out where the door
+// graphic is drawn, same as backstock). doorY0/doorH already define the
+// door's real position on that wall.
+function enterWalk() {{
+  walking = true;
+  controls.enabled = false;
+  camera.position.set(40, EYE_HEIGHT, doorY0 + doorH/2);
+  camera.quaternion.setFromEuler(new THREE.Euler(0, -Math.PI/2, 0, 'YXZ')); // faces +X, into the room
+  crosshair.style.display = 'block';
+  document.getElementById('panel').style.display = 'none';
+  if (IS_TOUCH) {{
+    walkBtn.style.display = 'none';
+    walkExitBtn.style.display = 'block';
+    walkTouchHint.style.display = 'block';
+    setTimeout(() => {{ walkTouchHint.style.display = 'none'; }}, 4000);
+  }} else {{
+    walkBtn.textContent = 'Exit walk mode (Esc)';
+    walkBtn.disabled = false;
   }}
 }}
-renderer.domElement.addEventListener('click', (e) => onPick(e.clientX, e.clientY));
+function exitWalk() {{
+  walking = false;
+  controls.enabled = true;
+  const lookDir = new THREE.Vector3();
+  camera.getWorldDirection(lookDir);
+  controls.target.copy(camera.position).addScaledVector(lookDir, 200);
+  controls.update();
+  crosshair.style.display = 'none';
+  joyBase.style.display = 'none';
+  walkTouchHint.style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  if (IS_TOUCH) {{
+    walkBtn.style.display = 'block';
+    walkExitBtn.style.display = 'none';
+  }} else {{
+    walkBtn.textContent = 'Walk mode (WASD + mouse)';
+  }}
+}}
+walkBtn.addEventListener('click', () => {{
+  if (walking) return;
+  if (IS_TOUCH) {{ enterWalk(); }} else {{ plControls.lock(); }}
+}});
+walkExitBtn.addEventListener('click', () => {{ if (walking) exitWalk(); }});
+plControls.addEventListener('lock', enterWalk);
+plControls.addEventListener('unlock', exitWalk);
+document.addEventListener('pointerlockerror', () => {{
+  walkBtn.textContent = 'Walk mode unavailable in this browser';
+  walkBtn.disabled = true;
+  setTimeout(() => {{ walkBtn.textContent = 'Walk mode (WASD + mouse)'; walkBtn.disabled = false; }}, 3000);
+}});
+renderer.domElement.addEventListener('click', (e) => {{
+  if (walking && !IS_TOUCH) {{
+    raycaster.setFromCamera(new THREE.Vector2(0,0), camera);
+    panelFromHit(raycaster.intersectObjects(pickables)[0]);
+  }} else if (!walking) {{
+    onPick(e.clientX, e.clientY);
+  }}
+}});
+const WALK_SPEED = 160;
+const walkVelocity = new THREE.Vector3();
+const touchMove = {{x: 0, y: 0}};
+function updateWalk(dt) {{
+  if (!walking) return;
+  walkVelocity.set(0,0,0);
+  if (IS_TOUCH) {{
+    walkVelocity.x = touchMove.x;
+    walkVelocity.z = touchMove.y;
+  }} else {{
+    if (walkKeys['KeyW']) walkVelocity.z -= 1;
+    if (walkKeys['KeyS']) walkVelocity.z += 1;
+    if (walkKeys['KeyA']) walkVelocity.x -= 1;
+    if (walkKeys['KeyD']) walkVelocity.x += 1;
+  }}
+  if (walkVelocity.lengthSq() > 0) {{
+    const mag = Math.min(1, walkVelocity.length());
+    walkVelocity.normalize().multiplyScalar(mag * WALK_SPEED*dt);
+    plControls.moveRight(walkVelocity.x);
+    plControls.moveForward(-walkVelocity.z);
+  }}
+  camera.position.y = EYE_HEIGHT;
+  camera.position.x = Math.max(6, Math.min(ROOM_W-6, camera.position.x));
+  camera.position.z = Math.max(6, Math.min(ROOM_D-6, camera.position.z));
+}}
+
+if (IS_TOUCH) {{
+  const JOY_R = 55;
+  let joyTouchId = null, joyOriginX = 0, joyOriginY = 0;
+  const LOOK_SENS = 0.0035;
+  const TAP_MOVE_THRESHOLD = 12;
+  const lookTouches = {{}};
+  function placeJoyBase(x, y) {{
+    joyOriginX = x; joyOriginY = y;
+    joyBase.style.left = (x - JOY_R) + 'px';
+    joyBase.style.top = (y - JOY_R) + 'px';
+    joyBase.style.display = 'block';
+    joyKnob.style.left = '32px'; joyKnob.style.top = '32px';
+  }}
+  function updateJoyKnob(x, y) {{
+    let dx = x - joyOriginX, dy = y - joyOriginY;
+    const dist = Math.hypot(dx, dy);
+    if (dist > JOY_R) {{ dx = dx/dist*JOY_R; dy = dy/dist*JOY_R; }}
+    joyKnob.style.left = (32 + dx) + 'px';
+    joyKnob.style.top = (32 + dy) + 'px';
+    touchMove.x = dx / JOY_R;
+    touchMove.y = dy / JOY_R;
+  }}
+  function resetJoy() {{
+    joyTouchId = null;
+    joyBase.style.display = 'none';
+    touchMove.x = 0; touchMove.y = 0;
+  }}
+  renderer.domElement.addEventListener('touchstart', e => {{
+    if (!walking) return;
+    e.preventDefault();
+    for (const t of e.changedTouches) {{
+      const leftHalf = t.clientX < wrap.clientWidth * 0.5;
+      if (leftHalf && joyTouchId === null) {{
+        joyTouchId = t.identifier;
+        placeJoyBase(t.clientX, t.clientY);
+      }} else if (!leftHalf) {{
+        lookTouches[t.identifier] = {{x: t.clientX, y: t.clientY, startX: t.clientX, startY: t.clientY, moved: false}};
+      }}
+    }}
+  }}, {{passive: false}});
+  renderer.domElement.addEventListener('touchmove', e => {{
+    if (!walking) return;
+    e.preventDefault();
+    for (const t of e.changedTouches) {{
+      if (t.identifier === joyTouchId) {{
+        updateJoyKnob(t.clientX, t.clientY);
+      }} else if (lookTouches[t.identifier]) {{
+        const lt = lookTouches[t.identifier];
+        const dx = t.clientX - lt.x, dy = t.clientY - lt.y;
+        lt.x = t.clientX; lt.y = t.clientY;
+        if (Math.hypot(t.clientX - lt.startX, t.clientY - lt.startY) > TAP_MOVE_THRESHOLD) lt.moved = true;
+        const _euler = new THREE.Euler(0, 0, 0, 'YXZ');
+        _euler.setFromQuaternion(camera.quaternion);
+        _euler.y -= dx * LOOK_SENS;
+        _euler.x -= dy * LOOK_SENS;
+        _euler.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, _euler.x));
+        camera.quaternion.setFromEuler(_euler);
+      }}
+    }}
+  }}, {{passive: false}});
+  renderer.domElement.addEventListener('touchend', e => {{
+    if (!walking) return;
+    for (const t of e.changedTouches) {{
+      if (t.identifier === joyTouchId) {{
+        resetJoy();
+      }} else if (lookTouches[t.identifier]) {{
+        const lt = lookTouches[t.identifier];
+        if (!lt.moved) {{
+          const ndcX = (t.clientX / wrap.clientWidth) * 2 - 1;
+          const ndcY = -(t.clientY / wrap.clientHeight) * 2 + 1;
+          raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+          panelFromHit(raycaster.intersectObjects(pickables)[0]);
+        }}
+        delete lookTouches[t.identifier];
+      }}
+    }}
+  }}, {{passive: false}});
+  renderer.domElement.addEventListener('touchcancel', e => {{
+    for (const t of e.changedTouches) {{
+      if (t.identifier === joyTouchId) resetJoy();
+      delete lookTouches[t.identifier];
+    }}
+  }}, {{passive: false}});
+}}
 
 window.addEventListener('resize', () => {{
   camera.aspect = wrap.clientWidth/wrap.clientHeight;
@@ -343,13 +600,16 @@ window.addEventListener('resize', () => {{
   renderer.setSize(wrap.clientWidth, wrap.clientHeight);
 }});
 
-function animate() {{
+let lastT = 0;
+function animate(t) {{
   requestAnimationFrame(animate);
-  controls.update();
+  const dt = Math.min(0.05, (t - lastT) / 1000 || 0);
+  lastT = t;
+  if (walking) {{ updateWalk(dt); }} else {{ controls.update(); }}
   renderer.render(scene, camera);
   updateLabels();
 }}
-animate();
+requestAnimationFrame(animate);
 </script>
 </body>
 </html>
