@@ -74,6 +74,10 @@ def alpha_key(p):
     # so e.g. "Buffin Muffin - Blueberry" files under B, not under
     # "Buffin Muffin" repeated 20 times.
     name = re.sub(r'^(Buffin Muffin|Overnight Oats|Buff Crisp Bar)\s*-\s*', '', p['name'])
+    # "Low Carb Keto Cheeseburger Bowl" was filing under L, so pickers
+    # searching under "Cheeseburger" (what staff actually call it) never
+    # found it on the blueprint. File it under its recognizable name instead.
+    name = re.sub(r'^Low Carb Keto\s+', '', name)
     return name.lower()
 
 def build_zone(prods_in_zone, total_positions_for_zone):
@@ -106,6 +110,25 @@ def split_crates_across_lanes(product_lane_group, total_crates):
     return [max(1, base + (1 if i < remainder else 0)) for i in range(n)]
 
 def lanes_from_expanded(expanded, rows, positions_per_row):
+    # positions_per_row: either a single int (uniform across rows) or a
+    # list with one capacity per row (e.g. row 1 wider than the rest).
+    if isinstance(positions_per_row, int):
+        row_caps = [positions_per_row] * len(rows)
+    else:
+        row_caps = list(positions_per_row)
+    # precompute the starting index (offset) of each row given its capacity
+    row_starts = []
+    acc = 0
+    for cap in row_caps:
+        row_starts.append(acc)
+        acc += cap
+
+    def locate(idx):
+        for r in range(len(rows) - 1, -1, -1):
+            if idx >= row_starts[r]:
+                return r, idx - row_starts[r]
+        return 0, idx
+
     lanes = []
     # group consecutive entries by product identity to split crates evenly
     i = 0
@@ -119,8 +142,8 @@ def lanes_from_expanded(expanded, rows, positions_per_row):
         per_lane_crates = split_crates_across_lanes(range(group_size), p['crates_needed'])
         for k in range(group_size):
             idx = i + k
-            row_idx = idx // positions_per_row
-            pos = idx % positions_per_row + 1
+            row_idx, pos_idx = locate(idx)
+            pos = pos_idx + 1
             code = f"{rows[row_idx]}-{pos:02d}"
             lanes.append({
                 'code': code, 'product': p['name'], 'category': p['cat'],
@@ -156,12 +179,17 @@ bakery_expanded = muffins_expanded + oats_snacks_expanded
 bakery_overflow = muffins_overflow + oats_snacks_overflow
 bakery_lanes = lanes_from_expanded(bakery_expanded, BAKERY_ROWS, BAKERY_POSITIONS_PER_ROW)
 
-# ---- Meals (M1-M3, 81 positions): one zone, alphabetical ----
+# ---- Meals (M1-M3, 84 positions): one zone, alphabetical ----
+# All three rows flexed from 27 to 28 positions per Tony (2026-08-07) to
+# make room for Cheeseburger Bowl (previously missing from the catalog
+# entirely) without bumping Zeus Bowl or Zeus Bowl V2 off the layout --
+# confirmed physically fine on his end.
 meals = [p for p in products if p['cat'] == 'meal']
 MEALS_ROWS = ['M1', 'M2', 'M3']
-MEALS_TOTAL = len(MEALS_ROWS) * MEALS_POSITIONS_PER_ROW  # 81
+MEALS_ROW_CAPS = [28, 28, 28]
+MEALS_TOTAL = sum(MEALS_ROW_CAPS)  # 84
 meals_expanded, meals_overflow = build_zone(meals, MEALS_TOTAL)
-meals_lanes = lanes_from_expanded(meals_expanded, MEALS_ROWS, MEALS_POSITIONS_PER_ROW)
+meals_lanes = lanes_from_expanded(meals_expanded, MEALS_ROWS, MEALS_ROW_CAPS)
 
 lane_plan = {
     'bakery': {

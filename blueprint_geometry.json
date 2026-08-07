@@ -87,6 +87,6 @@
   "MAX_STACK": 5,
   "positions_per_row_by_section": {
     "bakery": 35,
-    "meals": 27
+    "meals": 28
   }
 }

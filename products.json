@@ -608,5 +608,10 @@
     "name": "Cookies and Cream Crunch - Exclusive- 20",
     "cat": "snack",
     "u30": 0
+  },
+  {
+    "name": "Cheeseburger Bowl",
+    "cat": "meal",
+    "u30": 8914
   }
 ]

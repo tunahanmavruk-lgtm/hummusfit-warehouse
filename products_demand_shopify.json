@@ -1096,5 +1096,14 @@
     "divergence_flag": false,
     "cap": 24,
     "crates_needed": 2
+  },
+  "Cheeseburger Bowl": {
+    "daily_avg": 174.4,
+    "weekly_daily_avg": 162.1,
+    "ninety_day_daily_avg": 174.4,
+    "demand_source": "real (Shopify Online Store, 90-day trailing avg) - backfilled: product was live and selling in Shopify but was missing from the original catalog pull",
+    "divergence_flag": false,
+    "cap": 24,
+    "crates_needed": 8
   }
 }

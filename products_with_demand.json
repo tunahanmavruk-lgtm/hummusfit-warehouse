@@ -1462,5 +1462,17 @@
     "buffer_applied": 0.15,
     "crates_needed": 2,
     "lanes_needed": 1
+  },
+  {
+    "name": "Cheeseburger Bowl",
+    "cat": "meal",
+    "u30": 8914,
+    "cap": 24,
+    "daily_avg": 174.4,
+    "demand_source": "real (Shopify Online Store, 90-day trailing avg) - backfilled: product was live and selling in Shopify but was missing from the original catalog pull",
+    "divergence_flag": false,
+    "buffer_applied": 0.0,
+    "crates_needed": 8,
+    "lanes_needed": 2
   }
 ]
