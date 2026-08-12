@@ -7,14 +7,30 @@ const { runSeed } = require('./seed');
 const shopify = require('./shopify');
 
 // Auto-seed on boot if the lanes table is empty (fresh volume / fresh
-// deploy). ALSO re-seed whenever lane_plan.json itself has changed since
-// the last boot — identified by a content hash stored in the meta table —
-// so a real re-slot of the room (new lane_plan.json pushed to prod) takes
-// effect automatically on the next deploy instead of silently staying on
-// the old layout because "the lanes table wasn't empty."
+// deploy). ALSO re-seed whenever lane_plan.json, blueprint_geometry.json,
+// or seed.js itself has changed since the last boot — identified by a
+// combined content hash stored in the meta table — so a real re-slot of
+// the room (new lane_plan.json pushed to prod) OR a change to how the row
+// grid is derived (seed.js, blueprint_geometry.json) takes effect
+// automatically on the next deploy instead of silently staying on the old
+// layout because "the lanes table wasn't empty."
+//
+// Bug this replaced: the hash used to cover ONLY lane_plan.json. seed.js
+// used to build its row grid from a hardcoded POSITIONS_PER_ROW=27
+// regardless of what lane_plan.json/blueprint_geometry.json actually said,
+// so rows that grew past 27 (bakery's 35/row, meals flexing to 28/row)
+// silently never got a lane row created — those product placements were
+// dropped ("skippedNoLane") even though blueprint.html/svg and
+// lane_plan.json had them right. Fixed in seed.js by deriving the grid
+// from real data; hashing seed.js + blueprint_geometry.json here too so
+// THIS class of drift (data says one thing, seeding logic says another)
+// can't happen silently again -- any future edit to either forces a
+// re-seed on the next deploy even if lane_plan.json itself is unchanged.
 const lanePlanHash = crypto
   .createHash('sha1')
   .update(fs.readFileSync(path.join(__dirname, 'lane_plan.json'), 'utf8'))
+  .update(fs.readFileSync(path.join(__dirname, 'blueprint_geometry.json'), 'utf8'))
+  .update(fs.readFileSync(path.join(__dirname, 'seed.js'), 'utf8'))
   .digest('hex')
   .slice(0, 12);
 
