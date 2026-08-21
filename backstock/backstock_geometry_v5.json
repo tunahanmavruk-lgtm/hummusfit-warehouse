@@ -1,0 +1,39 @@
+{
+  "zone_w": 384,
+  "x_offset": 82,
+  "wallA": {
+    "bays": 4,
+    "levels": 2,
+    "depth": 42,
+    "bay_w": 96.0,
+    "z0": 0,
+    "level_h": 70
+  },
+  "wallD": {
+    "bays": 2,
+    "levels": 2,
+    "depth": 42,
+    "bay_len": 96,
+    "total_len": 192,
+    "level_h": 70
+  },
+  "pallets": {
+    "count": 8,
+    "w": 48.0,
+    "face_depth": 30,
+    "z_front": 99,
+    "z_back": 129
+  },
+  "center": {
+    "bays": 7,
+    "bay_w": 54.0,
+    "depth": 40,
+    "total_run": 378,
+    "z0": 216,
+    "level_h": 70
+  },
+  "aisle_1": 57,
+  "aisle_2": 57,
+  "room_w": 466,
+  "room_d": 336
+}
