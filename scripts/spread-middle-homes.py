@@ -29,6 +29,12 @@ for node in list(svg):
   r=racks[rid]
   if node.tag==ns+'text' and node.attrib.get('y')==str(r['z']+28.0):
    node.set('y',str(r['z']+10));node.set('font-size','8')
+ if node.text in ['B · Warehouse face · M2','B · M2 warehouse']:
+  node.text='B · M2 warehouse';node.attrib.update({'x':'-12','y':'412','text-anchor':'end','font-size':'10'})
+ if node.text in ['C · First warehouse face · M3','C · FACE 1 · M3']:
+  node.text='C · FACE 1 · M3';node.attrib.update({'x':'-12','y':'556','text-anchor':'end','font-size':'10'})
+ if node.text in ['C · Second warehouse face · warehouse face','C · FACE 2 · M3']:
+  node.text='C · FACE 2 · M3';node.attrib.update({'x':'-12','y':'604','text-anchor':'end','font-size':'10'})
  if node.text=='C · First warehouse face · M3':node.text='C · FACE 1 · M3'
  if node.text=='C · Second warehouse face · warehouse face':node.text='C · FACE 2 · M3'
 for rid in ['middle-1-b','middle-2-a','middle-2-b']:
