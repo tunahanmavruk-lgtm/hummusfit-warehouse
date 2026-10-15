@@ -74,6 +74,10 @@ app.get('/', (req, res) => res.redirect('/blueprint.html'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Read-only warehouse on-hand reports. No inventory, lane or production writes.
+const getWarehouseInventory=require('./warehouse-inventory').createInventoryService();
+app.get('/api/warehouse-inventory',async(req,res)=>{try{res.set('Cache-Control','no-store');res.json(await getWarehouseInventory());}catch{res.status(503).json({error:'Inventory temporarily unavailable'});}});
+
 // ---------- Products ----------
 app.get('/api/products', (req, res) => {
   res.json(db.prepare('SELECT * FROM products ORDER BY category, name').all());
