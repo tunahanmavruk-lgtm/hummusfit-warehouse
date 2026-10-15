@@ -7,7 +7,7 @@ const QUERY=`query WarehouseMealInventory($cursor: String, $location: ID!) {
 }`;
 async function readMealInventory(token,fetchImpl=fetch){
  const shop=process.env.SHOPIFY_SHOP;if(!token||!shop)throw Error('Read-only Shopify connection unavailable');
- const meals=[];let cursor=null;const key=s=>s.toLowerCase().replace(/[‘’]/g,"'").replace(/\s+/g,' ').trim();const names=new Map(require('./warehouse-inventory').collectLanes(require('./lane_plan.json')).filter(p=>p.code.startsWith('M')).map(p=>[key(p.product),p.product]));const seen=new Set();
+ const meals=[];let cursor=null;const key=s=>s.toLowerCase().replace(/[‘’]/g,"'").replace(/\s+/g,' ').trim();const names=new Map(require('./warehouse-inventory').collectLanes(require('./lane_plan.json')).filter(p=>p.code.startsWith('M')).map(p=>[key(p.product),p.product]));const aliases=require('./shopify').NAME_ALIASES;for(const [name,title] of Object.entries(aliases)){if(names.has(key(name)))names.set(key(title),names.get(key(name)));}const seen=new Set();
  do{
   const r=await fetchImpl(`https://${shop}/admin/api/2026-07/graphql.json`,{method:'POST',signal:AbortSignal.timeout(15000),headers:{'Content-Type':'application/json','X-Shopify-Access-Token':token},body:JSON.stringify({query:QUERY,variables:{cursor,location:'gid://shopify/Location/103133642999'}})});
   if(!r.ok)throw Error('Read-only Shopify report unavailable');const json=await r.json();if(json.errors||!json.data?.products)throw Error('Invalid Shopify inventory report');
