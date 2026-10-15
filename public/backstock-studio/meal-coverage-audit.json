@@ -1,0 +1,20 @@
+{
+  "checked_date": "2026-10-15",
+  "meal_codes": 83,
+  "unique_blueprint_meals": 79,
+  "kitchen_catalog_names": 78,
+  "kitchen_catalog_unmatched": [],
+  "confirmed_alias": {
+    "code": "M3-13",
+    "blueprint": "Strongsville Chicken Ranch Fold",
+    "kitchen_catalog": "Strongsville Chicken Bacon Ranch Fold",
+    "confirmed_by": "Tony, October 15, 2026"
+  },
+  "blueprint_only_catalog_difference": {
+    "code": "M3-03",
+    "meal": "Peanut Butter & Jelly Sandwich",
+    "note": "Not in current kitchen FIFO catalog; assigned in blueprint and has direct Shopify on-hand and committed counts."
+  },
+  "coverage_meaning": "Product identity and assigned home checked. Physical capacity pending measurements, load limits and stacking approval.",
+  "kitchen_shelves_used": false
+}

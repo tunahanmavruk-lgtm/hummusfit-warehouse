@@ -1,0 +1,84 @@
+Code,Meal,Backstock home,Whole warehouse on hand,Whole warehouse committed,Whole warehouse estimated crates,Report time
+M1-01,6-Guys Patty Melt,A · South wall / section 1 / FLOOR / spot 1,263,47,11,2026-10-15T12:31:02.822Z
+M1-02,Arnold 2022 Bowl,A · South wall / section 1 / FLOOR / spot 2,431,52,18,2026-10-15T12:31:02.822Z
+M1-03,Baja Chicken Tacos,A · South wall / section 1 / FLOOR / spot 3,438,69,19,2026-10-15T12:31:02.822Z
+M1-04,Baked Herbed Tilapia (1lb Competition Approved),A · South wall / section 1 / FLOOR / spot 4,23,3,1,2026-10-15T12:31:02.822Z
+M1-05,BBQ Chicken Garlic Parm Potatoes,A · South wall / section 2 / FLOOR / spot 1,760,89,32,2026-10-15T12:31:02.822Z
+M1-06,BBQ Chicken Garlic Parm Potatoes,A · South wall / section 2 / FLOOR / spot 2,760,89,32,2026-10-15T12:31:02.822Z
+M1-07,BBQ Chicken Mac Bowl,A · South wall / section 2 / FLOOR / spot 3,423,70,18,2026-10-15T12:31:02.822Z
+M1-08,BBQ Meltdown,A · South wall / section 2 / FLOOR / spot 4,430,30,18,2026-10-15T12:31:02.822Z
+M1-09,Blueberry French Toast,A · South wall / section 3 / FLOOR / spot 1,135,26,6,2026-10-15T12:31:02.822Z
+M1-10,Breakfast Burrito,A · South wall / section 3 / FLOOR / spot 2,259,46,11,2026-10-15T12:31:02.822Z
+M1-11,Brookfield Chicken Bowl,A · South wall / section 1 / MIDDLE / spot 1,217,74,10,2026-10-15T12:31:02.822Z
+M1-12,Broritto Burrito,A · South wall / section 1 / MIDDLE / spot 2,757,149,32,2026-10-15T12:31:02.822Z
+M1-13,Broritto Burrito,A · South wall / section 1 / MIDDLE / spot 3,757,149,32,2026-10-15T12:31:02.822Z
+M1-14,Buffalo Chicken Meatballs,A · South wall / section 1 / MIDDLE / spot 4,495,29,21,2026-10-15T12:31:02.822Z
+M1-15,Buffalo Chicken Quesadilla,A · South wall / section 2 / MIDDLE / spot 1,407,49,17,2026-10-15T12:31:02.822Z
+M1-16,Buffalo Crispy Chicken Wrap,A · South wall / section 2 / MIDDLE / spot 2,443,57,19,2026-10-15T12:31:02.822Z
+M1-17,Buffalo Mac N Chicken,A · South wall / section 2 / MIDDLE / spot 3,226,43,10,2026-10-15T12:31:02.822Z
+M1-18,Low Carb Keto Cheeseburger Bowl,A · South wall / section 2 / MIDDLE / spot 4,263,19,11,2026-10-15T12:31:02.822Z
+M1-19,Cheeseburger Bowl,A · South wall / section 3 / MIDDLE / spot 1,581,100,25,2026-10-15T12:31:02.822Z
+M1-20,Cheeseburger Bowl,A · South wall / section 3 / MIDDLE / spot 2,581,100,25,2026-10-15T12:31:02.822Z
+M1-21,Chicken Mushroom Pot Stickers,A · South wall / section 1 / TOP / spot 1,123,19,6,2026-10-15T12:31:02.822Z
+M1-22,Chicken Stir Fry,A · South wall / section 1 / TOP / spot 2,314,48,14,2026-10-15T12:31:02.822Z
+M1-23,Chicken Taco Bowl,A · South wall / section 1 / TOP / spot 3,460,38,20,2026-10-15T12:31:02.822Z
+M1-24,Chipotle Chicken (1lb Competition Approved),A · South wall / section 1 / TOP / spot 4,216,83,9,2026-10-15T12:31:02.822Z
+M1-25,Cinnamon Roll Pancakes,A · South wall / section 2 / TOP / spot 1,248,37,11,2026-10-15T12:31:02.822Z
+M1-26,Closed on Sunday Crispy Chicken Bowl,A · South wall / section 2 / TOP / spot 2,553,75,24,2026-10-15T12:31:02.822Z
+M1-27,Club Wrap,A · South wall / section 2 / TOP / spot 3,309,26,13,2026-10-15T12:31:02.822Z
+M1-28,Competition Approved 90/10 Lean Ground Beef (1lb),A · South wall / section 2 / TOP / spot 4,70,21,3,2026-10-15T12:31:02.822Z
+M2-01,Competition Approved Baked Sweet Potato Fries (1lb),B · Warehouse face / section 1 / FLOOR / spot 1,81,12,4,2026-10-15T12:31:02.822Z
+M2-02,Competition Approved Chicken Kebab (1lb),B · Warehouse face / section 1 / FLOOR / spot 2,97,14,5,2026-10-15T12:31:02.822Z
+M2-03,Competition Approved Grilled Chicken (1lb),B · Warehouse face / section 2 / FLOOR / spot 1,332,75,14,2026-10-15T12:31:02.822Z
+M2-04,Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb),B · Warehouse face / section 2 / FLOOR / spot 2,166,28,7,2026-10-15T12:31:02.822Z
+M2-05,Competition Approved Grilled Flank Steak (1lb),B · Warehouse face / section 3 / FLOOR / spot 1,154,21,7,2026-10-15T12:31:02.822Z
+M2-06,Competition Approved Lemon Pepper Salmon (1lb),B · Warehouse face / section 3 / FLOOR / spot 2,60,2,3,2026-10-15T12:31:02.822Z
+M2-07,Competition Approved Oven Baked Cod (1lb),B · Warehouse face / section 4 / FLOOR / spot 1,46,1,2,2026-10-15T12:31:02.822Z
+M2-08,Competition Approved Sticky Rice (1lb),B · Warehouse face / section 4 / FLOOR / spot 2,50,30,3,2026-10-15T12:31:02.822Z
+M2-09,Competition Approved White Basmati Rice (1lb),B · Warehouse face / section 5 / FLOOR / spot 1,88,9,4,2026-10-15T12:31:02.822Z
+M2-10,Crispy Baked Chicken Wrap,B · Warehouse face / section 5 / FLOOR / spot 2,561,53,24,2026-10-15T12:31:02.822Z
+M2-11,Crispy Baked Chicken Wrap,B · Warehouse face / section 1 / MIDDLE / spot 1,561,53,24,2026-10-15T12:31:02.822Z
+M2-12,Crispy Vegan Wrap,B · Warehouse face / section 1 / MIDDLE / spot 2,0,0,0,2026-10-15T12:31:02.822Z
+M2-13,Farfalle & Chicken Alfredo,B · Warehouse face / section 2 / MIDDLE / spot 1,346,76,15,2026-10-15T12:31:02.822Z
+M2-14,Fit Ala Vodka With Chicken,B · Warehouse face / section 2 / MIDDLE / spot 2,251,51,11,2026-10-15T12:31:02.822Z
+M2-15,Fit-Fil-A,B · Warehouse face / section 3 / MIDDLE / spot 1,410,49,18,2026-10-15T12:31:02.822Z
+M2-16,GLORIOUS GAINS Steak Bites & Cilantro Lime Rice,B · Warehouse face / section 3 / MIDDLE / spot 2,379,59,16,2026-10-15T12:31:02.822Z
+M2-17,Gluten Free Carbonara Chicken,B · Warehouse face / section 4 / MIDDLE / spot 1,307,56,13,2026-10-15T12:31:02.822Z
+M2-18,Grilled Chicken Parmesan Wrap,B · Warehouse face / section 4 / MIDDLE / spot 2,384,78,16,2026-10-15T12:31:02.822Z
+M2-19,Grilled Chicken Pesto Wrap,B · Warehouse face / section 5 / MIDDLE / spot 1,459,70,20,2026-10-15T12:31:02.822Z
+M2-20,Herb Butter Steak Tips Bowl,B · Warehouse face / section 5 / MIDDLE / spot 2,476,49,20,2026-10-15T12:31:02.822Z
+M2-21,Hey Arnold! Burrito,B · Warehouse face / section 1 / TOP / spot 1,276,54,12,2026-10-15T12:31:02.822Z
+M2-22,HFit Signature Fold,B · Warehouse face / section 1 / TOP / spot 2,366,54,16,2026-10-15T12:31:02.822Z
+M2-23,Honey Garlic Crispy Chicken Tacos,B · Warehouse face / section 2 / TOP / spot 1,343,66,15,2026-10-15T12:31:02.822Z
+M2-24,Hot Honey Steak & Mac,B · Warehouse face / section 2 / TOP / spot 2,329,32,14,2026-10-15T12:31:02.822Z
+M2-25,Keto Ricotta Meatballs,B · Warehouse face / section 3 / TOP / spot 1,319,21,14,2026-10-15T12:31:02.822Z
+M2-26,Lo Mein Teriyaki Steak,B · Warehouse face / section 3 / TOP / spot 2,430,37,18,2026-10-15T12:31:02.822Z
+M2-27,Meatball Parmesan Wrap,B · Warehouse face / section 4 / TOP / spot 1,364,46,16,2026-10-15T12:31:02.822Z
+M2-28,MsWendy Buff Nuggets,B · Warehouse face / section 5 / TOP / spot 1,88,21,4,2026-10-15T12:31:02.822Z
+M3-01,Nacho Average Bowl,C · Face 1 · M3 meals / section 1 / FLOOR / spot 1,184,12,8,2026-10-15T12:31:02.822Z
+M3-02,Nacho Average Vegan Bowl,C · Face 1 · M3 meals / section 2 / FLOOR / spot 1,6,6,1,2026-10-15T12:31:02.822Z
+M3-03,Peanut Butter & Jelly Sandwich,C · Face 1 · M3 meals / section 3 / FLOOR / spot 1,219,74,10,2026-10-15T12:30:51.148Z
+M3-04,Philly Cheesesteak Quesadilla,C · Face 1 · M3 meals / section 4 / FLOOR / spot 1,469,16,20,2026-10-15T12:31:02.822Z
+M3-05,Pineapple Teriyaki Meatballs,C · Face 1 · M3 meals / section 5 / FLOOR / spot 1,141,26,6,2026-10-15T12:31:02.822Z
+M3-06,Rigatoni & Meatballs,C · Face 2 · M3 meals / section 1 / FLOOR / spot 1,587,78,25,2026-10-15T12:31:02.822Z
+M3-07,Soho Steak Bowl,C · Face 2 · M3 meals / section 2 / FLOOR / spot 1,305,26,13,2026-10-15T12:31:02.822Z
+M3-08,Southwest Chicken Bowl,C · Face 2 · M3 meals / section 3 / FLOOR / spot 1,485,46,21,2026-10-15T12:31:02.822Z
+M3-09,Southwest Chicken Quesadilla,C · Face 2 · M3 meals / section 4 / FLOOR / spot 1,325,32,14,2026-10-15T12:31:02.822Z
+M3-10,Spicy Buffalo Wrap,C · Face 1 · M3 meals / section 1 / MIDDLE / spot 1,391,84,17,2026-10-15T12:31:02.822Z
+M3-11,Stacked and Jacked,C · Face 1 · M3 meals / section 2 / MIDDLE / spot 1,212,50,9,2026-10-15T12:31:02.822Z
+M3-12,Strawberry Protein French Toast,C · Face 1 · M3 meals / section 3 / MIDDLE / spot 1,231,50,10,2026-10-15T12:31:02.822Z
+M3-13,Strongsville Chicken Ranch Fold,C · Face 1 · M3 meals / section 4 / MIDDLE / spot 1,387,39,17,2026-10-15T12:31:02.822Z
+M3-14,Taco Build Quesadilla,C · Face 2 · M3 meals / section 1 / MIDDLE / spot 1,239,28,10,2026-10-15T12:31:02.822Z
+M3-15,Teriyaki Flank Bowl,C · Face 2 · M3 meals / section 2 / MIDDLE / spot 1,467,41,20,2026-10-15T12:31:02.822Z
+M3-16,Texas Queso Steak Bowl,C · Face 2 · M3 meals / section 3 / MIDDLE / spot 1,482,57,21,2026-10-15T12:31:02.822Z
+M3-17,TexMex Potato Hash,C · Face 2 · M3 meals / section 4 / MIDDLE / spot 1,248,23,11,2026-10-15T12:31:02.822Z
+M3-18,Thai Chili Chicken,C · Face 2 · M3 meals / section 5 / MIDDLE / spot 1,363,63,16,2026-10-15T12:31:02.822Z
+M3-19,The Arches Mac Daddy Wrap,C · Face 1 · M3 meals / section 1 / TOP / spot 1,313,34,14,2026-10-15T12:31:02.822Z
+M3-20,The Clean Bulk Pasta Bowl,C · Face 1 · M3 meals / section 2 / TOP / spot 1,318,53,14,2026-10-15T12:31:02.822Z
+M3-21,Turkey Bacon Cheddar Egg Muffins,C · Face 1 · M3 meals / section 3 / TOP / spot 1,27,14,2,2026-10-15T12:31:02.822Z
+M3-22,Vegan Breakfast Sandwich,C · Face 1 · M3 meals / section 4 / TOP / spot 1,15,5,1,2026-10-15T12:31:02.822Z
+M3-23,Vegan Cheeseburger Bowl,C · Face 1 · M3 meals / section 5 / TOP / spot 1,0,0,0,2026-10-15T12:31:02.822Z
+M3-24,Vegan Chorizo Quesadilla,C · Face 2 · M3 meals / section 2 / TOP / spot 1,64,8,3,2026-10-15T12:31:02.822Z
+M3-25,West Coast Secret Sauce Bowl,C · Face 2 · M3 meals / section 3 / TOP / spot 1,142,37,6,2026-10-15T12:31:02.822Z
+M3-26,Zeus Bowl,C · Face 2 · M3 meals / section 4 / TOP / spot 1,512,101,22,2026-10-15T12:31:02.822Z
+M3-27,Zeus Bowl V2,C · Face 2 · M3 meals / section 5 / TOP / spot 1,299,31,13,2026-10-15T12:31:02.822Z
