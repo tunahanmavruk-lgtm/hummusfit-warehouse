@@ -23,7 +23,7 @@ const crypto = require('crypto');
 const SHOP = process.env.SHOPIFY_SHOP;
 const CLIENT_ID = process.env.SHOPIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SHOPIFY_CLIENT_SECRET;
-const SCOPES = process.env.SHOPIFY_SCOPES || 'read_inventory,read_products';
+const SCOPES = 'read_inventory,read_products';
 const API_VERSION = '2026-07';
 
 // In-memory OAuth state store -- short-lived (install flow completes in

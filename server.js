@@ -63,6 +63,8 @@ const app = express();
 // match Shopify requires, so every install attempt failed with "redirect_uri
 // is not whitelisted" even though the URL was correctly registered.
 app.set('trust proxy', 1);
+// This warehouse site is a viewer. Reject every API write, including legacy routes.
+app.use('/api', (req,res,next)=>{if(!['GET','HEAD','OPTIONS'].includes(req.method))return res.set('Allow','GET, HEAD, OPTIONS').status(405).json({error:'Read-only warehouse: changes are disabled.'});next();});
 app.use(express.json());
 
 // Blueprint is now the primary landing page — the old Floor Plan/Restock
@@ -75,7 +77,7 @@ app.get('/', (req, res) => res.redirect('/blueprint.html'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Read-only warehouse on-hand reports. No inventory, lane or production writes.
-const getWarehouseInventory=require('./warehouse-inventory').createInventoryService();
+const getWarehouseInventory=require('./warehouse-inventory').createInventoryService(fetch,()=>require('./meal-inventory-readonly').readMealInventory(shopify.getToken(db)));
 app.get('/api/warehouse-inventory',async(req,res)=>{try{res.set('Cache-Control','no-store');res.json(await getWarehouseInventory());}catch{res.status(503).json({error:'Inventory temporarily unavailable'});}});
 
 // ---------- Products ----------

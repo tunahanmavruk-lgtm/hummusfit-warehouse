@@ -6,12 +6,12 @@ function collectLanes(n,out=[]){if(Array.isArray(n))n.forEach(v=>collectLanes(v,
 function normalizeSource(id,data,receivedAt=new Date().toISOString()){
  const meal=id==='meals',rows=meal?data.meals:data.products;if(!Array.isArray(rows))throw Error('Invalid inventory response');
  const byId=new Map(),byName=new Map();
- for(const p of rows){const record={name:p.name,variantId:p.variantId||null,onHand:finite(p.onHand),available:finite(meal?p.shopifyAvailable:p.available),committed:finite(p.committed),source:id,reportedAt:meal?data.lastRun:data.generatedAt,locationId:meal?null:data.locationId};
+ for(const p of rows){const record={name:p.name,variantId:p.variantId||null,onHand:finite(p.onHand),available:finite(meal?p.shopifyAvailable:p.available),committed:finite(p.committed),source:id,reportedAt:meal?data.lastRun:data.generatedAt,locationId:meal?(data.locationId||null):data.locationId};
   if(p.variantId)byId.set(p.variantId,record);
   if(byName.has(p.name)&&byName.get(p.name).onHand!==record.onHand)throw Error('Conflicting duplicate inventory values');
   byName.set(p.name,record);
  }
- const reportTime=(meal?data.lastRun:data.generatedAt)||null;const oldReport=!reportTime||!Number.isFinite(Date.parse(reportTime))||Date.now()-Date.parse(reportTime)>10*60*1000;return {id,byId,byName,status:data.stale||oldReport?'stale':'ok',reportedAt:reportTime,receivedAt,locationId:meal?null:data.locationId};
+ const reportTime=(meal?data.lastRun:data.generatedAt)||null;const oldReport=!reportTime||!Number.isFinite(Date.parse(reportTime))||Date.now()-Date.parse(reportTime)>10*60*1000;return {id,byId,byName,status:data.stale||oldReport?'stale':'ok',reportedAt:reportTime,receivedAt,locationId:meal?(data.locationId||null):data.locationId};
 }
 function assemble(sources){const products={},byCode={};
  for(const lane of collectLanes(plan)){
@@ -25,8 +25,8 @@ function assemble(sources){const products={},byCode={};
  }
  return {checkedAt:new Date().toISOString(),scope:'Whole shipping warehouse: picking + backstock; not shelf-specific counts.',refreshSeconds:60,sources:Object.fromEntries(Object.entries(sources).map(([id,s])=>[id,{status:s.status,reportedAt:s.reportedAt||null,receivedAt:s.receivedAt||null,locationId:s.locationId||null}])),byCode,products:Object.values(products)};
 }
-function createInventoryService(fetchImpl=fetch){let cache=null,expires=0,pending=null;const lastGood={};
- async function refresh(){const entries=await Promise.all(Object.entries(SOURCE_CONFIG).map(async([id,url])=>{try{const r=await fetchImpl(url,{signal:AbortSignal.timeout(15000),headers:{accept:'application/json'}});if(!r.ok)throw Error('Source unavailable');const s=normalizeSource(id,await r.json());lastGood[id]=s;return[id,s];}catch{return[id,lastGood[id]?{...lastGood[id],status:'stale'}:{id,status:'unavailable',reportedAt:null}];}}));cache=assemble(Object.fromEntries(entries));expires=Date.now()+60000;return cache;}
+function createInventoryService(fetchImpl=fetch,readMeals=null){let cache=null,expires=0,pending=null;const lastGood={};
+ async function refresh(){const entries=await Promise.all(Object.entries(SOURCE_CONFIG).map(async([id,url])=>{try{if(id==='meals'&&readMeals){const s=normalizeSource(id,await readMeals());lastGood[id]=s;return[id,s];}const r=await fetchImpl(url,{method:'GET',signal:AbortSignal.timeout(15000),headers:{accept:'application/json'}});if(!r.ok)throw Error('Source unavailable');const s=normalizeSource(id,await r.json());lastGood[id]=s;return[id,s];}catch{return[id,lastGood[id]?{...lastGood[id],status:'stale'}:{id,status:'unavailable',reportedAt:null}];}}));cache=assemble(Object.fromEntries(entries));expires=Date.now()+60000;return cache;}
  return async function get(){if(cache&&Date.now()<expires)return cache;if(!pending)pending=refresh().finally(()=>pending=null);return pending;};
 }
 module.exports={normalizeSource,assemble,collectLanes,createInventoryService,SOURCE_CONFIG};
