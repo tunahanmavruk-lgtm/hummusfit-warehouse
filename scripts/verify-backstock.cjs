@@ -16,5 +16,13 @@ for(const name of ['backstock-blueprint.html','backstock-3d.html']){const html=f
 console.log('PASS: navigation collisions, door sweeps, aisle widths, kitchen/top-level exclusions, 150 exact master codes, shared layout data and all entry-page asset paths.');
 
 for(const id of ['middle-1-b','middle-2-a','middle-2-b']){const homes=DATA.positions.filter(p=>p.rack===id);assert.deepEqual([...new Set(homes.map(p=>p.bay))].sort(),[1,2,3,4,5]);}
-for(const prefix of ['M2','M3'])for(let level=0;level<3;level++){const homes=DATA.positions.filter(p=>p.code.startsWith(prefix+'-')&&p.level===level);const ordered=[...homes].sort((a,b)=>a.rack.localeCompare(b.rack)||a.bay-b.bay||a.spot-b.spot);assert.deepEqual(ordered.map(p=>p.code),homes.map(p=>p.code).sort((a,b)=>+a.split('-')[1]-+b.split('-')[1]));}
-console.log('PASS: all five middle sections on B and both C faces; ascending code neighbors retained on each level; kitchen excluded.');
+for(const [prefix,faces] of [['M1',['south']],['M2',['middle-2-b','middle-2-a']],['M3',['middle-1-b']]]){
+ const homes=DATA.positions.filter(p=>p.code.startsWith(prefix+'-'));
+ assert(homes.every(p=>faces.includes(p.rack)));
+ const ordered=[...homes].sort((a,b)=>b.bay-a.bay||faces.indexOf(a.rack)-faces.indexOf(b.rack)||a.level-b.level||a.spot-b.spot);
+ assert.deepEqual(ordered.map(p=>p.code),homes.map(p=>p.code).sort((a,b)=>+a.split('-')[1]-+b.split('-')[1]));
+ const first=ordered[0];assert.equal(first.bay,prefix==='M1'?3:5);assert(first.x>200);
+}
+const snacks=DATA.positions.filter(p=>p.code.startsWith('K')).sort((a,b)=>b.bay-a.bay||a.level-b.level||b.spot-a.spot);
+assert.deepEqual(snacks.map(p=>p.code),[...snacks].map(p=>p.code).sort((a,b)=>a.split('-')[0].localeCompare(b.split('-')[0])||+a.split('-')[1]-+b.split('-')[1]));
+console.log('PASS: entrance route A/M1 → C/M2 → B/M3; 01 at right aisle; section-by-section neighbors; K1 → K2 from entrance; all middle sections used, kitchen excluded.');

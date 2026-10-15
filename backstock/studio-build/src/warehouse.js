@@ -38,7 +38,7 @@ for(const actual of DATA.racks){const r={...actual,x:0,z:0};const g=new THREE.Gr
 for(let b=0;b<r.bays;b++){const z=r.z+b*96;for(const y of (actual.wire_deck_heights_in||[54,102])){for(const x of [r.x,r.x+46])box(x,y,z,2,4,96,'#db6628',g,.4);for(let dz=0;dz<96;dz+=6)box(r.x,y+3,z+dz,48,.5,.6,'#9aa2a9',g,.7);for(let dx=0;dx<=48;dx+=6)box(r.x+dx,y+3,z,.6,.5,96,'#9aa2a9',g,.7);}for(let dz=5;dz<92;dz+=11)box(r.x,4,z+dz,48,1.3,7,'#a58c62',g);for(const x of [r.x+3,r.x+40])box(x,1,z+5,5,3,86,'#90764f',g);sign('SECTION '+(b+1),r.x+21,164,z+48,32,7,g);}
 if(actual.id==='south')sign('DO NOT USE — TOP SHELF',24,161,144,160,12,g,'#ffe1a0','#694617');
 if(actual.kitchen){box(0,.2,0,48,1,480,'#f6d7a8',g);for(let b=0;b<5;b++)sign('DO NOT USE — KITCHEN',24,80,b*96+48,94,13,g,'#ffe1a0','#694617');}
-if(actual.id.startsWith('middle-2-'))sign(actual.id==='middle-2-a'?'C · FACE 1 · M3':'C · FACE 2 · M3',24,174,240,125,12,g);
+if(actual.id.startsWith('middle-2-'))sign(actual.id==='middle-2-a'?'C · FACE 1 · M2':'C · FACE 2 · M2',24,174,240,125,12,g);
 if(actual.id==='right'){for(const bay of [0,1]){for(const y of [26,77,125])sign('SPARE SHELF',21,y,bay*96+48,47,9,g,'#ffe1a0','#694617');}sign('SPARE · SECTIONS 1–2',21,188,96,100,13,g,'#ffe1a0','#694617');}
 for(const [y,text] of [[26,'1 FLOOR'],[77,'2 MIDDLE'],[125,'3 TOP']])sign(text,21,y,-12,43,8,g,'#fff4df','#574022');
 sign(actual.kitchen?'KITCHEN · DO NOT USE':r.groups.join(' / ') || 'WAREHOUSE FACE',r.x+21,185,r.z+r.bays*48,76,16,g,'#15232a','#ffffff');}
@@ -92,8 +92,8 @@ for(const button of document.querySelectorAll('[data-area]'))button.onclick=()=>
 const backstockTourStops=[
  {p:[540,65,680],t:[480,70,735],text:'1 / 6 · Blue warehouse entrance. A / M1 is along the south wall.'},
  {p:[350,65,676],t:[145,66,744],text:'2 / 6 · A · M1 meals. Three sections. Highest physical wire deck: DO NOT USE.'},
- {p:[540,65,478],t:[250,65,408],text:'3 / 6 · B · M2 warehouse face. Five sections. 8-foot aisle to C.'},
- {p:[540,65,665],t:[250,65,580],text:'4 / 6 · C · Five sections on each warehouse face.'},
+ {p:[540,65,665],t:[430,65,580],text:'3 / 6 · C · M2. Start 01 at the right aisle. Finish both faces of each section, then move left.'},
+ {p:[540,65,478],t:[430,65,408],text:'4 / 6 · B · M3 warehouse face. Start 01 at the right aisle, then move left. Kitchen face: DO NOT USE.'},
  {p:[540,65,280],t:[625,65,300],text:'5 / 6 · D · K1 / K2 bakery and snacks. Spare shelves at the back-door end.'},
  {p:[180,65,270],t:[40,65,355],text:'6 / 6 · Kitchen side of B is reserved for kitchen use. Keep black-door swings clear.'}
 ];
