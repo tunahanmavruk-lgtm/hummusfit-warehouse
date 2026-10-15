@@ -605,13 +605,33 @@
     "u30": 0
   },
   {
-    "name": "Cookies and Cream Crunch - Exclusive- 20",
+    "name": "Cheeseburger Bowl",
+    "cat": "meal",
+    "u30": 8914
+  },
+  {
+    "name": "Buffin Muffin - Blueberry Buff Blast",
+    "cat": "muffin",
+    "u30": 0
+  },
+  {
+    "name": "Buffin Muffin - Basic Baddie",
+    "cat": "muffin",
+    "u30": 0
+  },
+  {
+    "name": "Buffin Muffin - Dunk'd Out",
+    "cat": "muffin",
+    "u30": 0
+  },
+  {
+    "name": "Protein Buff Pops - Dunk'd Out",
     "cat": "snack",
     "u30": 0
   },
   {
-    "name": "Cheeseburger Bowl",
-    "cat": "meal",
-    "u30": 8914
+    "name": "Protein Buff Pops - Death By Chocolate",
+    "cat": "snack",
+    "u30": 0
   }
 ]

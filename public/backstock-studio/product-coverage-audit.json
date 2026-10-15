@@ -1,0 +1,24 @@
+{
+  "checked_date": "2026-10-15",
+  "active_home_codes": 150,
+  "new_codes": [
+    "K2-29",
+    "K2-30",
+    "K2-31",
+    "K2-32",
+    "K2-33"
+  ],
+  "retired_codes": [
+    "K2-15"
+  ],
+  "active_bakery_catalog_unassigned": [],
+  "paused_catalog_without_active_home": [
+    "Campfire Crime Scene"
+  ],
+  "kitchen_shelves_used": false,
+  "inventory_mode": "read_only",
+  "unconfirmed_packout": [
+    "Protein Buff Pops"
+  ],
+  "basis": "Current active catalog variants matched to approved code mapping. Physical capacity awaits measurements."
+}

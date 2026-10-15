@@ -556,7 +556,7 @@
       {
         "code": "K2-12",
         "product": "Cookies and Cream Crunch",
-        "category": "snack",
+        "category": "muffin",
         "daily_avg": 336.0,
         "demand_source": "real (Shopify Online Store, 7-day avg only -- launched within the last week, no longer history yet)",
         "divergence_flag": true,
@@ -568,7 +568,7 @@
       {
         "code": "K2-13",
         "product": "Cookies and Cream Crunch",
-        "category": "snack",
+        "category": "muffin",
         "daily_avg": 336.0,
         "demand_source": "real (Shopify Online Store, 7-day avg only -- launched within the last week, no longer history yet)",
         "divergence_flag": true,
@@ -580,7 +580,7 @@
       {
         "code": "K2-14",
         "product": "Cookies and Cream Crunch",
-        "category": "snack",
+        "category": "muffin",
         "daily_avg": 336.0,
         "demand_source": "real (Shopify Online Store, 7-day avg only -- launched within the last week, no longer history yet)",
         "divergence_flag": true,
@@ -588,18 +588,6 @@
         "crates_needed": 5,
         "max_stack": 7,
         "lane_of_product": "3 of 3"
-      },
-      {
-        "code": "K2-15",
-        "product": "Cookies and Cream Crunch - Exclusive- 20",
-        "category": "snack",
-        "daily_avg": 35.3,
-        "demand_source": "real (Shopify Online Store, 30-day trailing avg)",
-        "divergence_flag": false,
-        "cap": 24,
-        "crates_needed": 2,
-        "max_stack": 7,
-        "lane_of_product": null
       },
       {
         "code": "K2-16",
@@ -756,6 +744,61 @@
         "crates_needed": 2,
         "max_stack": 7,
         "lane_of_product": null
+      },
+      {
+        "code": "K2-29",
+        "product": "Buffin Muffin - Blueberry Buff Blast",
+        "category": "muffin",
+        "daily_avg": null,
+        "demand_source": "Active FIFO catalog; home added by Tony October 15, 2026",
+        "cap": 24,
+        "crates_needed": null,
+        "max_stack": null,
+        "lane_of_product": null
+      },
+      {
+        "code": "K2-30",
+        "product": "Buffin Muffin - Basic Baddie",
+        "category": "muffin",
+        "daily_avg": null,
+        "demand_source": "Active FIFO catalog; home added by Tony October 15, 2026",
+        "cap": 24,
+        "crates_needed": null,
+        "max_stack": null,
+        "lane_of_product": null
+      },
+      {
+        "code": "K2-31",
+        "product": "Buffin Muffin - Dunk'd Out",
+        "category": "muffin",
+        "daily_avg": null,
+        "demand_source": "Active FIFO catalog; home added by Tony October 15, 2026",
+        "cap": 24,
+        "crates_needed": null,
+        "max_stack": null,
+        "lane_of_product": null
+      },
+      {
+        "code": "K2-32",
+        "product": "Protein Buff Pops - Dunk'd Out",
+        "category": "snack",
+        "daily_avg": null,
+        "demand_source": "Active FIFO catalog; home added by Tony October 15, 2026",
+        "cap": null,
+        "crates_needed": null,
+        "max_stack": null,
+        "lane_of_product": null
+      },
+      {
+        "code": "K2-33",
+        "product": "Protein Buff Pops - Death By Chocolate",
+        "category": "snack",
+        "daily_avg": null,
+        "demand_source": "Active FIFO catalog; home added by Tony October 15, 2026",
+        "cap": null,
+        "crates_needed": null,
+        "max_stack": null,
+        "lane_of_product": null
       }
     ],
     "overflow_lane_slots_dropped": 0,
@@ -765,13 +808,13 @@
       {
         "name": "Muffins",
         "category": "muffin",
-        "positions": 37,
-        "products": 20
+        "positions": 43,
+        "products": 24
       },
       {
         "name": "Oats & Snacks",
         "category": "oats+snack",
-        "positions": 26,
+        "positions": 24,
         "products": 24
       }
     ]

@@ -298,5 +298,45 @@
     "variantId": "gid://shopify/ProductVariant/42713754599671",
     "department": "oats",
     "productName": "Peanut Butter & Jelly Sandwich"
+  },
+  "K2-29": {
+    "variantId": "gid://shopify/ProductVariant/51030992716023",
+    "department": "buffins",
+    "productName": "Buffin Muffin - Blueberry Buff Blast"
+  },
+  "K2-30": {
+    "variantId": "gid://shopify/ProductVariant/51226264010999",
+    "department": "buffins",
+    "productName": "Buffin Muffin - Basic Baddie"
+  },
+  "K2-31": {
+    "variantId": "gid://shopify/ProductVariant/51122017206519",
+    "department": "buffins",
+    "productName": "Buffin Muffin - Dunk'd Out"
+  },
+  "K2-32": {
+    "variantId": "gid://shopify/ProductVariant/51037955031287",
+    "department": "oats",
+    "productName": "Protein Buff Pops - Dunk'd Out"
+  },
+  "K2-33": {
+    "variantId": "gid://shopify/ProductVariant/51037478125815",
+    "department": "oats",
+    "productName": "Protein Buff Pops - Death By Chocolate"
+  },
+  "K2-12": {
+    "variantId": "gid://shopify/ProductVariant/50993319608567",
+    "department": "buffins",
+    "productName": "Cookies and Cream Crunch"
+  },
+  "K2-13": {
+    "variantId": "gid://shopify/ProductVariant/50993319608567",
+    "department": "buffins",
+    "productName": "Cookies and Cream Crunch"
+  },
+  "K2-14": {
+    "variantId": "gid://shopify/ProductVariant/50993319608567",
+    "department": "buffins",
+    "productName": "Cookies and Cream Crunch"
   }
 }

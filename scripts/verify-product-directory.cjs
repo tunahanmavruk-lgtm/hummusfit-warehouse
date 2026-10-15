@@ -1,0 +1,9 @@
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const layout=JSON.parse(fs.readFileSync('public/backstock-studio/layout.json')),map=require('../inventory-code-mapping.json'),plan=require('../lane_plan.json'),{collectLanes,assemble,normalizeSource}=require('../warehouse-inventory');
+const codes=layout.positions.map(p=>p.code);assert.equal(codes.length,150);assert.equal(new Set(codes).size,150);assert(!codes.includes('K2-15'));assert.deepEqual(new Set(collectLanes(plan).map(p=>p.code)),new Set(codes));
+for(const path of ['public/product-locations.html','public/meal-locations.html']){const html=fs.readFileSync(path,'utf8');const listed=[...html.matchAll(/data-code="([KM]\d-\d+)"/g)].map(m=>m[1]);assert.deepEqual(new Set(listed),new Set(codes));for(const label of ['Buffins','Oats','Krispies','On hand','Committed','Whole warehouse'])assert(html.includes(label));}
+const stamp=new Date().toISOString(),products=['K2-29','K2-30','K2-31'].map((code,i)=>({variantId:map[code].variantId,name:map[code].productName,onHand:i===2?-3:24+i,committed:7}));
+const snacks=['K2-32','K2-33'].map(code=>({variantId:map[code].variantId,name:map[code].productName,onHand:588,committed:102}));
+const data=assemble({buffins:normalizeSource('buffins',{generatedAt:stamp,products}),oats:normalizeSource('oats',{generatedAt:stamp,products:snacks})});
+for(const code of ['K2-29','K2-30','K2-31'])assert.equal(data.byCode[code].committed,7);assert.equal(data.byCode['K2-31'].status,'count-needed');for(const code of ['K2-32','K2-33'])assert.equal(data.byCode[code].committed,102);assert(!data.byCode['K2-15']);assert(!require('../public/warehouse-ui/packouts').forProduct(map['K2-32'].productName,'K2-32'));
+console.log('PASS: all 150 homes on both list URLs, new variant quantities/committed, negative count flag, no retired home, no invented Buff Pops packout.');

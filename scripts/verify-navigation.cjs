@@ -25,4 +25,4 @@ for(const DATA of [data,pickData]){
  const r=DATA.racks.find(r=>r.id===p.rack),g=new THREE.Group();g.position.set(p.x,0,p.z);if(r.axis==='x'){g.position.z+=DATA.picking?15.7:21.65;g.rotation.y=Math.PI/2;if(DATA.picking)g.scale.x=15.7/21.65;}g.updateMatrixWorld();const point=g.localToWorld(new THREE.Vector3(10.825,p.y+5.05,7.85));camera.updateMatrixWorld();point.project(camera);assert(point.z>-1&&point.z<1&&Math.abs(point.x)<.85&&Math.abs(point.y)<.85,'home outside phone camera '+p.code+JSON.stringify(point));
  }
 }
-console.log('PASS: all 146 homes in EACH room resolve to a clear aisle and visible target in portrait phone camera.');
+console.log('PASS: all 150 homes in EACH room resolve to a clear aisle and visible target in portrait phone camera.');
