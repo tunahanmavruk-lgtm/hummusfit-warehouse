@@ -2,7 +2,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),asse
 const root=path.join(__dirname,'..'),pub=path.join(root,'public');
 const DATA=JSON.parse(fs.readFileSync(path.join(pub,'backstock-studio/layout.json')));
 const source=fs.readFileSync(path.join(root,'backstock/studio-build/src/warehouse.js'),'utf8');
-const scope={DATA,Math};vm.createContext(scope);const clear=source.match(/function clearAt\(x,z\)\{.*?\}\);\}/s)?.[0];assert(clear);vm.runInContext(clear,scope);
+const scope={DATA,Math,PICKING:false};vm.createContext(scope);const clear=source.match(/function clearAt\(x,z\)\{.*?\}\);\}/s)?.[0];assert(clear);vm.runInContext(clear,scope);
 for(const [x,z] of [[540,690],[540,100],[250,480],[330,680],[180,270]])assert(scope.clearAt(x,z),`clear aisle ${x},${z}`);
 for(const [x,z] of [[100,360],[200,550],[625,300],[30,280],[100,740],[-1,500],[650,600]])assert(!scope.clearAt(x,z),`blocked rack/swing/wall ${x},${z}`);
 assert.equal(DATA.entrance_blue_door.x,396);assert.deepEqual(DATA.kitchen_door.opening_z_in,[240,336]);
