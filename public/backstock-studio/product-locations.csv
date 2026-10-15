@@ -1,0 +1,147 @@
+Code,Product,Area,Section,Shelf,Spot,Status
+M1-01,6-Guys Patty Melt,A · South wall,1,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-02,Arnold 2022 Bowl,A · South wall,1,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-03,Baja Chicken Tacos,A · South wall,1,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+M1-04,Baked Herbed Tilapia (1lb Competition Approved),A · South wall,1,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+M1-05,BBQ Chicken Garlic Parm Potatoes,A · South wall,2,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-06,BBQ Chicken Garlic Parm Potatoes,A · South wall,2,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-07,BBQ Chicken Mac Bowl,A · South wall,2,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+M1-08,BBQ Meltdown,A · South wall,2,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+M1-09,Blueberry French Toast,A · South wall,3,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-10,Breakfast Burrito,A · South wall,3,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-11,Brookfield Chicken Bowl,A · South wall,1,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-12,Broritto Burrito,A · South wall,1,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-13,Broritto Burrito,A · South wall,1,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+M1-14,Buffalo Chicken Meatballs,A · South wall,1,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+M1-15,Buffalo Chicken Quesadilla,A · South wall,2,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-16,Buffalo Crispy Chicken Wrap,A · South wall,2,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-17,Buffalo Mac N Chicken,A · South wall,2,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+M1-18,Low Carb Keto Cheeseburger Bowl,A · South wall,2,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+M1-19,Cheeseburger Bowl,A · South wall,3,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-20,Cheeseburger Bowl,A · South wall,3,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-21,Chicken Mushroom Pot Stickers,A · South wall,1,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-22,Chicken Stir Fry,A · South wall,1,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-23,Chicken Taco Bowl,A · South wall,1,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+M1-24,Chipotle Chicken (1lb Competition Approved),A · South wall,1,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+M1-25,Cinnamon Roll Pancakes,A · South wall,2,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+M1-26,Closed on Sunday Crispy Chicken Bowl,A · South wall,2,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+M1-27,Club Wrap,A · South wall,2,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+M1-28,Competition Approved 90/10 Lean Ground Beef (1lb),A · South wall,2,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+M2-01,Competition Approved Baked Sweet Potato Fries (1lb),B · Warehouse face,1,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-02,Competition Approved Chicken Kebab (1lb),B · Warehouse face,1,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-03,Competition Approved Grilled Chicken (1lb),B · Warehouse face,1,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+M2-04,Competition Approved Grilled Chicken W/ Smokin Poppie Sauce (1lb),B · Warehouse face,1,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+M2-05,Competition Approved Grilled Flank Steak (1lb),B · Warehouse face,2,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-06,Competition Approved Lemon Pepper Salmon (1lb),B · Warehouse face,2,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-07,Competition Approved Oven Baked Cod (1lb),B · Warehouse face,2,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+M2-08,Competition Approved Sticky Rice (1lb),B · Warehouse face,2,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+M2-09,Competition Approved White Basmati Rice (1lb),B · Warehouse face,3,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-10,Crispy Baked Chicken Wrap,B · Warehouse face,3,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-11,Crispy Baked Chicken Wrap,B · Warehouse face,1,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-12,Crispy Vegan Wrap,B · Warehouse face,1,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-13,Farfalle & Chicken Alfredo,B · Warehouse face,1,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+M2-14,Fit Ala Vodka With Chicken,B · Warehouse face,1,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+M2-15,Fit-Fil-A,B · Warehouse face,2,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-16,GLORIOUS GAINS Steak Bites & Cilantro Lime Rice,B · Warehouse face,2,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-17,Gluten Free Carbonara Chicken,B · Warehouse face,2,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+M2-18,Grilled Chicken Parmesan Wrap,B · Warehouse face,2,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+M2-19,Grilled Chicken Pesto Wrap,B · Warehouse face,3,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-20,Herb Butter Steak Tips Bowl,B · Warehouse face,3,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-21,Hey Arnold! Burrito,B · Warehouse face,1,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-22,HFit Signature Fold,B · Warehouse face,1,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-23,Honey Garlic Crispy Chicken Tacos,B · Warehouse face,1,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+M2-24,Hot Honey Steak & Mac,B · Warehouse face,1,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+M2-25,Keto Ricotta Meatballs,B · Warehouse face,2,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+M2-26,Lo Mein Teriyaki Steak,B · Warehouse face,2,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+M2-27,Meatball Parmesan Wrap,B · Warehouse face,2,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+M2-28,MsWendy Buff Nuggets,B · Warehouse face,2,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-01,Nacho Average Bowl,C · First warehouse face,1,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-02,Nacho Average Vegan Bowl,C · First warehouse face,1,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M3-03,Peanut Butter & Jelly Sandwich,C · First warehouse face,1,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+M3-04,Philly Cheesesteak Quesadilla,C · First warehouse face,1,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-05,Pineapple Teriyaki Meatballs,C · First warehouse face,2,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-06,Rigatoni & Meatballs,C · First warehouse face,2,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+M3-07,Soho Steak Bowl,C · First warehouse face,2,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+M3-08,Southwest Chicken Bowl,C · First warehouse face,2,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-09,Southwest Chicken Quesadilla,C · First warehouse face,3,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-10,Spicy Buffalo Wrap,C · First warehouse face,1,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-11,Stacked and Jacked,C · First warehouse face,1,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M3-12,Strawberry Protein French Toast,C · First warehouse face,1,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+M3-13,Strongsville Chicken Ranch Fold,C · First warehouse face,1,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-14,Taco Build Quesadilla,C · First warehouse face,2,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-15,Teriyaki Flank Bowl,C · First warehouse face,2,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+M3-16,Texas Queso Steak Bowl,C · First warehouse face,2,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+M3-17,TexMex Potato Hash,C · First warehouse face,2,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-18,Thai Chili Chicken,C · First warehouse face,3,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-19,The Arches Mac Daddy Wrap,C · First warehouse face,1,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-20,The Clean Bulk Pasta Bowl,C · First warehouse face,1,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+M3-21,Turkey Bacon Cheddar Egg Muffins,C · First warehouse face,1,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+M3-22,Vegan Breakfast Sandwich,C · First warehouse face,1,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-23,Vegan Cheeseburger Bowl,C · First warehouse face,2,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+M3-24,Vegan Chorizo Quesadilla,C · First warehouse face,2,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+M3-25,West Coast Secret Sauce Bowl,C · First warehouse face,2,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+M3-26,Zeus Bowl,C · First warehouse face,2,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+M3-27,Zeus Bowl V2,C · First warehouse face,3,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-01,Buffin Muffin - Apple Pie-Ceps,D · Right wall,3,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-02,Buffin Muffin - Apple Pie-Ceps,D · Right wall,3,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-03,Buffin Muffin - Apple Pie-Ceps,D · Right wall,3,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-04,Buffin Muffin - Banana Choc. Chip,D · Right wall,3,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-05,Buffin Muffin - Banana Choc. Chip,D · Right wall,4,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-06,Buffin Muffin - Banana Cream Protein Dream,D · Right wall,4,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-07,Buffin Muffin - Banana Cream Protein Dream,D · Right wall,4,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-08,Buffin Muffin - Blueberry,D · Right wall,4,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-09,Buffin Muffin - Blueberry,D · Right wall,5,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-10,Buffin Muffin - Boston Chocolate Creme,D · Right wall,5,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-11,Buffin Muffin - Boston Chocolate Creme,D · Right wall,5,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-12,Buffin Muffin - Buff Roll,D · Right wall,5,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-13,Buffin Muffin - Buff Roll,D · Right wall,6,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-14,Buffin Muffin - Buff Roll,D · Right wall,6,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-15,Buffin Muffin - Buff Served,D · Right wall,6,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-16,Buffin Muffin - Buffcoff,D · Right wall,6,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-17,Buffin Muffin - Buffcoff,D · Right wall,7,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-18,Buffin Muffin - ChocoLIT,D · Right wall,7,Floor,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-19,Buffin Muffin - ChocoLIT,D · Right wall,7,Floor,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-20,Buffin Muffin - Cinna Blast,D · Right wall,7,Floor,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-21,Buffin Muffin - Cinna Blast,D · Right wall,8,Floor,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-22,Buffin Muffin - Cookie Butter Tres Leches,D · Right wall,3,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-23,Buffin Muffin - Cookie Butter Tres Leches,D · Right wall,3,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-24,Buffin Muffin - Cookies and Cream Crunch,D · Right wall,3,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-25,Buffin Muffin - Double Chocolate Brownie,D · Right wall,3,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-26,Buffin Muffin - Double Chocolate Brownie,D · Right wall,4,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-27,Buffin Muffin - German Chocolate Cake,D · Right wall,4,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-28,Buffin Muffin - German Chocolate Cake,D · Right wall,4,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-29,Buffin Muffin - Gluten Free Confetti Pop,D · Right wall,4,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-30,Buffin Muffin - Gluten Free Cookies and Milk,D · Right wall,5,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-31,Buffin Muffin - Gluten Free Cookies and Milk,D · Right wall,5,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+K1-32,Buffin Muffin - Strawberry Buff Blast,D · Right wall,5,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+K1-33,Buffin Muffin - Strawberry Buff Blast,D · Right wall,5,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+K1-34,Buffin Muffin - Strawberry Crunch Milkshake,D · Right wall,6,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+K1-35,Buffin Muffin - TwistBar,D · Right wall,6,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-01,Buffin Muffin - TwistBar,D · Right wall,6,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-02,Buffin Muffin - Welcome to the Sno,D · Right wall,6,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-03,3 Banana Chocolate Protein Poppers,D · Right wall,7,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-04,Overnight Oats - Banana Chocolate Chip,D · Right wall,7,Middle,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-05,Overnight Oats - Blueberry Muffin,D · Right wall,7,Middle,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-06,Overnight Oats - Cannoli,D · Right wall,7,Middle,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-07,Buff Crisp Bar - Chocolate,D · Right wall,8,Middle,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-08,Overnight Oats - Chocolate Peanut Butter,D · Right wall,3,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-09,Buff Crisp Bar - Cinna Crunch,D · Right wall,3,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-10,Overnight Oats - Cookie Creme,D · Right wall,3,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-11,Overnight Oats - Cookie Dough,D · Right wall,3,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-12,Cookies and Cream Crunch,D · Right wall,4,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-13,Cookies and Cream Crunch,D · Right wall,4,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-14,Cookies and Cream Crunch,D · Right wall,4,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-15,Cookies and Cream Crunch - Exclusive- 20,D · Right wall,4,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-16,Overnight Oats - Cookies n Cream,D · Right wall,5,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-17,Overnight Oats - Dubai Chocolate,D · Right wall,5,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-18,Overnight Oats - Fitella,D · Right wall,5,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-19,Buff Crisp Bar - Fruity Cereal,D · Right wall,5,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-20,Overnight Oats - Graham Fetti,D · Right wall,6,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-21,Buff Crisp Bar - Original Recipe,D · Right wall,6,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-22,Overnight Oats - Peanut Butter & Jelly,D · Right wall,6,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-23,Overnight Oats - Peanut Butter Brownie,D · Right wall,6,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-24,Peanut Butter Chocolate Gree-Yo,D · Right wall,7,Top,1,LOCATION PREVIEW — crate allocation pending measurements
+K2-25,Peanut Butter Energy Bites,D · Right wall,7,Top,2,LOCATION PREVIEW — crate allocation pending measurements
+K2-26,Protein Chocolate Pudding,D · Right wall,7,Top,3,LOCATION PREVIEW — crate allocation pending measurements
+K2-27,S'Mores Gree-Yo,D · Right wall,7,Top,4,LOCATION PREVIEW — crate allocation pending measurements
+K2-28,Overnight Oats - Toast n' Crunch,D · Right wall,8,Top,1,LOCATION PREVIEW — crate allocation pending measurements

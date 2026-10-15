@@ -1,0 +1,36 @@
+{
+  "status": "review_interface_launched_not_staff_loading_release",
+  "meal_units_per_crate": 24,
+  "rack_face_depth_in": 48,
+  "middle_pair_depth_in": 96,
+  "B_C_clear_aisle_in": 96,
+  "approx_room_length_ft": 64,
+  "room_width_confirmed": false,
+  "C_A_clear_aisle_confirmed": false,
+  "kitchen_B_entire_face_excluded": true,
+  "current_active_meals_on_hand": 22911,
+  "current_active_meal_sku_count": 77,
+  "current_active_separated_crates": 991,
+  "snapshot_et": "2026-10-14 21:55:38 EDT",
+  "historical_usual_meal_average_available": false,
+  "pending": [
+    "Clear heights for all three levels",
+    "Usable clear bay width",
+    "Loaded stacking approval and rack load ratings",
+    "Room width and C-to-A gap",
+    "Meal identity differences and missing bakery codes",
+    "Physical picking stock to deduct from total warehouse inventory"
+  ],
+  "live_site_changed": false,
+  "crate_exterior_in": [
+    21.65,
+    15.7,
+    10.7
+  ],
+  "crate_source": "Costco item1410576",
+  "layout_revision": "2026-10-14-brand-walkthrough",
+  "layout_status": "Approved visual layout with latest entrance adjustment; measurements remain schematic",
+  "stocking_status": "Capacity validation pending measured heights, usable bay width and loaded stack approval",
+  "engine": "three.js 0.186.1",
+  "walkthrough": "Collision-aware WASD/touch, minimap, guided tour, product lookup"
+}

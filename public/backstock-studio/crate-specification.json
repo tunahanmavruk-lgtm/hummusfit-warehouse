@@ -1,0 +1,21 @@
+{
+  "product": "IRIS 45QT Clear Storage Bin with Buckles, 6-pack",
+  "costco_item": "1410576",
+  "source_url": "https://www.costco.com/p/-/iris-45qt-clear-storage-bin-with-buckles-6-pack/4000117944?langId=-1",
+  "exterior_length_in": 21.65,
+  "exterior_width_in": 15.7,
+  "exterior_height_in": 10.7,
+  "empty_bin_weight_lb": 2.89,
+  "loaded_stack_limit": null,
+  "nominal_section_in": [
+    96,
+    48
+  ],
+  "best_uniform_footprints_per_nominal_section": 12,
+  "notes": [
+    "Exterior listed dimensions including bin/lid envelope; verify loaded closed-lid fit.",
+    "12 footprints is theoretical on a fully usable 96x48 surface; upright and edge clearances can reduce it.",
+    "Costco says lids have stacking grooves but gives no loaded stacking count in this listing.",
+    "24 meals per crate remains a user-provided packout, not Costco specification."
+  ]
+}
